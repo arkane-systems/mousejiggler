@@ -66,10 +66,11 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>312C24635AF74E4435993134F4550FBAAE0D5E68</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>460A6E11188F056647C56FBEBB51074E9C4E73CB</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MouseJiggle_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>

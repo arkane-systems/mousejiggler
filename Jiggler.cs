@@ -5,15 +5,19 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2013.
+// Copyright Arkane Systems 2012-2013.  All rights reserved.
 // 
-// Created: 2013-08-24 12:41 PM
+// Created: 2014-04-24 8:08 AM
 
 #endregion
+
+#region using
 
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+
+#endregion
 
 namespace ArkaneSystems.MouseJiggle
 {
@@ -43,15 +47,14 @@ namespace ArkaneSystems.MouseJiggle
 
     /* This is a kludge, presetting all this, but WTF. It works.
      * And for a program this trivial, who's bothered? */
-
     internal struct INPUT
     {
         public int TYPE;
-        public IntPtr dwExtraInfo;
-        public int dwFlags;
         public int dx;
         public int dy;
         public int mouseData;
+        public int dwFlags;
         public int time;
+        public IntPtr dwExtraInfo;
     }
 }

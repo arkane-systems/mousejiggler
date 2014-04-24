@@ -52,6 +52,6 @@ Tick the 'Enable jiggle?' checkbox to begin jiggling the mouse; untick it to sto
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion ("1.5.0.0")]
-[assembly: AssemblyFileVersion ("1.5.0.0")]
+[assembly: AssemblyVersion ("1.6.0.0")]
+[assembly: AssemblyFileVersion ("1.6.0.0")]
 [assembly: NeutralResourcesLanguage ("en-US")]
