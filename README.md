@@ -29,3 +29,8 @@ of MouseJiggler.
 (Added in 1.5+): The "-m" / "--minimized" command-like switch tells MouseJiggler to start already minimized.
 
 That's it. Enjoy!
+
+Support
+=======
+
+Mouse Jiggler is a free product provided without warranty or support.
