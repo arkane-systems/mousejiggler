@@ -40,7 +40,7 @@ namespace ArkaneSystems.MouseJiggle
             inp.time = 0;
             inp.dwExtraInfo = (IntPtr) 0;
 
-            if (SendInput (1, ref inp, 28) != 1)
+            if (SendInput (1, ref inp, Marshal.SizeOf(inp)) != 1)
                 throw new Win32Exception ();
         }
     }
