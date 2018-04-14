@@ -31,16 +31,18 @@ namespace ArkaneSystems.MouseJiggle
 
         public static void Jiggle (int dx, int dy)
         {
-            var inp = new INPUT ();
-            inp.TYPE = Jiggler.INPUT_MOUSE;
-            inp.dx = dx;
-            inp.dy = dy;
-            inp.mouseData = 0;
-            inp.dwFlags = Jiggler.MOUSEEVENTF_MOVE;
-            inp.time = 0;
-            inp.dwExtraInfo = (IntPtr) 0;
+            var inp = new INPUT
+            {
+                TYPE = Jiggler.INPUT_MOUSE,
+                dx = dx,
+                dy = dy,
+                mouseData = 0,
+                dwFlags = Jiggler.MOUSEEVENTF_MOVE,
+                time = 0,
+                dwExtraInfo = (IntPtr) 0
+            };
 
-            if (SendInput (1, ref inp, 28) != 1)
+            if (SendInput (1, ref inp, Marshal.SizeOf (inp)) != 1)
                 throw new Win32Exception ();
         }
     }
