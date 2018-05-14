@@ -36,6 +36,7 @@ namespace ArkaneSystems.MouseJiggle
             this.cbZenJiggle = new System.Windows.Forms.CheckBox();
             this.cmdToTray = new System.Windows.Forms.Button();
             this.nifMin = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cbStartUp = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // jiggleTimer
@@ -91,11 +92,23 @@ namespace ArkaneSystems.MouseJiggle
             this.nifMin.Text = "Mouse Jiggler";
             this.nifMin.DoubleClick += new System.EventHandler(this.nifMin_DoubleClick);
             // 
+            // cbStartUp
+            // 
+            this.cbStartUp.AutoSize = true;
+            this.cbStartUp.Location = new System.Drawing.Point(13, 59);
+            this.cbStartUp.Name = "cbStartUp";
+            this.cbStartUp.Size = new System.Drawing.Size(115, 17);
+            this.cbStartUp.TabIndex = 4;
+            this.cbStartUp.Text = "Enable on startup?";
+            this.cbStartUp.UseVisualStyleBackColor = true;
+            this.cbStartUp.CheckedChanged += new System.EventHandler(this.cbStartUp_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(156, 59);
+            this.ClientSize = new System.Drawing.Size(156, 84);
+            this.Controls.Add(this.cbStartUp);
             this.Controls.Add(this.cmdToTray);
             this.Controls.Add(this.cbZenJiggle);
             this.Controls.Add(this.cmdAbout);
@@ -120,6 +133,7 @@ namespace ArkaneSystems.MouseJiggle
         private System.Windows.Forms.CheckBox cbZenJiggle;
         private System.Windows.Forms.Button cmdToTray;
         private System.Windows.Forms.NotifyIcon nifMin;
+        private System.Windows.Forms.CheckBox cbStartUp;
     }
 }
 

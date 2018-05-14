@@ -12,6 +12,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Windows.Forms;
 
 using Microsoft.Win32;
@@ -78,6 +79,22 @@ namespace ArkaneSystems.MouseJiggle
                 // Ignore any problems - non-critical operation.
             }
 
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+                                                                     RegistryKeyPermissionCheck.ReadWriteSubTree);
+                var startUp = key.GetValue("MouseJiggle", "0");
+
+                if (startUp.Equals("0"))
+                    this.cbStartUp.Checked = false;
+                else
+                    this.cbStartUp.Checked = true;
+            }
+            catch (Exception)
+            {
+                // Ignore any problems - non-critical operation.
+            }
+
             if (Program.ZenJiggling)
                 this.cbZenJiggle.Checked = true;
 
@@ -86,6 +103,12 @@ namespace ArkaneSystems.MouseJiggle
 
             if (Program.StartMinimized)
                 this.cmdToTray_Click(this, null);
+
+            if (Program.EnableStartUp)
+            {
+                this.cbStartUp.Checked = true;
+                this.cbStartUp_CheckedChanged(this, null);
+            }
         }
 
         private void cbZenJiggle_CheckedChanged (object sender, EventArgs e)
@@ -127,6 +150,36 @@ namespace ArkaneSystems.MouseJiggle
 
             // hide tray icon
             this.nifMin.Visible = false;
+        }
+
+        private void cbStartUp_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+                                                                     RegistryKeyPermissionCheck.ReadWriteSubTree);
+                if (this.cbStartUp.Checked)
+                    key.SetValue("MouseJiggle", "\"" + Application.ExecutablePath + "\" " + GetArgumentsString());
+                else
+                    key.DeleteValue("MouseJiggle");
+            }
+            catch (Exception)
+            {
+                // Ignore any problems - non-critical operation.
+            }
+        }
+
+        private string GetArgumentsString()
+        {
+            var sb = new StringBuilder();
+            if (Program.StartJiggling || this.cbEnabled.Checked)
+                sb.Append("-j ");
+            if (Program.ZenJiggling || this.cbZenJiggle.Checked)
+                sb.Append("-z ");
+            if (Program.StartMinimized)
+                sb.Append("-m ");
+
+            return sb.ToString();
         }
     }
 }
