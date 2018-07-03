@@ -43,7 +43,8 @@ namespace ArkaneSystems.MouseJiggle
             };
 
             if (SendInput (1, ref inp, Marshal.SizeOf (inp)) != 1)
-                throw new Win32Exception ();
+                if (!Program.NoException)
+                    throw new Win32Exception ();
         }
     }
 
