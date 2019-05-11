@@ -5,31 +5,35 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2013.
+// Copyright Arkane Systems 2012-2019.  All rights reserved.
 // 
-// Created: 2013-08-24 12:41 PM
+// Created: 2019-05-11 3:10 PM
 
 #endregion
 
-using System;
-using System.Threading;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
+#region using
+
+using System ;
+using System.Runtime.InteropServices ;
+using System.Threading ;
+using System.Windows.Forms ;
+
+#endregion
 
 namespace ArkaneSystems.MouseJiggle
 {
     internal static class Program
     {
-        public static bool StartJiggling = false;
-        public static bool ZenJiggling = false;
-        public static bool StartMinimized = false;
-        public static bool NoException = false;
+        private const int  ATTACH_PARENT_PROCESS = -1 ;
+        public static bool StartJiggling ;
+        public static bool ZenJiggling ;
+        public static bool StartMinimized ;
+        public static bool NoException ;
 
 
         // Required for attaching console output to the Windows Form Application
-        [DllImport("kernel32.dll")]
-        static extern bool AttachConsole(int dwProcessId);
-        private const int ATTACH_PARENT_PROCESS = -1;
+        [DllImport ("kernel32.dll")]
+        private static extern bool AttachConsole (int dwProcessId) ;
 
         /// <summary>
         ///     The main entry point for the application.
@@ -37,60 +41,61 @@ namespace ArkaneSystems.MouseJiggle
         [STAThread]
         private static void Main (string[] args)
         {
-            Mutex instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggle");
+            var instance = new Mutex (false, "single instance: ArkaneSystems.MouseJiggle") ;
 
-            if (instance.WaitOne(0, false))
+            if (instance.WaitOne (0, false))
             {
                 // Check for command-line switches.
                 foreach (string arg in args)
                 {
-                    if ((System.String.Compare (arg.ToUpperInvariant (), "--JIGGLE", System.StringComparison.Ordinal) ==
+                    if ((string.Compare (arg.ToUpperInvariant (), "--JIGGLE", StringComparison.Ordinal) ==
                          0) ||
-                        (System.String.Compare (arg.ToUpperInvariant (), "-J", System.StringComparison.Ordinal) == 0))
-                        StartJiggling = true;
+                        (string.Compare (arg.ToUpperInvariant (), "-J", StringComparison.Ordinal) == 0))
+                        Program.StartJiggling = true ;
 
-                    if ((System.String.Compare (arg.ToUpperInvariant (), "--ZEN", System.StringComparison.Ordinal) == 0) ||
-                        (System.String.Compare (arg.ToUpperInvariant (), "-Z", System.StringComparison.Ordinal) == 0))
-                        ZenJiggling = true;
+                    if ((string.Compare (arg.ToUpperInvariant (), "--ZEN", StringComparison.Ordinal) == 0) ||
+                        (string.Compare (arg.ToUpperInvariant (), "-Z",    StringComparison.Ordinal) == 0))
+                        Program.ZenJiggling = true ;
 
                     if (
-                        (System.String.Compare (arg.ToUpperInvariant (), "--MINIMIZED", System.StringComparison.Ordinal) ==
+                        (string.Compare (arg.ToUpperInvariant (), "--MINIMIZED", StringComparison.Ordinal) ==
                          0) ||
-                        (System.String.Compare (arg.ToUpperInvariant (), "-M", System.StringComparison.Ordinal) == 0))
-                        StartMinimized = true;
+                        (string.Compare (arg.ToUpperInvariant (), "-M", StringComparison.Ordinal) == 0))
+                        Program.StartMinimized = true ;
                     if (
-                        (System.String.Compare (arg.ToUpperInvariant (), "--HELP", System.StringComparison.Ordinal) ==
+                        (string.Compare (arg.ToUpperInvariant (), "--HELP", StringComparison.Ordinal) ==
                          0) ||
-                        (System.String.Compare (arg.ToUpperInvariant (), "-H", System.StringComparison.Ordinal) == 0))
+                        (string.Compare (arg.ToUpperInvariant (), "-H", StringComparison.Ordinal) == 0))
                     {
-                        WriteHelpInfo();
-                        return;
+                        Program.WriteHelpInfo () ;
+                        return ;
                     }
+
                     if (
-                        (System.String.Compare(arg.ToUpperInvariant(), "--NOEXCEPTION", System.StringComparison.Ordinal) ==
+                        (string.Compare (arg.ToUpperInvariant (), "--NOEXCEPTION", StringComparison.Ordinal) ==
                          0) ||
-                        (System.String.Compare(arg.ToUpperInvariant(), "-N", System.StringComparison.Ordinal) == 0))
-                        NoException = true;
+                        (string.Compare (arg.ToUpperInvariant (), "-N", StringComparison.Ordinal) == 0))
+                        Program.NoException = true ;
                 }
 
-                Application.EnableVisualStyles ();
-                Application.SetCompatibleTextRenderingDefault (false);
-                Application.Run (new MainForm ());
+                Application.EnableVisualStyles () ;
+                Application.SetCompatibleTextRenderingDefault (false) ;
+                Application.Run (new MainForm ()) ;
             }
 
-            instance.Close ();
+            instance.Close () ;
         }
 
-        private static void WriteHelpInfo()
+        private static void WriteHelpInfo ()
         {
-            AttachConsole(ATTACH_PARENT_PROCESS);
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("MouseJiggle Usage Help:");
-            Console.WriteLine("-Z or --ZEN:\t\tStart the Mouse Jiggler with zen jiggling enabled");
-            Console.WriteLine("-J or --JIGGLE:\t\tStart the Mouse Jiggler with jiggling enabled");
-            Console.WriteLine("-M or --MINIMIZED:\tStart the Mouse Jiggler minimised");
-            Console.WriteLine("-H or --HELP:\t\tShow this Help info");
+            Program.AttachConsole (Program.ATTACH_PARENT_PROCESS) ;
+            Console.WriteLine () ;
+            Console.WriteLine () ;
+            Console.WriteLine ("MouseJiggle Usage Help:") ;
+            Console.WriteLine ("-Z or --ZEN:\t\tStart the Mouse Jiggler with zen jiggling enabled") ;
+            Console.WriteLine ("-J or --JIGGLE:\t\tStart the Mouse Jiggler with jiggling enabled") ;
+            Console.WriteLine ("-M or --MINIMIZED:\tStart the Mouse Jiggler minimised") ;
+            Console.WriteLine ("-H or --HELP:\t\tShow this Help info") ;
         }
     }
 }
