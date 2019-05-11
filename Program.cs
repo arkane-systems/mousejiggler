@@ -23,6 +23,7 @@ namespace ArkaneSystems.MouseJiggle
         public static bool StartJiggling = false;
         public static bool ZenJiggling = false;
         public static bool StartMinimized = false;
+        public static bool NoException = false;
 
 
         // Required for attaching console output to the Windows Form Application
@@ -65,6 +66,11 @@ namespace ArkaneSystems.MouseJiggle
                         WriteHelpInfo();
                         return;
                     }
+                    if (
+                        (System.String.Compare(arg.ToUpperInvariant(), "--NOEXCEPTION", System.StringComparison.Ordinal) ==
+                         0) ||
+                        (System.String.Compare(arg.ToUpperInvariant(), "-N", System.StringComparison.Ordinal) == 0))
+                        NoException = true;
                 }
 
                 Application.EnableVisualStyles ();
