@@ -26,7 +26,9 @@ If you want to start the Mouse Jiggler with jiggling already enabled, run the Mo
 The "-z" / "--zen" command-line switch forces zen jiggling to be enabled for the current (and future) invocations
 of MouseJiggler.
 
-(Added in 1.5+): The "-m" / "--minimized" command-like switch tells MouseJiggler to start already minimized.
+(Added in 1.5+): The "-m" / "--minimized" command-line switch tells MouseJiggler to start already minimized.
+
+The "-n" / "--noexception" command-line switch tells MouseJiggler to ignore Send errors and not create a new exception.
 
 That's it. Enjoy!
 
