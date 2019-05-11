@@ -24,11 +24,11 @@ namespace ArkaneSystems.MouseJiggle
 {
     internal static class Program
     {
-        private const int  ATTACH_PARENT_PROCESS = -1 ;
+        private const int  AttachParentProcess = -1 ;
+
         public static bool StartJiggling ;
         public static bool ZenJiggling ;
         public static bool StartMinimized ;
-        public static bool NoException ;
 
 
         // Required for attaching console output to the Windows Form Application
@@ -46,36 +46,32 @@ namespace ArkaneSystems.MouseJiggle
             if (instance.WaitOne (0, false))
             {
                 // Check for command-line switches.
-                foreach (string arg in args)
+                foreach (string rawarg in args)
                 {
-                    if ((string.Compare (arg.ToUpperInvariant (), "--JIGGLE", StringComparison.Ordinal) ==
+                    var arg = rawarg.ToUpperInvariant () ;
+
+                    if ((string.Compare (arg, "--JIGGLE", StringComparison.Ordinal) ==
                          0) ||
-                        (string.Compare (arg.ToUpperInvariant (), "-J", StringComparison.Ordinal) == 0))
+                        (string.Compare (arg, "-J", StringComparison.Ordinal) == 0))
                         Program.StartJiggling = true ;
 
-                    if ((string.Compare (arg.ToUpperInvariant (), "--ZEN", StringComparison.Ordinal) == 0) ||
-                        (string.Compare (arg.ToUpperInvariant (), "-Z",    StringComparison.Ordinal) == 0))
+                    if ((string.Compare (arg, "--ZEN", StringComparison.Ordinal) == 0) ||
+                        (string.Compare (arg, "-Z",    StringComparison.Ordinal) == 0))
                         Program.ZenJiggling = true ;
 
                     if (
-                        (string.Compare (arg.ToUpperInvariant (), "--MINIMIZED", StringComparison.Ordinal) ==
+                        (string.Compare (arg, "--MINIMIZED", StringComparison.Ordinal) ==
                          0) ||
-                        (string.Compare (arg.ToUpperInvariant (), "-M", StringComparison.Ordinal) == 0))
+                        (string.Compare (arg, "-M", StringComparison.Ordinal) == 0))
                         Program.StartMinimized = true ;
                     if (
-                        (string.Compare (arg.ToUpperInvariant (), "--HELP", StringComparison.Ordinal) ==
+                        (string.Compare (arg, "--HELP", StringComparison.Ordinal) ==
                          0) ||
-                        (string.Compare (arg.ToUpperInvariant (), "-H", StringComparison.Ordinal) == 0))
+                        (string.Compare (arg, "-H", StringComparison.Ordinal) == 0))
                     {
                         Program.WriteHelpInfo () ;
                         return ;
                     }
-
-                    if (
-                        (string.Compare (arg.ToUpperInvariant (), "--NOEXCEPTION", StringComparison.Ordinal) ==
-                         0) ||
-                        (string.Compare (arg.ToUpperInvariant (), "-N", StringComparison.Ordinal) == 0))
-                        Program.NoException = true ;
                 }
 
                 Application.EnableVisualStyles () ;
@@ -88,7 +84,7 @@ namespace ArkaneSystems.MouseJiggle
 
         private static void WriteHelpInfo ()
         {
-            Program.AttachConsole (Program.ATTACH_PARENT_PROCESS) ;
+            Program.AttachConsole (Program.AttachParentProcess) ;
             Console.WriteLine () ;
             Console.WriteLine () ;
             Console.WriteLine ("MouseJiggle Usage Help:") ;
