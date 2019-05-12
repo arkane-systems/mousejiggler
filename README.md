@@ -12,6 +12,13 @@ If you find Mouse Jiggler useful, please consider contributing to its support!
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I1VA18)
 
+Installation
+============
+
+The easiest means of installing Mouse Jiggler is using Chocolatey:
+
+`choco install mouse-jiggler`
+
 Operation
 =========
 
