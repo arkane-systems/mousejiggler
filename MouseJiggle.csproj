@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArkaneSystems.MouseJiggle</RootNamespace>
     <AssemblyName>MouseJiggle</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Mouse %28ISO%29.ico</ApplicationIcon>
     <SccProjectName>SAK</SccProjectName>
