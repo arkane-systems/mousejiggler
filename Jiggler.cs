@@ -15,6 +15,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics ;
 using System.Runtime.InteropServices;
 
 #endregion
@@ -42,9 +43,13 @@ namespace ArkaneSystems.MouseJiggle
                 dwExtraInfo = (IntPtr) 0
             };
 
-            if (SendInput (1, ref inp, Marshal.SizeOf (inp)) != 1)
-                if (!Program.NoException)
-                    throw new Win32Exception ();
+            var retval = SendInput (1, ref inp, Marshal.SizeOf (inp));
+
+            if (retval != 1)
+            {
+                var errcode = Marshal.GetLastWin32Error();
+                Debugger.Log (1, "Jiggle", $"failed to insert event to input stream; retval={retval}, errcode={errcode:x}");
+            }
         }
     }
 
