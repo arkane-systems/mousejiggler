@@ -8,6 +8,10 @@ Useful for avoiding screensavers or other things triggered by idle detection tha
 can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or 
 when monitoring a long operation without actually having to muck about with the screensaver settings.
 
+If you find Mouse Jiggler useful, please consider contributing to its support!
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I1VA18)
+
 Operation
 =========
 
@@ -28,7 +32,7 @@ of MouseJiggler.
 
 (Added in 1.5+): The "-m" / "--minimized" command-line switch tells MouseJiggler to start already minimized.
 
-The "-n" / "--noexception" command-line switch tells MouseJiggler to ignore Send errors and not create a new exception.
+(Added in 1.8+): The "-h" / "--help" command-line switch displays version and help information.
 
 That's it. Enjoy!
 
