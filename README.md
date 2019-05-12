@@ -15,7 +15,7 @@ If you find Mouse Jiggler useful, please consider contributing to its support!
 Installation
 ============
 
-The easiest means of installing Mouse Jiggler is using Chocolatey:
+The easiest means of installing Mouse Jiggler is using Chocolatey, although bare releases continue to be available:
 
 `choco install mouse-jiggler`
 
