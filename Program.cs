@@ -14,6 +14,7 @@
 #region using
 
 using System ;
+using System.Reflection ;
 using System.Runtime.InteropServices ;
 using System.Threading ;
 using System.Windows.Forms ;
@@ -85,13 +86,14 @@ namespace ArkaneSystems.MouseJiggle
         private static void WriteHelpInfo ()
         {
             Program.AttachConsole (Program.AttachParentProcess) ;
-            Console.WriteLine () ;
-            Console.WriteLine () ;
-            Console.WriteLine ("MouseJiggle Usage Help:") ;
-            Console.WriteLine ("-Z or --ZEN:\t\tStart the Mouse Jiggler with zen jiggling enabled") ;
-            Console.WriteLine ("-J or --JIGGLE:\t\tStart the Mouse Jiggler with jiggling enabled") ;
-            Console.WriteLine ("-M or --MINIMIZED:\tStart the Mouse Jiggler minimised") ;
-            Console.WriteLine ("-H or --HELP:\t\tShow this Help info") ;
+            Console.WriteLine ($@"
+Mouse Jiggler {Assembly.GetEntryAssembly().GetName().Version}
+usage:
+
+-z or --zen:        Start with zen (invisible) jiggling enabled
+-j or --jiggle:     Start with jiggling enabled
+-m or --minimized:  Start minimized
+-h or --help:       Show help information") ;
         }
     }
 }
