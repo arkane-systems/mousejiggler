@@ -24,8 +24,6 @@ namespace ArkaneSystems.MouseJiggle
 {
     public partial class MainForm : Form
     {
-        private const int MOUSEMOVE = 8 ;
-
         public MainForm () { this.InitializeComponent () ; }
 
         protected bool zig = true ;
@@ -123,6 +121,13 @@ namespace ArkaneSystems.MouseJiggle
 
             // hide tray icon
             this.nifMin.Visible = false ;
+        }
+
+        private void trkTime_Scroll(object sender, EventArgs e)
+        {
+            int value = trkTime.Value;
+            lblTime.Text = value + "s";
+            jiggleTimer.Interval = value * 1000;
         }
     }
 }
