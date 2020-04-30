@@ -36,6 +36,9 @@ namespace ArkaneSystems.MouseJiggle
             this.cbZenJiggle = new System.Windows.Forms.CheckBox();
             this.cmdToTray = new System.Windows.Forms.Button();
             this.nifMin = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trkTime = new System.Windows.Forms.TrackBar();
+            this.lblTime = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trkTime)).BeginInit();
             this.SuspendLayout();
             // 
             // jiggleTimer
@@ -91,11 +94,39 @@ namespace ArkaneSystems.MouseJiggle
             this.nifMin.Text = "Mouse Jiggler";
             this.nifMin.DoubleClick += new System.EventHandler(this.nifMin_DoubleClick);
             // 
+            // trkTime
+            // 
+            this.trkTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trkTime.LargeChange = 10;
+            this.trkTime.Location = new System.Drawing.Point(12, 61);
+            this.trkTime.Maximum = 60;
+            this.trkTime.Minimum = 1;
+            this.trkTime.Name = "trkTime";
+            this.trkTime.Size = new System.Drawing.Size(132, 45);
+            this.trkTime.TabIndex = 4;
+            this.trkTime.TickFrequency = 5;
+            this.trkTime.Value = 1;
+            this.trkTime.Scroll += new System.EventHandler(this.trkTime_Scroll);
+            // 
+            // lblTime
+            // 
+            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTime.Location = new System.Drawing.Point(12, 92);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(132, 13);
+            this.lblTime.TabIndex = 5;
+            this.lblTime.Text = "1s";
+            this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(156, 59);
+            this.ClientSize = new System.Drawing.Size(156, 116);
+            this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.trkTime);
             this.Controls.Add(this.cmdToTray);
             this.Controls.Add(this.cbZenJiggle);
             this.Controls.Add(this.cmdAbout);
@@ -107,6 +138,7 @@ namespace ArkaneSystems.MouseJiggle
             this.Name = "MainForm";
             this.Text = "MouseJiggle";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trkTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,6 +152,8 @@ namespace ArkaneSystems.MouseJiggle
         private System.Windows.Forms.CheckBox cbZenJiggle;
         private System.Windows.Forms.Button cmdToTray;
         private System.Windows.Forms.NotifyIcon nifMin;
+        private System.Windows.Forms.TrackBar trkTime;
+        private System.Windows.Forms.Label lblTime;
     }
 }
 
