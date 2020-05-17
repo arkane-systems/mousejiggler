@@ -50,7 +50,6 @@ This is a list of feature requests which I've decided won't be implemented in Mo
 
  * Autorun on startup (because that's what the Startup group, Task Scheduler, etc. are for; it's inelegant to duplicate system facilities in a minimal app).
  * Timed startup/shutdown (again, Task Scheduler is for this).
- * Reducing the jiggle speed to just under a minute (yes, the Windows idle detection time can only be reduced to one minute through the interface; various home-rolled idle detectors, on the other hand, do not have this limitation; besides, it makes it harder to see at a glance if jiggle is enabled)
 
 Support
 =======
