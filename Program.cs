@@ -30,6 +30,7 @@ namespace ArkaneSystems.MouseJiggle
         public static bool StartJiggling ;
         public static bool ZenJiggling ;
         public static bool StartMinimized ;
+        public static int TickValue = 1;
 
 
         // Required for attaching console output to the Windows Form Application
@@ -65,6 +66,18 @@ namespace ArkaneSystems.MouseJiggle
                          0) ||
                         (string.Compare (arg, "-M", StringComparison.Ordinal) == 0))
                         Program.StartMinimized = true ;
+
+                    if ((string.Compare(arg.Substring(0, 5), "-TICK", StringComparison.Ordinal) == 0) ||
+                        (string.Compare(arg.Substring(0, 2), "-T", StringComparison.Ordinal) == 0))
+                    {
+                        string tickStr = arg.Substring(arg.IndexOf(":", StringComparison.InvariantCulture) + 1);
+                        if (int.TryParse(tickStr, out int tickVal))
+                        {
+                            if (tickVal > 0 && tickVal <= 60)
+                                Program.TickValue = tickVal;
+                        }
+                    }
+
                     if (
                         (string.Compare (arg, "--HELP", StringComparison.Ordinal) ==
                          0) ||
@@ -93,7 +106,8 @@ usage:
 -z or --zen:        Start with zen (invisible) jiggling enabled
 -j or --jiggle:     Start with jiggling enabled
 -m or --minimized:  Start minimized
--h or --help:       Show help information") ;
+-h or --help:       Show help information
+-t:x or --tick:x:   Set time between jiggles to x seconds") ;
         }
     }
 }

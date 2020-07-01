@@ -80,6 +80,10 @@ namespace ArkaneSystems.MouseJiggle
 
             if (Program.StartMinimized)
                 this.cmdToTray_Click (this, null) ;
+
+            trkTime.Value = Program.TickValue;
+            lblTime.Text = Program.TickValue + "s";
+            jiggleTimer.Interval = Program.TickValue * 1000;
         }
 
         private void cbZenJiggle_CheckedChanged (object sender, EventArgs e)
