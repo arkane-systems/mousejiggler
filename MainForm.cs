@@ -82,8 +82,7 @@ namespace ArkaneSystems.MouseJiggle
                 this.cmdToTray_Click (this, null) ;
 
             trkTime.Value = Program.TickValue;
-            lblTime.Text = Program.TickValue + "s";
-            jiggleTimer.Interval = Program.TickValue * 1000;
+            updateTimer();
         }
 
         private void cbZenJiggle_CheckedChanged (object sender, EventArgs e)
@@ -128,6 +127,11 @@ namespace ArkaneSystems.MouseJiggle
         }
 
         private void trkTime_Scroll(object sender, EventArgs e)
+        {
+            updateTimer();
+        }
+
+        private void updateTimer()
         {
             int value = trkTime.Value;
             lblTime.Text = value + "s";
