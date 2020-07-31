@@ -1,6 +1,8 @@
 mousejiggler
 ============
 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I1VA18)
+
 Mouse Jiggler is a very simple piece of software whose sole function is to "fake" mouse input to Windows, and 
 jiggle the mouse pointer back and forth.
 
@@ -8,9 +10,9 @@ Useful for avoiding screensavers or other things triggered by idle detection tha
 can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or 
 when monitoring a long operation without actually having to muck about with the screensaver settings.
 
-If you find Mouse Jiggler useful, please consider contributing to its support!
+cerebrate/mousejiggler is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial:
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I1VA18)
+<a href="https://tracking.gitads.io/?repo=cerebrate/mousejiggler"> <img src="https://images.gitads.io/cerebrate/mousejiggler" alt="GitAds"/> </a>
 
 Installation
 ============
