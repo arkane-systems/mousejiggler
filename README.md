@@ -10,10 +10,6 @@ Useful for avoiding screensavers or other things triggered by idle detection tha
 can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or 
 when monitoring a long operation without actually having to muck about with the screensaver settings.
 
-cerebrate/mousejiggler is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial:
-
-<a href="https://tracking.gitads.io/?repo=cerebrate/mousejiggler"> <img src="https://images.gitads.io/cerebrate/mousejiggler" alt="GitAds"/> </a>
-
 Installation
 ============
 
