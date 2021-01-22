@@ -65,6 +65,11 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
+        private void cmdAbout_Click (object sender, EventArgs e)
+        {
+            new AboutBox ().ShowDialog (owner: this);
+        }
+
         #region Property synchronization
 
         private void cbSettings_CheckedChanged (object sender, EventArgs e)
