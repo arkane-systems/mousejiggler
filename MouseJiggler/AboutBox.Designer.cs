@@ -1,7 +1,7 @@
 ﻿
 namespace ArkaneSystems.MouseJiggler
 {
-    partial class AboutBox
+    sealed partial class AboutBox
     {
         /// <summary>
         /// Required designer variable.

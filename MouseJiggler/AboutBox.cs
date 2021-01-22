@@ -9,7 +9,6 @@
 #region using
 
 using System;
-using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -17,19 +16,19 @@ using System.Windows.Forms;
 
 namespace ArkaneSystems.MouseJiggler
 {
-    public partial class AboutBox : Form
+    public sealed partial class AboutBox : Form
     {
         public AboutBox ()
         {
             this.InitializeComponent ();
 
             // Initialize the about box to display the product information from the assembly information.
-            this.Text               = $"About {this.AssemblyTitle}";
-            this.lbProductName.Text = this.AssemblyProduct;
-            this.lbVersion.Text     = $"Version {this.AssemblyVersion}";
-            this.lbCopyright.Text   = this.AssemblyCopyright;
-            this.lbCompanyName.Text = this.AssemblyCompany;
-            this.tbDescription.Text = this.AssemblyDescription;
+            this.Text               = $"About {AboutBox.AssemblyTitle}";
+            this.lbProductName.Text = AboutBox.AssemblyProduct;
+            this.lbVersion.Text     = $"Version {AboutBox.AssemblyVersion}";
+            this.lbCopyright.Text   = AboutBox.AssemblyCopyright;
+            this.lbCompanyName.Text = AboutBox.AssemblyCompany;
+            this.tbDescription.Text = AboutBox.AssemblyDescription;
         }
 
         private void cmdOk_Click (object sender, EventArgs e)
@@ -39,7 +38,7 @@ namespace ArkaneSystems.MouseJiggler
 
         #region Assembly attribute accessors
 
-        private string AssemblyTitle
+        private static string AssemblyTitle
         {
             get
             {
@@ -59,14 +58,14 @@ namespace ArkaneSystems.MouseJiggler
                         return titleAttribute.Title;
                 }
 
-                // If there was no Title attribute, or if the Title attribute was the empty string, return the .exe name
-                return Path.GetFileNameWithoutExtension (path: Assembly.GetExecutingAssembly ().Location);
+                // If there was no Title attribute, or if the Title attribute was the empty string, return the assembly name
+                return Assembly.GetExecutingAssembly ().GetName ()!.Name ?? "<unknown>";
             }
         }
 
-        private string AssemblyVersion => Assembly.GetExecutingAssembly ().GetName ().Version!.ToString ();
+        private static string AssemblyVersion => Assembly.GetExecutingAssembly ().GetName ().Version!.ToString ();
 
-        private string AssemblyDescription
+        private static string AssemblyDescription
         {
             get
             {
@@ -79,7 +78,7 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
-        private string AssemblyProduct
+        private static string AssemblyProduct
         {
             get
             {
@@ -92,7 +91,7 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
-        private string AssemblyCopyright
+        private static string AssemblyCopyright
         {
             get
             {
@@ -105,7 +104,7 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
-        private string AssemblyCompany
+        private static string AssemblyCompany
         {
             get
             {
