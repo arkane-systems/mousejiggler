@@ -71,6 +71,7 @@ namespace ArkaneSystems.MouseJiggler
             // 
             // panelBase
             // 
+            this.panelBase.Controls.Add(this.cmdAbout);
             this.panelBase.Controls.Add(this.cmdTrayify);
             this.panelBase.Controls.Add(this.cbSettings);
             this.panelBase.Controls.Add(this.cbJiggling);
@@ -114,7 +115,6 @@ namespace ArkaneSystems.MouseJiggler
             // 
             this.panelSettings.AutoSize = true;
             this.panelSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelSettings.Controls.Add(this.cmdAbout);
             this.panelSettings.Controls.Add(this.lbPeriod);
             this.panelSettings.Controls.Add(this.tbPeriod);
             this.panelSettings.Controls.Add(this.cbMinimize);
@@ -127,12 +127,13 @@ namespace ArkaneSystems.MouseJiggler
             // 
             // cmdAbout
             // 
-            this.cmdAbout.Location = new System.Drawing.Point(209, 8);
+            this.cmdAbout.Location = new System.Drawing.Point(198, 2);
             this.cmdAbout.Name = "cmdAbout";
-            this.cmdAbout.Size = new System.Drawing.Size(75, 23);
+            this.cmdAbout.Size = new System.Drawing.Size(40, 23);
             this.cmdAbout.TabIndex = 4;
-            this.cmdAbout.Text = "About...";
+            this.cmdAbout.Text = "?";
             this.cmdAbout.UseVisualStyleBackColor = true;
+            this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
             // 
             // lbPeriod
             // 
