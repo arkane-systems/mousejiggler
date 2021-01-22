@@ -34,11 +34,11 @@ namespace ArkaneSystems.MouseJiggler
             this.jiggleTimer = new System.Windows.Forms.Timer(this.components);
             this.flpLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.panelBase = new System.Windows.Forms.Panel();
+            this.cmdAbout = new System.Windows.Forms.Button();
             this.cmdTrayify = new System.Windows.Forms.Button();
             this.cbSettings = new System.Windows.Forms.CheckBox();
             this.cbJiggling = new System.Windows.Forms.CheckBox();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.cmdAbout = new System.Windows.Forms.Button();
             this.lbPeriod = new System.Windows.Forms.Label();
             this.tbPeriod = new System.Windows.Forms.TrackBar();
             this.cbMinimize = new System.Windows.Forms.CheckBox();
@@ -80,12 +80,22 @@ namespace ArkaneSystems.MouseJiggler
             this.panelBase.Size = new System.Drawing.Size(289, 28);
             this.panelBase.TabIndex = 3;
             // 
+            // cmdAbout
+            // 
+            this.cmdAbout.Location = new System.Drawing.Point(198, 2);
+            this.cmdAbout.Name = "cmdAbout";
+            this.cmdAbout.Size = new System.Drawing.Size(40, 23);
+            this.cmdAbout.TabIndex = 2;
+            this.cmdAbout.Text = "?";
+            this.cmdAbout.UseVisualStyleBackColor = true;
+            this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
+            // 
             // cmdTrayify
             // 
             this.cmdTrayify.Location = new System.Drawing.Point(244, 2);
             this.cmdTrayify.Name = "cmdTrayify";
             this.cmdTrayify.Size = new System.Drawing.Size(40, 23);
-            this.cmdTrayify.TabIndex = 5;
+            this.cmdTrayify.TabIndex = 3;
             this.cmdTrayify.Text = "🔽";
             this.cmdTrayify.UseVisualStyleBackColor = true;
             this.cmdTrayify.Click += new System.EventHandler(this.cmdTrayify_Click);
@@ -125,16 +135,6 @@ namespace ArkaneSystems.MouseJiggler
             this.panelSettings.TabIndex = 2;
             this.panelSettings.Visible = false;
             // 
-            // cmdAbout
-            // 
-            this.cmdAbout.Location = new System.Drawing.Point(198, 2);
-            this.cmdAbout.Name = "cmdAbout";
-            this.cmdAbout.Size = new System.Drawing.Size(40, 23);
-            this.cmdAbout.TabIndex = 4;
-            this.cmdAbout.Text = "?";
-            this.cmdAbout.UseVisualStyleBackColor = true;
-            this.cmdAbout.Click += new System.EventHandler(this.cmdAbout_Click);
-            // 
             // lbPeriod
             // 
             this.lbPeriod.AutoSize = true;
@@ -153,7 +153,7 @@ namespace ArkaneSystems.MouseJiggler
             this.tbPeriod.Minimum = 1;
             this.tbPeriod.Name = "tbPeriod";
             this.tbPeriod.Size = new System.Drawing.Size(281, 45);
-            this.tbPeriod.TabIndex = 2;
+            this.tbPeriod.TabIndex = 6;
             this.tbPeriod.TickFrequency = 2;
             this.tbPeriod.Value = 1;
             this.tbPeriod.ValueChanged += new System.EventHandler(this.tbPeriod_ValueChanged);
@@ -164,7 +164,7 @@ namespace ArkaneSystems.MouseJiggler
             this.cbMinimize.Location = new System.Drawing.Point(10, 37);
             this.cbMinimize.Name = "cbMinimize";
             this.cbMinimize.Size = new System.Drawing.Size(123, 19);
-            this.cbMinimize.TabIndex = 1;
+            this.cbMinimize.TabIndex = 5;
             this.cbMinimize.Text = "Minimize on start?";
             this.cbMinimize.UseVisualStyleBackColor = true;
             this.cbMinimize.CheckedChanged += new System.EventHandler(this.cbMinimize_CheckedChanged);
@@ -175,7 +175,7 @@ namespace ArkaneSystems.MouseJiggler
             this.cbZen.Location = new System.Drawing.Point(10, 11);
             this.cbZen.Name = "cbZen";
             this.cbZen.Size = new System.Drawing.Size(83, 19);
-            this.cbZen.TabIndex = 0;
+            this.cbZen.TabIndex = 4;
             this.cbZen.Text = "Zen jiggle?";
             this.cbZen.UseVisualStyleBackColor = true;
             this.cbZen.CheckedChanged += new System.EventHandler(this.cbZen_CheckedChanged);

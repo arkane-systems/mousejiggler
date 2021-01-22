@@ -47,13 +47,13 @@ namespace ArkaneSystems.MouseJiggler
             this.baseLayout.ColumnCount = 2;
             this.baseLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
             this.baseLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67F));
+            this.baseLayout.Controls.Add(this.cmdOk, 1, 5);
             this.baseLayout.Controls.Add(this.pbLogo, 0, 0);
             this.baseLayout.Controls.Add(this.lbProductName, 1, 0);
             this.baseLayout.Controls.Add(this.lbVersion, 1, 1);
             this.baseLayout.Controls.Add(this.lbCopyright, 1, 2);
             this.baseLayout.Controls.Add(this.lbCompanyName, 1, 3);
             this.baseLayout.Controls.Add(this.tbDescription, 1, 4);
-            this.baseLayout.Controls.Add(this.cmdOk, 1, 5);
             this.baseLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baseLayout.Location = new System.Drawing.Point(9, 9);
             this.baseLayout.Name = "baseLayout";
@@ -148,7 +148,7 @@ namespace ArkaneSystems.MouseJiggler
             this.cmdOk.Location = new System.Drawing.Point(338, 238);
             this.cmdOk.Name = "cmdOk";
             this.cmdOk.Size = new System.Drawing.Size(75, 22);
-            this.cmdOk.TabIndex = 6;
+            this.cmdOk.TabIndex = 0;
             this.cmdOk.Text = "&OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
