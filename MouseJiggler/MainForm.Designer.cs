@@ -139,9 +139,9 @@ namespace ArkaneSystems.MouseJiggler
             this.lbPeriod.AutoSize = true;
             this.lbPeriod.Location = new System.Drawing.Point(244, 41);
             this.lbPeriod.Name = "lbPeriod";
-            this.lbPeriod.Size = new System.Drawing.Size(41, 15);
+            this.lbPeriod.Size = new System.Drawing.Size(21, 15);
             this.lbPeriod.TabIndex = 3;
-            this.lbPeriod.Text = "Period";
+            this.lbPeriod.Text = "1 s";
             // 
             // tbPeriod
             // 

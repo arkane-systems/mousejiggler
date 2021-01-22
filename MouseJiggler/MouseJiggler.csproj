@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
+    <PackageReference Include="PInvoke.Kernel32" Version="0.7.78" />
+    <PackageReference Include="PInvoke.User32" Version="0.7.78" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20574.7" />
   </ItemGroup>
 

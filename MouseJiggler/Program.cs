@@ -19,6 +19,8 @@ using ArkaneSystems.MouseJiggler.Properties;
 
 using JetBrains.Annotations;
 
+using PInvoke;
+
 #endregion
 
 namespace ArkaneSystems.MouseJiggler
@@ -33,7 +35,7 @@ namespace ArkaneSystems.MouseJiggler
         public static int Main (string[] args)
         {
             // Attach to the parent process's console so we can display help, version information, and command-line errors.
-            Helpers.AttachConsole (dwProcessId: Helpers.AttachParentProcess);
+            Kernel32.AttachConsole (dwProcessId: Helpers.AttachParentProcess);
 
             // Ensure that we are the only instance of the Mouse Jiggler currently running.
             var instance = new Mutex (initiallyOwned: false, name: "single instance: ArkaneSystems.MouseJiggler");
@@ -50,6 +52,9 @@ namespace ArkaneSystems.MouseJiggler
             finally
             {
                 instance.Close ();
+
+                // Detach from the parent console.
+                Kernel32.FreeConsole ();
             }
         }
 
