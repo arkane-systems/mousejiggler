@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArkaneSystems.MouseJiggle.Properties {
+namespace ArkaneSystems.MouseJiggler.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ArkaneSystems.MouseJiggle.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ArkaneSystems.MouseJiggle.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ArkaneSystems.MouseJiggler.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
