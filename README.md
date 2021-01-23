@@ -12,7 +12,7 @@ The easiest means of installing Mouse Jiggler is using Chocolatey, although bare
 
 `choco install mouse-jiggler`
 
-In the 2.0 release, Chocolatey installation supports installation without requiring administrative rights.
+In the 2.0 release, installation without requiring administrative rights is possible via [Scoop](https://scoop.sh/) and the scoop-extras repository.
 
 Operation
 =========
