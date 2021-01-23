@@ -10,7 +10,7 @@
     <Version>2.0.0</Version>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <PublishReadyToRun>true</PublishReadyToRun>
     <Authors>Alistair J. R. Young</Authors>
     <Company>Arkane Systems</Company>
