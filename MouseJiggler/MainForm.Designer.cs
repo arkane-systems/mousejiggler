@@ -201,6 +201,7 @@ namespace ArkaneSystems.MouseJiggler
             this.Name = "MainForm";
             this.Text = "Mouse Jiggler";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.flpLayout.ResumeLayout(false);
             this.flpLayout.PerformLayout();
             this.panelBase.ResumeLayout(false);
