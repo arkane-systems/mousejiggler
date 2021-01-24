@@ -2,7 +2,7 @@
 
 // MouseJiggler - Program.cs
 // 
-// Created by: Alistair J R Young (avatar) at 2021/01/20 7:23 PM.
+// Created by: Alistair J R Young (avatar) at 2021/01/22 4:12 PM.
 
 #endregion
 
@@ -45,9 +45,15 @@ namespace ArkaneSystems.MouseJiggler
                 if (instance.WaitOne (millisecondsTimeout: 0))
 
                     // Parse arguments and do the appropriate thing.
+                {
                     return Program.GetCommandLineParser ().Invoke (args: args);
+                }
                 else
+                {
+                    Console.WriteLine (value: "Mouse Jiggler is already running. Aborting.");
+
                     return 1;
+                }
             }
             finally
             {

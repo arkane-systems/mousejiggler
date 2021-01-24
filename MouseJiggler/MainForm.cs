@@ -2,7 +2,7 @@
 
 // MouseJiggler - MainForm.cs
 // 
-// Created by: Alistair J R Young (avatar) at 2021/01/20 7:23 PM.
+// Created by: Alistair J R Young (avatar) at 2021/01/24 1:57 AM.
 
 #endregion
 
@@ -47,9 +47,6 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (this.JiggleOnStartup)
                 this.cbJiggling.Checked = true;
-
-            if (this.MinimizeOnStartup)
-                this.MinimizeToTray ();
         }
 
         private void UpdateNotificationAreaText ()
@@ -196,5 +193,19 @@ namespace ArkaneSystems.MouseJiggler
         }
 
         #endregion Settings properties
+
+        #region Minimize on start
+
+        private bool firstShown = true;
+
+        private void MainForm_Shown (object sender, EventArgs e)
+        {
+            if (this.firstShown && this.MinimizeOnStartup)
+                this.MinimizeToTray ();
+
+            this.firstShown = false;
+        }
+
+        #endregion
     }
 }
