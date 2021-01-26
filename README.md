@@ -8,11 +8,11 @@ Useful for avoiding screensavers or other things triggered by idle detection tha
 Installation
 ============
 
-The easiest means of installing Mouse Jiggler is using Chocolatey, although bare releases continue to be available:
+The easiest means of installing Mouse Jiggler is using Chocolatey:
 
 `choco install mouse-jiggler`
 
-In the 2.0 release, installation without requiring administrative rights is possible via [Scoop](https://scoop.sh/) and the scoop-extras repository.
+Bare releases continue to be available at right for installation without administrative permissions, although the .NET 5 Desktop runtime must be installed first.
 
 Operation
 =========
