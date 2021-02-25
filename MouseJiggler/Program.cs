@@ -46,6 +46,7 @@ namespace ArkaneSystems.MouseJiggler
 
                     // Parse arguments and do the appropriate thing.
                 {
+                    Console.WriteLine ();
                     return Program.GetCommandLineParser ().Invoke (args: args);
                 }
                 else
