@@ -100,20 +100,20 @@ namespace ArkaneSystems.MouseJiggler
             rootCommand.AddOption (option: optJiggling);
 
             // -m --minimized
-            Option optMinimized = new (aliases: new[] {"--minimized", "-m",}, description: "Start minimized.");
+            Option optMinimized = new (aliases: new[] {"--minimized", "-m",}, description: "Start minimized (sets persistent option).");
             optMinimized.Argument = new Argument<bool> ();
             optMinimized.Argument.SetDefaultValue (value: Settings.Default.MinimizeOnStartup);
             rootCommand.AddOption (option: optMinimized);
 
             // -z --zen
-            Option optZen = new (aliases: new[] {"--zen", "-z",}, description: "Start with zen (invisible) jiggling enabled.");
+            Option optZen = new (aliases: new[] {"--zen", "-z",}, description: "Start with zen (invisible) jiggling enabled (sets persistent option).");
             optZen.Argument = new Argument<bool> ();
             optZen.Argument.SetDefaultValue (value: Settings.Default.ZenJiggle);
             rootCommand.AddOption (option: optZen);
 
             // -s 60 --seconds=60
             Option optPeriod = new (aliases: new[] {"--seconds", "-s",},
-                                    description: "Set number of seconds for the jiggle interval.");
+                                    description: "Set number of seconds for the jiggle interval (sets persistent option).");
 
             optPeriod.Argument = new Argument<int> ();
 
