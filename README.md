@@ -27,9 +27,27 @@ Check the "Settings..." checkbox to reveal the settings; these should be relativ
 
 To minimize Mouse Jiggler to the notification area, click the down-arrow button.
 
-These settings are remembered from session to session. They can also be overridden by command-line options; for details, run `MouseJiggler -h`.
+These settings are remembered from session to session. They can also be overridden by command-line options:
+
+```
+Usage:
+  MouseJiggler [options]
+
+Options:
+  -j, --jiggle               Start with jiggling enabled.
+  -m, --minimized            Start minimized (sets persistent option). [default: False]
+  -z, --zen                  Start with zen (invisible) jiggling enabled (sets persistent option). [default: False]
+  -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 1]
+  --version                  Show version information
+  -?, -h, --help             Show help and usage information
+```
 
 The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup.
+
+Bugs
+====
+
+When installed using Chocolatey, command-line help may not be displayed properly. See "installation" above.
 
 Features That Will Not Be Implemented
 =====================================
