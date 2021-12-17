@@ -47,6 +47,7 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (this.JiggleOnStartup)
                 this.cbJiggling.Checked = true;
+                this.jigglingTrayMenuItem.Checked = true;
         }
 
         private void UpdateNotificationAreaText ()
@@ -98,7 +99,7 @@ namespace ArkaneSystems.MouseJiggler
         private void cbJiggling_CheckedChanged (object sender, EventArgs e)
         {
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
-            jigglingTrayMenuItem.Checked = this.cbJiggling.Checked;
+            this.jigglingTrayMenuItem.Checked = this.cbJiggling.Checked;
         }
 
         private void jiggleTimer_Tick (object sender, EventArgs e)
