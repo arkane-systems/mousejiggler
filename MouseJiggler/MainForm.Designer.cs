@@ -192,6 +192,7 @@ namespace ArkaneSystems.MouseJiggler
             this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
             this.niTray.Text = "Mouse Jiggler";
             this.niTray.DoubleClick += new System.EventHandler(this.niTray_DoubleClick);
+            this.niTray.MouseUp += new System.Windows.Forms.MouseEventHandler(this.niTray_MouseUp);
             // 
             // trayMenu
             // 
