@@ -47,7 +47,6 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (this.JiggleOnStartup)
                 this.cbJiggling.Checked = true;
-                this.exitTrayMenuItem.Checked = true;
         }
 
         private void UpdateNotificationAreaText ()
