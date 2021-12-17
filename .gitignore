@@ -177,3 +177,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 /.vs
 /MouseJiggler/.vs/MouseJiggler/DesignTimeBuild/.dtbcache.v2
+MouseJiggler/.vs/MouseJiggler/project-colors.json
+MouseJiggler/.vs/MouseJiggler/v17/.futdcache.v1
