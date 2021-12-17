@@ -46,8 +46,10 @@ namespace ArkaneSystems.MouseJiggler
         private void MainForm_Load (object sender, EventArgs e)
         {
             if (this.JiggleOnStartup)
+            {
                 this.cbJiggling.Checked = true;
                 this.jigglingTrayMenuItem.Checked = true;
+            }
         }
 
         private void UpdateNotificationAreaText ()
@@ -227,6 +229,16 @@ namespace ArkaneSystems.MouseJiggler
             cbJiggling.Checked = this.jigglingTrayMenuItem.Checked;
             this.UpdateNotificationAreaText();
         }
+        private void niTray_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                System.Reflection.MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                mi.Invoke(niTray, null);
+            }
+        }
+
         #endregion Tray Menu
+
     }
 }
