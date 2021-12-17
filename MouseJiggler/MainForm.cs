@@ -98,6 +98,7 @@ namespace ArkaneSystems.MouseJiggler
         private void cbJiggling_CheckedChanged (object sender, EventArgs e)
         {
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
+            jigglingTrayMenuItem.Checked = this.cbJiggling.Checked;
         }
 
         private void jiggleTimer_Tick (object sender, EventArgs e)
@@ -207,5 +208,24 @@ namespace ArkaneSystems.MouseJiggler
         }
 
         #endregion
+
+        #region Tray Menu
+
+        private void exitTrayMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void showMouseJigglerMenuItem_Click(object sender, EventArgs e)
+        {
+            this.RestoreFromTray();
+        }
+
+        private void jigglingTrayMenuItem_Click(object sender, EventArgs e)
+        {
+            cbJiggling.Checked = this.jigglingTrayMenuItem.Checked;
+            this.UpdateNotificationAreaText();
+        }
+        #endregion Tray Menu
     }
 }

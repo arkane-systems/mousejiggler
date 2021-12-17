@@ -44,10 +44,16 @@ namespace ArkaneSystems.MouseJiggler
             this.cbMinimize = new System.Windows.Forms.CheckBox();
             this.cbZen = new System.Windows.Forms.CheckBox();
             this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.jigglingTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMouseJigglerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.exitTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flpLayout.SuspendLayout();
             this.panelBase.SuspendLayout();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPeriod)).BeginInit();
+            this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // jiggleTimer
@@ -182,9 +188,47 @@ namespace ArkaneSystems.MouseJiggler
             // 
             // niTray
             // 
+            this.niTray.ContextMenuStrip = this.trayMenu;
             this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
             this.niTray.Text = "Mouse Jiggler";
             this.niTray.DoubleClick += new System.EventHandler(this.niTray_DoubleClick);
+            // 
+            // trayMenu
+            // 
+            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jigglingTrayMenuItem,
+            this.showMouseJigglerMenuItem,
+            this.trayMenuSeparator,
+            this.exitTrayMenuItem});
+            this.trayMenu.Name = "trayMenu";
+            this.trayMenu.Size = new System.Drawing.Size(180, 76);
+            // 
+            // jigglingTrayMenuItem
+            // 
+            this.jigglingTrayMenuItem.CheckOnClick = true;
+            this.jigglingTrayMenuItem.Name = "jigglingTrayMenuItem";
+            this.jigglingTrayMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.jigglingTrayMenuItem.Text = "&Jiggling?";
+            this.jigglingTrayMenuItem.Click += new System.EventHandler(this.jigglingTrayMenuItem_Click);
+            // 
+            // showMouseJigglerMenuItem
+            // 
+            this.showMouseJigglerMenuItem.Name = "showMouseJigglerMenuItem";
+            this.showMouseJigglerMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.showMouseJigglerMenuItem.Text = "&Show Mouse Jiggler";
+            this.showMouseJigglerMenuItem.Click += new System.EventHandler(this.showMouseJigglerMenuItem_Click);
+            // 
+            // trayMenuSeparator
+            // 
+            this.trayMenuSeparator.Name = "trayMenuSeparator";
+            this.trayMenuSeparator.Size = new System.Drawing.Size(176, 6);
+            // 
+            // exitTrayMenuItem
+            // 
+            this.exitTrayMenuItem.Name = "exitTrayMenuItem";
+            this.exitTrayMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.exitTrayMenuItem.Text = "E&xit";
+            this.exitTrayMenuItem.Click += new System.EventHandler(this.exitTrayMenuItem_Click);
             // 
             // MainForm
             // 
@@ -209,6 +253,7 @@ namespace ArkaneSystems.MouseJiggler
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPeriod)).EndInit();
+            this.trayMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,6 +274,11 @@ namespace ArkaneSystems.MouseJiggler
         private System.Windows.Forms.Button cmdAbout;
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button cmdTrayify;
+        private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.ToolStripSeparator trayMenuSeparator;
+        private System.Windows.Forms.ToolStripMenuItem exitTrayMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showMouseJigglerMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jigglingTrayMenuItem;
     }
 }
 

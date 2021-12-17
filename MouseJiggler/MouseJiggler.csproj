@@ -20,8 +20,8 @@ Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. Th
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/cerebrate/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>2.0.14.0</AssemblyVersion>
-    <FileVersion>2.0.14.0</FileVersion>
+    <AssemblyVersion>2.0.15.0</AssemblyVersion>
+    <FileVersion>2.0.15.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
