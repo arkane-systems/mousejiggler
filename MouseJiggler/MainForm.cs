@@ -100,6 +100,7 @@ namespace ArkaneSystems.MouseJiggler
 
         private void cbJiggling_CheckedChanged (object sender, EventArgs e)
         {
+            this.JigglePeriod = tbPeriod.Value;
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
             this.jigglingTrayMenuItem.Checked = this.cbJiggling.Checked;
         }
