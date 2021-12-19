@@ -39,6 +39,8 @@ namespace ArkaneSystems.MouseJiggler
             this.cbSettings = new System.Windows.Forms.CheckBox();
             this.cbJiggling = new System.Windows.Forms.CheckBox();
             this.panelSettings = new System.Windows.Forms.Panel();
+            this.lbRandom = new System.Windows.Forms.Label();
+            this.cbRandom = new System.Windows.Forms.CheckBox();
             this.lbPeriod = new System.Windows.Forms.Label();
             this.tbPeriod = new System.Windows.Forms.TrackBar();
             this.cbMinimize = new System.Windows.Forms.CheckBox();
@@ -131,15 +133,37 @@ namespace ArkaneSystems.MouseJiggler
             // 
             this.panelSettings.AutoSize = true;
             this.panelSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelSettings.Controls.Add(this.lbRandom);
+            this.panelSettings.Controls.Add(this.cbRandom);
             this.panelSettings.Controls.Add(this.lbPeriod);
             this.panelSettings.Controls.Add(this.tbPeriod);
             this.panelSettings.Controls.Add(this.cbMinimize);
             this.panelSettings.Controls.Add(this.cbZen);
             this.panelSettings.Location = new System.Drawing.Point(8, 42);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(289, 110);
+            this.panelSettings.Size = new System.Drawing.Size(268, 110);
             this.panelSettings.TabIndex = 2;
             this.panelSettings.Visible = false;
+            // 
+            // lbRandom
+            // 
+            this.lbRandom.AutoSize = true;
+            this.lbRandom.Location = new System.Drawing.Point(244, 12);
+            this.lbRandom.Name = "lbRandom";
+            this.lbRandom.Size = new System.Drawing.Size(13, 15);
+            this.lbRandom.TabIndex = 7;
+            this.lbRandom.Text = "  ";
+            // 
+            // cbRandom
+            // 
+            this.cbRandom.AutoSize = true;
+            this.cbRandom.Location = new System.Drawing.Point(136, 11);
+            this.cbRandom.Name = "cbRandom";
+            this.cbRandom.Size = new System.Drawing.Size(104, 19);
+            this.cbRandom.TabIndex = 0;
+            this.cbRandom.Text = "Random Timer";
+            this.cbRandom.UseVisualStyleBackColor = true;
+            this.cbRandom.CheckedChanged += new System.EventHandler(this.cbRandom_CheckedChanged);
             // 
             // lbPeriod
             // 
@@ -158,7 +182,7 @@ namespace ArkaneSystems.MouseJiggler
             this.tbPeriod.Maximum = 60;
             this.tbPeriod.Minimum = 1;
             this.tbPeriod.Name = "tbPeriod";
-            this.tbPeriod.Size = new System.Drawing.Size(281, 45);
+            this.tbPeriod.Size = new System.Drawing.Size(272, 45);
             this.tbPeriod.TabIndex = 6;
             this.tbPeriod.TickFrequency = 2;
             this.tbPeriod.Value = 1;
@@ -280,6 +304,8 @@ namespace ArkaneSystems.MouseJiggler
         private System.Windows.Forms.ToolStripMenuItem exitTrayMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showMouseJigglerMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jigglingTrayMenuItem;
+        private System.Windows.Forms.CheckBox cbRandom;
+        private System.Windows.Forms.Label lbRandom;
     }
 }
 

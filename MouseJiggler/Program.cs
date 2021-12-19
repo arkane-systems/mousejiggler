@@ -64,7 +64,7 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
-        private static int RootHandler (bool jiggle, bool minimized, bool zen, int seconds)
+        private static int RootHandler (bool jiggle, bool minimized, bool zen, bool rnd, int seconds)
         {
             // Prepare Windows Forms to run the application.
             Application.SetHighDpiMode (highDpiMode: HighDpiMode.SystemAware);
@@ -75,7 +75,9 @@ namespace ArkaneSystems.MouseJiggler
             var mainForm = new MainForm (jiggleOnStartup: jiggle,
                                          minimizeOnStartup: minimized,
                                          zenJiggleEnabled: zen,
-                                         jigglePeriod: seconds);
+                                         randomTimer: rnd,
+                                         jigglePeriod: seconds
+                                         );
 
             Application.Run (mainForm: mainForm);
 
@@ -89,7 +91,7 @@ namespace ArkaneSystems.MouseJiggler
                               {
                                   Description = "Virtually jiggles the mouse, making the computer seem not idle.",
                                   Handler =
-                                      CommandHandler.Create (action: new Func<bool, bool, bool, int, int> (Program.RootHandler)),
+                                      CommandHandler.Create(action: new Func< bool, bool, bool, bool, int, int>(Program.RootHandler)),
                               };
 
             // -j --jiggle
@@ -109,6 +111,12 @@ namespace ArkaneSystems.MouseJiggler
             optZen.Argument = new Argument<bool> ();
             optZen.Argument.SetDefaultValue (value: Settings.Default.ZenJiggle);
             rootCommand.AddOption (option: optZen);
+
+            // -r --random
+            Option optRandom = new(aliases: new[] { "--random", "-r", }, description: "Random timer.");
+            optRandom.Argument = new Argument<bool>();
+            optRandom.Argument.SetDefaultValue(value: Settings.Default.RandomTimer);
+            rootCommand.AddOption(option: optRandom);
 
             // -s 60 --seconds=60
             Option optPeriod = new (aliases: new[] {"--seconds", "-s",},
