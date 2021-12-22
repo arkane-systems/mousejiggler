@@ -8,11 +8,26 @@ Useful for avoiding screensavers or other things triggered by idle detection tha
 Installation
 ============
 
-The easiest means of installing Mouse Jiggler is using Chocolatey, although bare releases continue to be available:
+The easiest means of installing Mouse Jiggler is using Chocolatey:
 
 `choco install mouse-jiggler`
 
-In the 2.0 release, installation without requiring administrative rights is possible via [Scoop](https://scoop.sh/) and the scoop-extras repository.
+Bare releases continue to be available at right for installation without administrative permissions, although the .NET 5 Desktop runtime must be installed first.
+
+Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
+
+`mousejiggler --shimgen-log`
+
+Portable Version
+----------------
+
+A portable version of Mouse Jiggler (i.e., one which does not require the .NET 5 runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the releases page, as MouseJiggler-portable.zip. Just unzip and go.
+
+**DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
+
+Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **83 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET 5 runtime, you are much better off installing that and the regular version.
+
+The only reason this exists is for those poor sods whose IT department makes it impossible to do that, and may their deities have mercy on their souls.
 
 Operation
 =========
@@ -23,9 +38,27 @@ Check the "Settings..." checkbox to reveal the settings; these should be relativ
 
 To minimize Mouse Jiggler to the notification area, click the down-arrow button.
 
-These settings are remembered from session to session. They can also be overridden by command-line options; for details, run `MouseJiggler -h`.
+These settings are remembered from session to session. They can also be overridden by command-line options:
+
+```
+Usage:
+  MouseJiggler [options]
+
+Options:
+  -j, --jiggle               Start with jiggling enabled.
+  -m, --minimized            Start minimized (sets persistent option). [default: False]
+  -z, --zen                  Start with zen (invisible) jiggling enabled (sets persistent option). [default: False]
+  -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 1]
+  --version                  Show version information
+  -?, -h, --help             Show help and usage information
+```
 
 The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup.
+
+Bugs
+====
+
+When installed using Chocolatey, command-line help may not be displayed properly. See "installation" above.
 
 Features That Will Not Be Implemented
 =====================================
