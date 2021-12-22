@@ -22,13 +22,13 @@ namespace ArkaneSystems.MouseJiggler
         /// <summary>
         ///     Constructor for use by the form designer.
         /// </summary>
-        public MainForm ()
-            : this (jiggleOnStartup: false, minimizeOnStartup: false, zenJiggleEnabled: false, jigglePeriod: 1)
+        public MainForm()
+            : this(jiggleOnStartup: false, minimizeOnStartup: false, zenJiggleEnabled: false, randomTimer: false, jigglePeriod: 1)
         { }
 
-        public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, int jigglePeriod)
+        public MainForm(bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, bool randomTimer, int jigglePeriod )
         {
-            this.InitializeComponent ();
+            this.InitializeComponent();
 
             // Jiggling on startup?
             this.JiggleOnStartup = jiggleOnStartup;
@@ -37,19 +37,23 @@ namespace ArkaneSystems.MouseJiggler
             // We do this by setting the controls, and letting them set the properties.
 
             this.cbMinimize.Checked = minimizeOnStartup;
-            this.cbZen.Checked      = zenJiggleEnabled;
-            this.tbPeriod.Value     = jigglePeriod;
+            this.cbZen.Checked = zenJiggleEnabled;
+            this.tbPeriod.Value = jigglePeriod;
+            this.cbRandom.Checked = randomTimer;
         }
 
         public bool JiggleOnStartup { get; }
 
-        private void MainForm_Load (object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             if (this.JiggleOnStartup)
+            {
                 this.cbJiggling.Checked = true;
+                this.jigglingTrayMenuItem.Checked = true;
+            }
         }
 
-        private void UpdateNotificationAreaText ()
+        private void UpdateNotificationAreaText()
         {
             if (!this.cbJiggling.Checked)
             {
@@ -62,31 +66,36 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
-        private void cmdAbout_Click (object sender, EventArgs e)
+        private void cmdAbout_Click(object sender, EventArgs e)
         {
-            new AboutBox ().ShowDialog (owner: this);
+            new AboutBox().ShowDialog(owner: this);
         }
 
         #region Property synchronization
 
-        private void cbSettings_CheckedChanged (object sender, EventArgs e)
+        private void cbSettings_CheckedChanged(object sender, EventArgs e)
         {
             this.panelSettings.Visible = this.cbSettings.Checked;
         }
 
-        private void cbMinimize_CheckedChanged (object sender, EventArgs e)
+        private void cbMinimize_CheckedChanged(object sender, EventArgs e)
         {
             this.MinimizeOnStartup = this.cbMinimize.Checked;
         }
 
-        private void cbZen_CheckedChanged (object sender, EventArgs e)
+        private void cbZen_CheckedChanged(object sender, EventArgs e)
         {
             this.ZenJiggleEnabled = this.cbZen.Checked;
         }
 
-        private void tbPeriod_ValueChanged (object sender, EventArgs e)
+        private void tbPeriod_ValueChanged(object sender, EventArgs e)
         {
             this.JigglePeriod = this.tbPeriod.Value;
+        }
+
+        private void cbRandom_CheckedChanged(object sender, EventArgs e)
+        {
+            this.RandomTimer = this.cbRandom.Checked;
         }
 
         #endregion Property synchronization
@@ -97,7 +106,9 @@ namespace ArkaneSystems.MouseJiggler
 
         private void cbJiggling_CheckedChanged (object sender, EventArgs e)
         {
+            this.JigglePeriod = tbPeriod.Value;
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
+            this.jigglingTrayMenuItem.Checked = this.cbJiggling.Checked;
         }
 
         private void jiggleTimer_Tick (object sender, EventArgs e)
@@ -110,6 +121,13 @@ namespace ArkaneSystems.MouseJiggler
                 Helpers.Jiggle (delta: -4);
 
             this.Zig = !this.Zig;
+
+            if (this.RandomTimer)
+            {
+                this.jigglePeriod = (new Random().Next(1, tbPeriod.Value)) * 1000;
+                this.lbRandom.Text = $"{this.jigglePeriod / 1000} s";
+                this.jiggleTimer.Interval = this.jigglePeriod;
+            }
         }
 
         #endregion Do the Jiggle!
@@ -152,6 +170,8 @@ namespace ArkaneSystems.MouseJiggler
 
         private bool zenJiggleEnabled;
 
+        private bool randomTimer;
+
         #endregion Settings property backing fields
 
         #region Settings properties
@@ -183,12 +203,23 @@ namespace ArkaneSystems.MouseJiggler
             get => this.jigglePeriod;
             set
             {
-                this.jigglePeriod             = value;
+                this.jigglePeriod = value;
                 Settings.Default.JigglePeriod = value;
-                Settings.Default.Save ();
+                Settings.Default.Save();
 
                 this.jiggleTimer.Interval = value * 1000;
-                this.lbPeriod.Text        = $"{value} s";
+                this.lbPeriod.Text = $"{value} s";
+            }
+        }
+
+        public bool RandomTimer
+        {
+            get => this.randomTimer;
+            set
+            {
+                this.randomTimer = value;
+                Settings.Default.RandomTimer = value;
+                Settings.Default.Save();
             }
         }
 
@@ -207,5 +238,34 @@ namespace ArkaneSystems.MouseJiggler
         }
 
         #endregion
+
+        #region Tray Menu
+
+        private void exitTrayMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void showMouseJigglerMenuItem_Click(object sender, EventArgs e)
+        {
+            this.RestoreFromTray();
+        }
+
+        private void jigglingTrayMenuItem_Click(object sender, EventArgs e)
+        {
+            cbJiggling.Checked = this.jigglingTrayMenuItem.Checked;
+            this.UpdateNotificationAreaText();
+        }
+        private void niTray_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                System.Reflection.MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                mi.Invoke(niTray, null);
+            }
+        }
+
+        #endregion Tray Menu
+
     }
 }

@@ -7,7 +7,7 @@
     <RootNamespace>ArkaneSystems.MouseJiggler</RootNamespace>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Mouse (ISO).ico</ApplicationIcon>
-    <Version>2.0.14</Version>
+    <Version>2.0.15</Version>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -20,8 +20,8 @@ Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. Th
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/cerebrate/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>2.0.14.0</AssemblyVersion>
-    <FileVersion>2.0.14.0</FileVersion>
+    <AssemblyVersion>2.0.15.0</AssemblyVersion>
+    <FileVersion>2.0.15.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
