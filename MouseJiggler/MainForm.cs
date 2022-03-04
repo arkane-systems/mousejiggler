@@ -47,6 +47,7 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (this.JiggleOnStartup)
                 this.cbJiggling.Checked = true;
+            this.SetDesktopLocation (150, 150);
         }
 
         private void UpdateNotificationAreaText ()
