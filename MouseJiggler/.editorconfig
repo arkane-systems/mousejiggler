@@ -8,6 +8,20 @@ indent_style=space
 csharp_space_between_method_declaration_name_and_open_parenthesis=true
 csharp_space_between_method_declaration_empty_parameter_list_parentheses=false
 csharp_space_between_method_call_name_and_opening_parenthesis=true
+
+# ReSharper properties
+resharper_braces_for_ifelse=not_required_for_both
+resharper_csharp_empty_block_style=together
+resharper_indent_braces_inside_statement_conditions=false
+resharper_int_align_assignments=true
+resharper_int_align_binary_expressions=true
+resharper_int_align_comments=true
+resharper_int_align_fields=true
+resharper_int_align_invocations=true
+resharper_int_align_nested_ternary=true
+resharper_int_align_properties=true
+resharper_int_align_property_patterns=true
+resharper_int_align_variables=true
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_size=4
