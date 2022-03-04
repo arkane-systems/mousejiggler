@@ -23,10 +23,10 @@ namespace ArkaneSystems.MouseJiggler
         ///     Constructor for use by the form designer.
         /// </summary>
         public MainForm ()
-            : this (jiggleOnStartup: false, minimizeOnStartup: false, zenJiggleEnabled: false, jigglePeriod: 1)
+            : this (jiggleOnStartup: false, minimizeOnStartup: false, zenJiggleEnabled: false, alwaysShowTrayIcon: false, jigglePeriod: 1)
         { }
 
-        public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, int jigglePeriod)
+        public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, bool alwaysShowTrayIcon, int jigglePeriod)
         {
             this.InitializeComponent ();
 
@@ -39,6 +39,7 @@ namespace ArkaneSystems.MouseJiggler
             this.cbMinimize.Checked = minimizeOnStartup;
             this.cbZen.Checked      = zenJiggleEnabled;
             this.tbPeriod.Value     = jigglePeriod;
+            this.cbShowIcon.Checked = alwaysShowTrayIcon;
         }
 
         public bool JiggleOnStartup { get; }
@@ -82,11 +83,22 @@ namespace ArkaneSystems.MouseJiggler
         private void cbZen_CheckedChanged (object sender, EventArgs e)
         {
             this.ZenJiggleEnabled = this.cbZen.Checked;
+
+            this.UpdateNotificationAreaText ();
+        }
+
+        private void cbShowIcon_CheckedChanged (object sender, EventArgs e)
+        {
+            this.AlwaysShowTrayIcon = this.cbShowIcon.Checked;
+            if (this.Visible)
+                this.niTray.Visible = this.AlwaysShowTrayIcon;
         }
 
         private void tbPeriod_ValueChanged (object sender, EventArgs e)
         {
             this.JigglePeriod = this.tbPeriod.Value;
+
+            this.UpdateNotificationAreaText ();
         }
 
         #endregion Property synchronization
@@ -98,6 +110,8 @@ namespace ArkaneSystems.MouseJiggler
         private void cbJiggling_CheckedChanged (object sender, EventArgs e)
         {
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
+
+            this.UpdateNotificationAreaText ();
         }
 
         private void jiggleTimer_Tick (object sender, EventArgs e)
@@ -126,20 +140,36 @@ namespace ArkaneSystems.MouseJiggler
             this.RestoreFromTray ();
         }
 
+        private void showToolStripMenuItem_Click (object sender, EventArgs e)
+        {
+            if (this.Visible)
+                this.MinimizeToTray ();
+            else
+                this.RestoreFromTray ();
+        }
+
+        private void exitToolStripMenuItem_Click (object sender, EventArgs e)
+        {
+            this.Close ();
+        }
+
         private void MinimizeToTray ()
         {
             this.Visible        = false;
             this.ShowInTaskbar  = false;
             this.niTray.Visible = true;
 
-            this.UpdateNotificationAreaText ();
+            this.showToolStripMenuItem.Text = "Show";
         }
 
         private void RestoreFromTray ()
         {
             this.Visible        = true;
             this.ShowInTaskbar  = true;
-            this.niTray.Visible = false;
+            this.niTray.Visible = this.AlwaysShowTrayIcon;
+
+            this.showToolStripMenuItem.Text = "Hide";
+            this.UpdateNotificationAreaText ();
         }
 
         #endregion Minimize and restore
@@ -151,6 +181,8 @@ namespace ArkaneSystems.MouseJiggler
         private bool minimizeOnStartup;
 
         private bool zenJiggleEnabled;
+
+        private bool alwaysShowTrayIcon;
 
         #endregion Settings property backing fields
 
@@ -174,6 +206,17 @@ namespace ArkaneSystems.MouseJiggler
             {
                 this.zenJiggleEnabled      = value;
                 Settings.Default.ZenJiggle = value;
+                Settings.Default.Save ();
+            }
+        }
+
+        public bool AlwaysShowTrayIcon
+        {
+            get => this.alwaysShowTrayIcon;
+            set
+            {
+                this.alwaysShowTrayIcon             = value;
+                Settings.Default.AlwaysShowTrayIcon = value;
                 Settings.Default.Save ();
             }
         }
@@ -202,6 +245,8 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (this.firstShown && this.MinimizeOnStartup)
                 this.MinimizeToTray ();
+            else
+                this.RestoreFromTray (); // Triggers displaying tray icon, updating notification area text
 
             this.firstShown = false;
         }

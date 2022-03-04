@@ -64,7 +64,7 @@ namespace ArkaneSystems.MouseJiggler
             }
         }
 
-        private static int RootHandler (bool jiggle, bool minimized, bool zen, int seconds)
+        private static int RootHandler (bool jiggle, bool minimized, bool zen, bool icon, int seconds)
         {
             // Prepare Windows Forms to run the application.
             Application.SetHighDpiMode (highDpiMode: HighDpiMode.SystemAware);
@@ -75,6 +75,7 @@ namespace ArkaneSystems.MouseJiggler
             var mainForm = new MainForm (jiggleOnStartup: jiggle,
                                          minimizeOnStartup: minimized,
                                          zenJiggleEnabled: zen,
+                                         alwaysShowTrayIcon: icon,
                                          jigglePeriod: seconds);
 
             Application.Run (mainForm: mainForm);
@@ -89,7 +90,7 @@ namespace ArkaneSystems.MouseJiggler
                               {
                                   Description = "Virtually jiggles the mouse, making the computer seem not idle.",
                                   Handler =
-                                      CommandHandler.Create (action: new Func<bool, bool, bool, int, int> (Program.RootHandler)),
+                                      CommandHandler.Create (action: new Func<bool, bool, bool, bool, int, int> (Program.RootHandler)),
                               };
 
             // -j --jiggle
@@ -109,6 +110,12 @@ namespace ArkaneSystems.MouseJiggler
             optZen.Argument = new Argument<bool> ();
             optZen.Argument.SetDefaultValue (value: Settings.Default.ZenJiggle);
             rootCommand.AddOption (option: optZen);
+
+            // --showIcon
+            Option optShowIcon = new (aliases: new[] {"--icon","-i",}, description: "Always show tray icon.");
+            optShowIcon.Argument = new Argument<bool> ();
+            optShowIcon.Argument.SetDefaultValue (value: Settings.Default.AlwaysShowTrayIcon);
+            rootCommand.AddOption (option: optShowIcon);
 
             // -s 60 --seconds=60
             Option optPeriod = new (aliases: new[] {"--seconds", "-s",},

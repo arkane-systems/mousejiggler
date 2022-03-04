@@ -42,12 +42,18 @@ namespace ArkaneSystems.MouseJiggler
             this.lbPeriod = new System.Windows.Forms.Label();
             this.tbPeriod = new System.Windows.Forms.TrackBar();
             this.cbMinimize = new System.Windows.Forms.CheckBox();
+            this.cbShowIcon = new System.Windows.Forms.CheckBox();
             this.cbZen = new System.Windows.Forms.CheckBox();
             this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayContextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.flpLayout.SuspendLayout();
             this.panelBase.SuspendLayout();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPeriod)).BeginInit();
+            this.trayContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // jiggleTimer
@@ -128,6 +134,7 @@ namespace ArkaneSystems.MouseJiggler
             this.panelSettings.Controls.Add(this.lbPeriod);
             this.panelSettings.Controls.Add(this.tbPeriod);
             this.panelSettings.Controls.Add(this.cbMinimize);
+            this.panelSettings.Controls.Add(this.cbShowIcon);
             this.panelSettings.Controls.Add(this.cbZen);
             this.panelSettings.Location = new System.Drawing.Point(8, 42);
             this.panelSettings.Name = "panelSettings";
@@ -169,6 +176,18 @@ namespace ArkaneSystems.MouseJiggler
             this.cbMinimize.UseVisualStyleBackColor = true;
             this.cbMinimize.CheckedChanged += new System.EventHandler(this.cbMinimize_CheckedChanged);
             // 
+            // cbShowIcon
+            // 
+            this.cbShowIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbShowIcon.AutoSize = true;
+            this.cbShowIcon.Location = new System.Drawing.Point(141, 11);
+            this.cbShowIcon.Name = "cbShowIcon";
+            this.cbShowIcon.Size = new System.Drawing.Size(143, 19);
+            this.cbShowIcon.TabIndex = 4;
+            this.cbShowIcon.Text = "Always show tray icon";
+            this.cbShowIcon.UseVisualStyleBackColor = true;
+            this.cbShowIcon.CheckedChanged += new System.EventHandler(this.cbShowIcon_CheckedChanged);
+            // 
             // cbZen
             // 
             this.cbZen.AutoSize = true;
@@ -182,9 +201,38 @@ namespace ArkaneSystems.MouseJiggler
             // 
             // niTray
             // 
+            this.niTray.ContextMenuStrip = this.trayContextMenuStrip;
             this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
             this.niTray.Text = "Mouse Jiggler";
             this.niTray.DoubleClick += new System.EventHandler(this.niTray_DoubleClick);
+            // 
+            // trayContextMenuStrip
+            // 
+            this.trayContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showToolStripMenuItem,
+            this.trayContextMenuSeparator,
+            this.exitToolStripMenuItem});
+            this.trayContextMenuStrip.Name = "trayContextMenuStrip";
+            this.trayContextMenuStrip.Size = new System.Drawing.Size(181, 76);
+            // 
+            // showToolStripMenuItem
+            // 
+            this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showToolStripMenuItem.Text = "&Show";
+            this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // trayContextMenuSeparator
+            // 
+            this.trayContextMenuSeparator.Name = "trayContextMenuSeparator";
+            this.trayContextMenuSeparator.Size = new System.Drawing.Size(177, 6);
             // 
             // MainForm
             // 
@@ -209,6 +257,7 @@ namespace ArkaneSystems.MouseJiggler
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPeriod)).EndInit();
+            this.trayContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,6 +278,11 @@ namespace ArkaneSystems.MouseJiggler
         private System.Windows.Forms.Button cmdAbout;
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button cmdTrayify;
+        private System.Windows.Forms.ContextMenuStrip trayContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.CheckBox cbShowIcon;
+        private System.Windows.Forms.ToolStripSeparator trayContextMenuSeparator;
     }
 }
 
