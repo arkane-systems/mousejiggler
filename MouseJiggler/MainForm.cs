@@ -260,8 +260,8 @@ namespace ArkaneSystems.MouseJiggler
         {
             if (e.Button == MouseButtons.Left)
             {
-                System.Reflection.MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-                mi.Invoke(niTray, null);
+                System.Reflection.MethodInfo? mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                mi?.Invoke(niTray, null);
             }
         }
 
