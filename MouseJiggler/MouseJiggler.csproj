@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>ArkaneSystems.MouseJiggler</RootNamespace>
     <Nullable>enable</Nullable>
@@ -30,9 +30,9 @@ Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. Th
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
-    <PackageReference Include="PInvoke.Kernel32" Version="0.7.78" />
-    <PackageReference Include="PInvoke.User32" Version="0.7.78" />
+    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+    
+    <PackageReference Include="PInvoke.User32" Version="0.7.124" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20574.7" />
   </ItemGroup>
 
