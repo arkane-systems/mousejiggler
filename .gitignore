@@ -176,4 +176,4 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 /.vs
-/MouseJiggler/.vs/MouseJiggler/DesignTimeBuild/.dtbcache.v2
+/MouseJiggler/.vs
