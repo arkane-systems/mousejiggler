@@ -5,6 +5,17 @@ Mouse Jiggler is a very simple piece of software whose sole function is to "fake
 
 Useful for avoiding screensavers or other things triggered by idle detection that, for whatever reason, you can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or when monitoring a long operation without actually having to muck about with the screensaver settings.
 
+Why You Should Not Use This
+===========================
+
+[...]
+
+Basically, if you're looking for something to sneak past your IT department or monitoring software written by anyone who's even half awake, you don't want software. You want hardware. Now, you could buy one of the commercial dedicated mouse jigglers that police departments, etc., use to prevent computers from going idle, automatically logging out, and otherwise inconveniencing law enforcement, but instead, I suggest you buy yourself a Raspberry Pi Pico, and follow the instructions here:
+
+https://www.tomshardware.com/how-to/diy-mouse-jiggler-raspberry-pi-pico
+
+to make yourself a nice convenient little plug-in.
+
 Installation
 ============
 
