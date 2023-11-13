@@ -120,8 +120,8 @@ namespace ArkaneSystems.MouseJiggler
                                                        ? "Period cannot be shorter than 1 second."
                                                        : null);
 
-            optPeriod.AddValidator (validate: p => p.GetValueOrDefault<int> () > 60
-                                                       ? "Period cannot be longer than 60 seconds."
+            optPeriod.AddValidator (validate: p => p.GetValueOrDefault<int> () > 10800
+                                                       ? "Period cannot be longer than 10800 seconds."
                                                        : null);
 
             optPeriod.Argument.SetDefaultValue (value: Settings.Default.JigglePeriod);
