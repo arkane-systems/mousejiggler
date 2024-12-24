@@ -39,6 +39,11 @@ namespace ArkaneSystems.MouseJiggler
             this.cbMinimize.Checked = minimizeOnStartup;
             this.cbZen.Checked      = zenJiggleEnabled;
             this.tbPeriod.Value     = jigglePeriod;
+            this.JigglePeriod       = jigglePeriod;
+
+            // Component initial setting
+            this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
+            this.trayMenu.Items[2].Visible = this.cbJiggling.Checked;
         }
 
         public bool JiggleOnStartup { get; }
@@ -65,6 +70,28 @@ namespace ArkaneSystems.MouseJiggler
         private void cmdAbout_Click (object sender, EventArgs e)
         {
             new AboutBox ().ShowDialog (owner: this);
+        }
+
+        private void trayMenu_ClickOpen(object sender, EventArgs e)
+        {
+            niTray_DoubleClick(sender, e);
+        }
+
+        private void trayMenu_ClickExit(object sender, EventArgs e)
+        {
+            Application.Exit ();
+        }
+
+        private void trayMenu_ClickStartJuggling(object sender, EventArgs e)
+        {
+            this.cbJiggling.Checked = true;
+            this.UpdateNotificationAreaText();
+        }
+
+        private void trayMenu_ClickStopJuggling(object sender, EventArgs e)
+        {
+            this.cbJiggling.Checked = false;
+            this.UpdateNotificationAreaText();
         }
 
         #region Property synchronization
@@ -98,6 +125,13 @@ namespace ArkaneSystems.MouseJiggler
         private void cbJiggling_CheckedChanged (object sender, EventArgs e)
         {
             this.jiggleTimer.Enabled = this.cbJiggling.Checked;
+            updateTrayMenu();
+        }
+
+        private void updateTrayMenu()
+        {
+            this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
+            this.trayMenu.Items[2].Visible = this.cbJiggling.Checked;
         }
 
         private void jiggleTimer_Tick (object sender, EventArgs e)
