@@ -111,8 +111,8 @@ namespace ArkaneSystems.MouseJiggler
             rootCommand.AddOption (option: optZen);
 
             // -s 60 --seconds=60
-            Option optPeriod = new (aliases: new[] {"--seconds", "-s",},
-                                    description: "Set number of seconds for the jiggle interval.");
+            Option optPeriod = new (aliases: new[] {"--seconds:<X>", "-s:<X>",},
+                                    description: "Set X number of seconds for the jiggle interval.");
 
             optPeriod.Argument = new Argument<int> ();
 

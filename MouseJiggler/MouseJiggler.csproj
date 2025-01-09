@@ -13,9 +13,19 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Authors>Alistair J. R. Young</Authors>
     <Company>Arkane Systems</Company>
-    <Description>A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
+    <Description>
+A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
 
-Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. The 'Zen jiggle?' checkbox (under "Settings...") enables a mode in which the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. This may not work for idle detection under all applications.</Description>
+Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. 
+The 'Zen jiggle?' checkbox (under "Settings...") enables a mode in which the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. 
+This may not work for idle detection under all applications.
+
+Command line options:
+-j --jiggle: Start with jiggling enabled
+-m --minimized: Start minimized
+-z --zen: Start with zen (invisible) jiggling enabled
+-s:60 --seconds:60: Set number of seconds for the jiggle interval (1-10800)
+    </Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2021</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/cerebrate/mousejiggler</PackageProjectUrl>
