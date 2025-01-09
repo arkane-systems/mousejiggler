@@ -47,6 +47,11 @@ public partial class MainForm : Form
         else
             // Handle invalid jigglePeriod value, e.g., set to default or raise an error
             tbPeriod.Value = tbPeriod.Minimum; // or any default value within the range
+        JigglePeriod = jigglePeriod;
+
+        // Component initial setting
+        trayMenu.Items[1].Visible = !cbJiggling.Checked;
+        trayMenu.Items[2].Visible = cbJiggling.Checked;
     }
 
     public bool JiggleOnStartup { get; }
@@ -73,6 +78,28 @@ public partial class MainForm : Form
     private void cmdAbout_Click(object sender, EventArgs e)
     {
         new AboutBox().ShowDialog(this);
+    }
+
+    private void trayMenu_ClickOpen(object sender, EventArgs e)
+    {
+        niTray_DoubleClick(sender, e);
+    }
+
+    private void trayMenu_ClickExit(object sender, EventArgs e)
+    {
+        Application.Exit();
+    }
+
+    private void trayMenu_ClickStartJuggling(object sender, EventArgs e)
+    {
+        cbJiggling.Checked = true;
+        UpdateNotificationAreaText();
+    }
+
+    private void trayMenu_ClickStopJuggling(object sender, EventArgs e)
+    {
+        cbJiggling.Checked = false;
+        UpdateNotificationAreaText();
     }
 
     #region Property synchronization
@@ -106,6 +133,13 @@ public partial class MainForm : Form
     private void cbJiggling_CheckedChanged(object sender, EventArgs e)
     {
         jiggleTimer.Enabled = cbJiggling.Checked;
+        UpdateTrayMenu();
+    }
+
+    private void UpdateTrayMenu()
+    {
+        trayMenu.Items[1].Visible = !cbJiggling.Checked;
+        trayMenu.Items[2].Visible = cbJiggling.Checked;
     }
 
     private void jiggleTimer_Tick(object sender, EventArgs e)
