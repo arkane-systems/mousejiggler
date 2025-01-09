@@ -3,6 +3,7 @@
 // MouseJiggler - Program.cs
 // 
 // Created by: Alistair J R Young (avatar) at 2021/01/22 4:12 PM.
+// Updates by: Dimitris Panokostas (midwan)
 
 #endregion
 
@@ -116,7 +117,8 @@ public static class Program
             Argument = new Argument<int>(() => Settings.Default.JigglePeriod)
         };
         optPeriod.AddValidator(p => p.GetValueOrDefault<int>() < 1 ? "Period cannot be shorter than 1 second." : null);
-        optPeriod.AddValidator(p => p.GetValueOrDefault<int>() > 10800 ? "Period cannot be longer than 10800 seconds." : null);
+        optPeriod.AddValidator(p =>
+            p.GetValueOrDefault<int>() > 10800 ? "Period cannot be longer than 10800 seconds." : null);
         rootCommand.AddOption(optPeriod);
 
         // Build the command line parser.
