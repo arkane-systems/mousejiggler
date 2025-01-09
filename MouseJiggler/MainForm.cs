@@ -9,6 +9,7 @@
 #region using
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 using ArkaneSystems.MouseJiggler.Properties;
@@ -38,7 +39,17 @@ namespace ArkaneSystems.MouseJiggler
 
             this.cbMinimize.Checked = minimizeOnStartup;
             this.cbZen.Checked      = zenJiggleEnabled;
-            this.tbPeriod.Value     = jigglePeriod;
+
+            // Validate jigglePeriod before setting it
+            if (jigglePeriod >= this.tbPeriod.Minimum && jigglePeriod <= this.tbPeriod.Maximum)
+            {
+                this.tbPeriod.Value = jigglePeriod;
+            }
+            else
+            {
+                // Handle invalid jigglePeriod value, e.g., set to default or raise an error
+                this.tbPeriod.Value = this.tbPeriod.Minimum; // or any default value within the range
+            }
         }
 
         public bool JiggleOnStartup { get; }
@@ -156,6 +167,8 @@ namespace ArkaneSystems.MouseJiggler
 
         #region Settings properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
         public bool MinimizeOnStartup
         {
             get => this.minimizeOnStartup;
@@ -164,8 +177,11 @@ namespace ArkaneSystems.MouseJiggler
                 this.minimizeOnStartup             = value;
                 Settings.Default.MinimizeOnStartup = value;
                 Settings.Default.Save ();
+                this.OnPropertyChanged(nameof(MinimizeOnStartup));
             }
         }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 
         public bool ZenJiggleEnabled
         {
@@ -175,8 +191,11 @@ namespace ArkaneSystems.MouseJiggler
                 this.zenJiggleEnabled      = value;
                 Settings.Default.ZenJiggle = value;
                 Settings.Default.Save ();
+                this.OnPropertyChanged(nameof(ZenJiggleEnabled));
             }
         }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 
         public int JigglePeriod
         {
@@ -188,9 +207,17 @@ namespace ArkaneSystems.MouseJiggler
                 Settings.Default.Save ();
 
                 this.jiggleTimer.Interval = value * 1000;
-                this.lbPeriod.Text        = $"{value} s";
+                this.lbPeriod.Text        = $@"{value} s";
+                this.OnPropertyChanged(nameof(JigglePeriod));
             }
         }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion Settings properties
 
