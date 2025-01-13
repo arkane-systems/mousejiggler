@@ -30,8 +30,8 @@ Command line options:
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/midwan/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>2.0.15.0</AssemblyVersion>
-    <FileVersion>2.0.15.0</FileVersion>
+    <AssemblyVersion>2.0.25.0</AssemblyVersion>
+    <FileVersion>2.0.25.0</FileVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/midwan/mousejiggler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
