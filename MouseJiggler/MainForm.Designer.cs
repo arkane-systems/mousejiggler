@@ -43,6 +43,7 @@ namespace ArkaneSystems.MouseJiggler
             tbPeriod = new System.Windows.Forms.TrackBar();
             cbMinimize = new System.Windows.Forms.CheckBox();
             cbZen = new System.Windows.Forms.CheckBox();
+            trayMenu = new System.Windows.Forms.ContextMenuStrip();
             niTray = new System.Windows.Forms.NotifyIcon(components);
             flpLayout.SuspendLayout();
             panelBase.SuspendLayout();
@@ -188,9 +189,17 @@ namespace ArkaneSystems.MouseJiggler
             cbZen.Text = "Zen jiggle?";
             cbZen.UseVisualStyleBackColor = true;
             cbZen.CheckedChanged += cbZen_CheckedChanged;
+            //
+            // trayMenu
+            //
+            trayMenu.Items.Add("Open", null, this.niTray_DoubleClick);
+            trayMenu.Items.Add("Start Jiggling", null, this.trayMenu_ClickStartJuggling);
+            trayMenu.Items.Add("Stop Jiggling", null, this.trayMenu_ClickStopJuggling);
+            trayMenu.Items.Add("Exit", null, this.trayMenu_ClickExit);
             // 
             // niTray
             // 
+            niTray.ContextMenuStrip = this.trayMenu;
             niTray.Icon = (System.Drawing.Icon)resources.GetObject("niTray.Icon");
             niTray.Text = "Mouse Jiggler";
             niTray.DoubleClick += niTray_DoubleClick;
@@ -238,6 +247,7 @@ namespace ArkaneSystems.MouseJiggler
         private System.Windows.Forms.Button cmdAbout;
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button cmdTrayify;
+        private System.Windows.Forms.ContextMenuStrip trayMenu;
     }
 }
 
