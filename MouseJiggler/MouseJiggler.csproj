@@ -7,11 +7,11 @@
     <RootNamespace>ArkaneSystems.MouseJiggler</RootNamespace>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Mouse (ISO).ico</ApplicationIcon>
-    <Version>2.0.25</Version>
+    <Version>2.1.0</Version>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <Authors>Alistair J. R. Young</Authors>
+    <Authors>Alistair J. R. Young, Dimitris Panokostas</Authors>
     <Company>Arkane Systems</Company>
     <Description>
 A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
@@ -26,14 +26,14 @@ Command line options:
 -z --zen: Start with zen (invisible) jiggling enabled
 -s 60 --seconds 60: Set number of seconds for the jiggle interval (1-10800)
     </Description>
-    <Copyright>Copyright © Alistair J. R. Young 2007-2021</Copyright>
+    <Copyright>Copyright © Alistair J. R. Young 2007-2025</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/midwan/mousejiggler</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/arkane-systems/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>2.0.25.0</AssemblyVersion>
-    <FileVersion>2.0.25.0</FileVersion>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/midwan/mousejiggler</RepositoryUrl>
+    <RepositoryUrl>https://github.com/arkane-systems/mousejiggler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
