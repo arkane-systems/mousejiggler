@@ -38,22 +38,22 @@ internal static class Helpers
     /// <param name="delta">The mouse will be moved by delta pixels along both X and Y.</param>
     internal static void Jiggle(int delta)
     {
-    var inp = new INPUT
-    {
-      type = INPUT_TYPE.INPUT_MOUSE,
-      Anonymous = new INPUT._Anonymous_e__Union
-      {
-        mi = new MOUSEINPUT
+        var inp = new INPUT
         {
-          dx = delta,
-          dy = delta,
-          mouseData = 0,
-          dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE,
-          time = 0,
-          dwExtraInfo = 0
-        }
-      }
-    };
+          type = INPUT_TYPE.INPUT_MOUSE,
+          Anonymous = new INPUT._Anonymous_e__Union
+          {
+            mi = new MOUSEINPUT
+            {
+              dx = delta,
+              dy = delta,
+              mouseData = 0,
+              dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE,
+              time = 0,
+              dwExtraInfo = 0
+            }
+          }
+        };
     
         var returnValue = PInvoke.SendInput(new ReadOnlySpan<INPUT>(in inp), Marshal.SizeOf<INPUT>());
 
