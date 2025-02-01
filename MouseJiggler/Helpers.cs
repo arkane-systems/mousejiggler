@@ -12,7 +12,8 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using PInvoke;
+using Windows.Win32;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
@@ -25,7 +26,7 @@ internal static class Helpers
     /// <summary>
     ///     Constant value signifying a request to attach to the console of the parent process.
     /// </summary>
-    internal const int AttachParentProcess = -1;
+    internal const uint AttachParentProcess = uint.MaxValue;
 
     #endregion Console management
 
@@ -37,24 +38,24 @@ internal static class Helpers
     /// <param name="delta">The mouse will be moved by delta pixels along both X and Y.</param>
     internal static void Jiggle(int delta)
     {
-        var inp = new User32.INPUT
+    var inp = new INPUT
+    {
+      type = INPUT_TYPE.INPUT_MOUSE,
+      Anonymous = new INPUT._Anonymous_e__Union
+      {
+        mi = new MOUSEINPUT
         {
-            type = User32.InputType.INPUT_MOUSE,
-            Inputs = new User32.INPUT.InputUnion
-            {
-                mi = new User32.MOUSEINPUT
-                {
-                    dx = delta,
-                    dy = delta,
-                    mouseData = 0,
-                    dwFlags = User32.MOUSEEVENTF.MOUSEEVENTF_MOVE,
-                    time = 0,
-                    dwExtraInfo_IntPtr = IntPtr.Zero
-                }
-            }
-        };
-
-        var returnValue = User32.SendInput(1, new[] { inp }, Marshal.SizeOf<User32.INPUT>());
+          dx = delta,
+          dy = delta,
+          mouseData = 0,
+          dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE,
+          time = 0,
+          dwExtraInfo = 0
+        }
+      }
+    };
+    
+        var returnValue = PInvoke.SendInput(new ReadOnlySpan<INPUT>(in inp), Marshal.SizeOf<INPUT>());
 
         if (returnValue == 1) return;
         var errorCode = Marshal.GetLastWin32Error();
