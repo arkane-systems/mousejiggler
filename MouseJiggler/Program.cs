@@ -17,7 +17,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ArkaneSystems.MouseJiggler.Properties;
 using JetBrains.Annotations;
-using PInvoke;
+using Windows.Win32;
 
 #endregion
 
@@ -33,7 +33,7 @@ public static class Program
     public static int Main(string[] args)
     {
         // Attach to the parent process's console so we can display help, version information, and command-line errors.
-        Kernel32.AttachConsole(Helpers.AttachParentProcess);
+        PInvoke.AttachConsole(Helpers.AttachParentProcess);
 
         // Ensure that we are the only instance of the Mouse Jiggler currently running.
         var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
@@ -58,7 +58,7 @@ public static class Program
             instance.Close();
 
             // Detach from the parent console.
-            Kernel32.FreeConsole();
+            PInvoke.FreeConsole();
         }
     }
 
