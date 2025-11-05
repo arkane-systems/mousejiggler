@@ -62,7 +62,7 @@ public static class Program
         }
     }
 
-    private static int RootHandler(bool jiggle, bool minimized, bool zen, int seconds)
+    private static int RootHandler(bool jiggle, bool minimized, bool zen, int seconds, bool settings)
     {
         // Prepare Windows Forms to run the application.
         Application.SetHighDpiMode(HighDpiMode.SystemAware);
@@ -73,7 +73,8 @@ public static class Program
         var mainForm = new MainForm(jiggle,
             minimized,
             zen,
-            seconds);
+            seconds,
+            settings);
 
         Application.Run(mainForm);
 
@@ -87,7 +88,7 @@ public static class Program
         {
             Description = "Virtually jiggles the mouse, making the computer seem not idle.",
             Handler =
-                CommandHandler.Create(new Func<bool, bool, bool, int, int>(RootHandler))
+                CommandHandler.Create(new Func<bool, bool, bool, int, bool, int>(RootHandler))
         };
 
         // -j --jiggle
@@ -120,6 +121,13 @@ public static class Program
         optPeriod.AddValidator(p =>
             p.GetValueOrDefault<int>() > 10800 ? "Period cannot be longer than 10800 seconds." : null);
         rootCommand.AddOption(optPeriod);
+
+        // -g --settings
+        Option optSettings = new(["--settings", "-g"], "Start with settings panel displayed.")
+        {
+            Argument = new Argument<bool>(() => false)
+        };
+        rootCommand.AddOption(optSettings);
 
         // Build the command line parser.
         return rootCommand;

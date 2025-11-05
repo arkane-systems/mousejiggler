@@ -24,11 +24,11 @@ public partial class MainForm : Form
     ///     Constructor for use by the form designer.
     /// </summary>
     public MainForm()
-        : this(false, false, false, 1)
+        : this(false, false, false, 1, false)
     {
     }
 
-    public MainForm(bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, int jigglePeriod)
+    public MainForm(bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, int jigglePeriod, bool showSettings)
     {
         InitializeComponent();
 
@@ -48,6 +48,13 @@ public partial class MainForm : Form
             // Handle invalid jigglePeriod value, e.g., set to default or raise an error
             tbPeriod.Value = tbPeriod.Minimum; // or any default value within the range
         JigglePeriod = jigglePeriod;
+
+        // Show settings panel on startup if requested
+        if (showSettings)
+        {
+            cbSettings.Checked = true;
+            panelSettings.Visible = true;
+        }
 
         // Component initial setting
         trayMenu.Items[1].Visible = !cbJiggling.Checked;
