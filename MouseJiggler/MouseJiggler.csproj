@@ -26,6 +26,7 @@ Command line options:
 -z --zen: Start with zen (invisible) jiggling enabled
 -r --random: Start with random timer enabled
 -s 60 --seconds 60: Set number of seconds for the jiggle interval (1-10800)
+-g --settings: Start with settings panel displayed
     </Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2025</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
