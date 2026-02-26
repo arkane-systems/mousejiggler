@@ -11,8 +11,6 @@
 
 using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
-using System.CommandLine.Parsing;
 using System.Threading;
 using System.Windows.Forms;
 using ArkaneSystems.MouseJiggler.Properties;
@@ -44,7 +42,7 @@ public static class Program
 
                 // Parse arguments and do the appropriate thing.
             {
-                return GetCommandLineParser().Invoke(args);
+                return GetCommandLineParser().Parse(args).Invoke();
             }
             else
             {
@@ -83,51 +81,69 @@ public static class Program
 
     private static RootCommand GetCommandLineParser()
     {
-        // Create root command.
-        var rootCommand = new RootCommand
-        {
-            Description = "Virtually jiggles the mouse, making the computer seem not idle.",
-            Handler =
-                CommandHandler.Create(new Func<bool, bool, bool, bool, int, int>(RootHandler))
-        };
-
         // -j --jiggle
-        Option optJiggling = new(["--jiggle", "-j"], "Start with jiggling enabled.")
+        var optJiggling = new Option<bool>("--jiggle", "-j")
         {
-            Argument = new Argument<bool>(() => false)
+            Description = "Start with jiggling enabled.",
+            DefaultValueFactory = _ => false
         };
-        rootCommand.AddOption(optJiggling);
 
         // -m --minimized
-        Option optMinimized = new(["--minimized", "-m"], "Start minimized.")
+        var optMinimized = new Option<bool>("--minimized", "-m")
         {
-            Argument = new Argument<bool>(() => Settings.Default.MinimizeOnStartup)
+            Description = "Start minimized.",
+            DefaultValueFactory = _ => Settings.Default.MinimizeOnStartup
         };
-        rootCommand.AddOption(optMinimized);
 
         // -z --zen
-        Option optZen = new(["--zen", "-z"], "Start with zen (invisible) jiggling enabled.")
+        var optZen = new Option<bool>("--zen", "-z")
         {
-            Argument = new Argument<bool>(() => Settings.Default.ZenJiggle)
+            Description = "Start with zen (invisible) jiggling enabled.",
+            DefaultValueFactory = _ => Settings.Default.ZenJiggle
         };
-        rootCommand.AddOption(optZen);
 
         // -r --random
-        Option optRandom = new(["--random", "-r"], "Start with random timer enabled.")
+        var optRandom = new Option<bool>("--random", "-r")
         {
-            Argument = new Argument<bool>(() => Settings.Default.RandomTimer)
+            Description = "Start with random timer enabled.",
+            DefaultValueFactory = _ => Settings.Default.RandomTimer
         };
-        rootCommand.AddOption(optRandom);
 
         // -s:60 --seconds:60
-        var optPeriod = new Option<int>(["--seconds", "-s"], "Set X number of seconds for the jiggle interval.")
+        var optPeriod = new Option<int>("--seconds", "-s")
         {
-            Argument = new Argument<int>(() => Settings.Default.JigglePeriod)
+            Description = "Set X number of seconds for the jiggle interval.",
+            DefaultValueFactory = _ => Settings.Default.JigglePeriod
         };
-        optPeriod.AddValidator(p => p.GetValueOrDefault<int>() < 1 ? "Period cannot be shorter than 1 second." : null);
-        optPeriod.AddValidator(p =>
-            p.GetValueOrDefault<int>() > 10800 ? "Period cannot be longer than 10800 seconds." : null);
-        rootCommand.AddOption(optPeriod);
+        optPeriod.Validators.Add(result =>
+        {
+            var value = result.GetValue(optPeriod);
+            if (value < 1)
+                result.AddError("Period cannot be shorter than 1 second.");
+            else if (value > 10800)
+                result.AddError("Period cannot be longer than 10800 seconds.");
+        });
+
+        // Create root command.
+        var rootCommand = new RootCommand("Virtually jiggles the mouse, making the computer seem not idle.")
+        {
+            optJiggling,
+            optMinimized,
+            optZen,
+            optRandom,
+            optPeriod
+        };
+
+        rootCommand.SetAction(parseResult =>
+        {
+            var jiggle = parseResult.GetValue(optJiggling);
+            var minimized = parseResult.GetValue(optMinimized);
+            var zen = parseResult.GetValue(optZen);
+            var random = parseResult.GetValue(optRandom);
+            var seconds = parseResult.GetValue(optPeriod);
+
+            return RootHandler(jiggle, minimized, zen, random, seconds);
+        });
 
         // Build the command line parser.
         return rootCommand;
