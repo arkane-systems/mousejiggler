@@ -62,7 +62,7 @@ public static class Program
         }
     }
 
-    private static int RootHandler(bool jiggle, bool minimized, bool zen, int seconds)
+    private static int RootHandler(bool jiggle, bool minimized, bool zen, bool random, int seconds)
     {
         // Prepare Windows Forms to run the application.
         Application.SetHighDpiMode(HighDpiMode.SystemAware);
@@ -73,6 +73,7 @@ public static class Program
         var mainForm = new MainForm(jiggle,
             minimized,
             zen,
+            random,
             seconds);
 
         Application.Run(mainForm);
@@ -87,7 +88,7 @@ public static class Program
         {
             Description = "Virtually jiggles the mouse, making the computer seem not idle.",
             Handler =
-                CommandHandler.Create(new Func<bool, bool, bool, int, int>(RootHandler))
+                CommandHandler.Create(new Func<bool, bool, bool, bool, int, int>(RootHandler))
         };
 
         // -j --jiggle
@@ -110,6 +111,13 @@ public static class Program
             Argument = new Argument<bool>(() => Settings.Default.ZenJiggle)
         };
         rootCommand.AddOption(optZen);
+
+        // -r --random
+        Option optRandom = new(["--random", "-r"], "Start with random timer enabled.")
+        {
+            Argument = new Argument<bool>(() => Settings.Default.RandomTimer)
+        };
+        rootCommand.AddOption(optRandom);
 
         // -s:60 --seconds:60
         var optPeriod = new Option<int>(["--seconds", "-s"], "Set X number of seconds for the jiggle interval.")

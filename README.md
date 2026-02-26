@@ -5,6 +5,19 @@ Mouse Jiggler is a very simple piece of software whose sole function is to "fake
 
 Useful for avoiding screensavers or other things triggered by idle detection that, for whatever reason, you can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or when monitoring a long operation without actually having to muck about with the screensaver settings.
 
+Why You Should Not Use This
+===========================
+
+This is not a tool for sneaking past your IT department.
+
+Mouse Jiggler is easily detectable by any decent monitoring software. This is because these days decent monitoring software can pick up anything that doesn't use rootkit-style techniques to hide, and frankly, we have enough problems with false positives detecting Mouse Jiggler as malware without going down that road.
+
+Basically, if you're looking for something to sneak past your IT department or monitoring software written by anyone who's even half awake, you don't want software. You want hardware. Now, you could buy one of the commercial dedicated mouse jigglers that police departments, etc., use to prevent computers from going idle, automatically logging out, and otherwise inconveniencing law enforcement, but instead, I suggest you buy yourself a Raspberry Pi Pico, and follow the instructions here:
+
+https://www.tomshardware.com/how-to/diy-mouse-jiggler-raspberry-pi-pico
+
+to make yourself a nice convenient little plug-in.
+
 Installation
 ============
 
@@ -12,7 +25,7 @@ The easiest means of installing Mouse Jiggler is using Chocolatey:
 
 `choco install mouse-jiggler`
 
-Bare releases continue to be available at right for installation without administrative permissions, although the .NET 5 Desktop runtime must be installed first.
+Bare releases continue to be available at right for installation without administrative permissions, although the .NET 9 Desktop runtime must be installed first.
 
 Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
 
@@ -25,7 +38,7 @@ A portable version of Mouse Jiggler (i.e., one which does not require the .NET 5
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
-Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **83 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET 5 runtime, you are much better off installing that and the regular version.
+Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **108 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET 5 runtime, you are much better off installing that and the regular version.
 
 The only reason this exists is for those poor sods whose IT department makes it impossible to do that, and may their deities have mercy on their souls.
 
@@ -48,6 +61,7 @@ Options:
   -j, --jiggle               Start with jiggling enabled.
   -m, --minimized            Start minimized (sets persistent option). [default: False]
   -z, --zen                  Start with zen (invisible) jiggling enabled (sets persistent option). [default: False]
+  -r, --random               Start with random timer enabled. [default: False]
   -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 60]
   --version                  Show version information
   -?, -h, --help             Show help and usage information

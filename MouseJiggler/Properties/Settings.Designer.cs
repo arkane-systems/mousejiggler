@@ -58,5 +58,17 @@ namespace ArkaneSystems.MouseJiggler.Properties {
                 this["JigglePeriod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RandomTimer {
+            get {
+                return ((bool)(this["RandomTimer"]));
+            }
+            set {
+                this["RandomTimer"] = value;
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿#region header
+#region header
 
 // MouseJiggler - MainForm.cs
 // 
@@ -24,11 +24,11 @@ public partial class MainForm : Form
     ///     Constructor for use by the form designer.
     /// </summary>
     public MainForm()
-        : this(false, false, false, 1)
+        : this(false, false, false, false, 1)
     {
     }
 
-    public MainForm(bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, int jigglePeriod)
+    public MainForm(bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, bool randomTimer, int jigglePeriod)
     {
         InitializeComponent();
 
@@ -40,6 +40,7 @@ public partial class MainForm : Form
 
         cbMinimize.Checked = minimizeOnStartup;
         cbZen.Checked = zenJiggleEnabled;
+        cbRandom.Checked = randomTimer;
 
         // Validate jigglePeriod before setting it
         if (jigglePeriod >= tbPeriod.Minimum && jigglePeriod <= tbPeriod.Maximum)
@@ -47,7 +48,7 @@ public partial class MainForm : Form
         else
             // Handle invalid jigglePeriod value, e.g., set to default or raise an error
             tbPeriod.Value = tbPeriod.Minimum; // or any default value within the range
-        JigglePeriod = jigglePeriod;
+        JigglePeriod = tbPeriod.Value;
 
         // Component initial setting
         trayMenu.Items[1].Visible = !cbJiggling.Checked;
@@ -119,6 +120,11 @@ public partial class MainForm : Form
         ZenJiggleEnabled = cbZen.Checked;
     }
 
+    private void cbRandom_CheckedChanged(object sender, EventArgs e)
+    {
+        RandomTimer = cbRandom.Checked;
+    }
+
     private void tbPeriod_ValueChanged(object sender, EventArgs e)
     {
         JigglePeriod = tbPeriod.Value;
@@ -152,6 +158,13 @@ public partial class MainForm : Form
             Helpers.Jiggle(-4);
 
         Zig = !Zig;
+
+        if (RandomTimer)
+        {
+            var newInterval = Random.Shared.Next(1, JigglePeriod + 1) * 1000;
+            lbRandom.Text = $@"{newInterval / 1000} s";
+            jiggleTimer.Interval = newInterval;
+        }
     }
 
     #endregion Do the Jiggle!
@@ -194,6 +207,8 @@ public partial class MainForm : Form
 
     private bool _zenJiggleEnabled;
 
+    private bool _randomTimer;
+
     #endregion Settings property backing fields
 
     #region Settings properties
@@ -223,6 +238,20 @@ public partial class MainForm : Form
             Settings.Default.ZenJiggle = value;
             Settings.Default.Save();
             OnPropertyChanged(nameof(ZenJiggleEnabled));
+        }
+    }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+    public bool RandomTimer
+    {
+        get => _randomTimer;
+        set
+        {
+            _randomTimer = value;
+            Settings.Default.RandomTimer = value;
+            Settings.Default.Save();
+            OnPropertyChanged(nameof(RandomTimer));
         }
     }
 

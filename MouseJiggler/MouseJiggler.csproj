@@ -24,6 +24,7 @@ Command line options:
 -j --jiggle: Start with jiggling enabled
 -m --minimized: Start minimized
 -z --zen: Start with zen (invisible) jiggling enabled
+-r --random: Start with random timer enabled
 -s 60 --seconds 60: Set number of seconds for the jiggle interval (1-10800)
     </Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2025</Copyright>

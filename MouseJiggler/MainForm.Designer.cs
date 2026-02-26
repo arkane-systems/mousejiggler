@@ -1,4 +1,4 @@
-﻿
+
 namespace ArkaneSystems.MouseJiggler
 {
     partial class MainForm
@@ -43,6 +43,8 @@ namespace ArkaneSystems.MouseJiggler
             tbPeriod = new System.Windows.Forms.TrackBar();
             cbMinimize = new System.Windows.Forms.CheckBox();
             cbZen = new System.Windows.Forms.CheckBox();
+            cbRandom = new System.Windows.Forms.CheckBox();
+            lbRandom = new System.Windows.Forms.Label();
             trayMenu = new System.Windows.Forms.ContextMenuStrip();
             niTray = new System.Windows.Forms.NotifyIcon(components);
             flpLayout.SuspendLayout();
@@ -119,10 +121,10 @@ namespace ArkaneSystems.MouseJiggler
             // cbJiggling
             // 
             cbJiggling.AutoSize = true;
-            cbJiggling.Location = new System.Drawing.Point(11, 7);
+            cbJiggling.Location = new System.Drawing.Point(3, 7);
             cbJiggling.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             cbJiggling.Name = "cbJiggling";
-            cbJiggling.Size = new System.Drawing.Size(90, 24);
+            cbJiggling.Size = new System.Drawing.Size(78, 24);
             cbJiggling.TabIndex = 0;
             cbJiggling.Text = "Jiggling?";
             cbJiggling.UseVisualStyleBackColor = true;
@@ -135,6 +137,8 @@ namespace ArkaneSystems.MouseJiggler
             panelSettings.Controls.Add(lbPeriod);
             panelSettings.Controls.Add(tbPeriod);
             panelSettings.Controls.Add(cbMinimize);
+            panelSettings.Controls.Add(cbRandom);
+            panelSettings.Controls.Add(lbRandom);
             panelSettings.Controls.Add(cbZen);
             panelSettings.Location = new System.Drawing.Point(9, 56);
             panelSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -189,6 +193,27 @@ namespace ArkaneSystems.MouseJiggler
             cbZen.Text = "Zen jiggle?";
             cbZen.UseVisualStyleBackColor = true;
             cbZen.CheckedChanged += cbZen_CheckedChanged;
+            // 
+            // cbRandom
+            // 
+            cbRandom.AutoSize = true;
+            cbRandom.Location = new System.Drawing.Point(150, 15);
+            cbRandom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            cbRandom.Name = "cbRandom";
+            cbRandom.Size = new System.Drawing.Size(118, 24);
+            cbRandom.TabIndex = 7;
+            cbRandom.Text = "Random Timer";
+            cbRandom.UseVisualStyleBackColor = true;
+            cbRandom.CheckedChanged += cbRandom_CheckedChanged;
+            // 
+            // lbRandom
+            // 
+            lbRandom.AutoSize = true;
+            lbRandom.Location = new System.Drawing.Point(279, 19);
+            lbRandom.Name = "lbRandom";
+            lbRandom.Size = new System.Drawing.Size(27, 20);
+            lbRandom.TabIndex = 8;
+            lbRandom.Text = "";
             //
             // trayMenu
             //
@@ -248,6 +273,7 @@ namespace ArkaneSystems.MouseJiggler
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button cmdTrayify;
         private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.CheckBox cbRandom;
+        private System.Windows.Forms.Label lbRandom;
     }
 }
-
