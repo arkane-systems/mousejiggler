@@ -176,4 +176,4 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 /.vs
-MouseJiggler/.vs/
+/MouseJiggler/.vs

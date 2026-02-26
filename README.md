@@ -59,7 +59,8 @@ Options:
   -j, --jiggle               Start with jiggling enabled.
   -m, --minimized            Start minimized (sets persistent option). [default: False]
   -z, --zen                  Start with zen (invisible) jiggling enabled (sets persistent option). [default: False]
-  -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 1]
+  -r, --random               Start with random timer enabled. [default: False]
+  -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 60]
   --version                  Show version information
   -?, -h, --help             Show help and usage information
 ```
