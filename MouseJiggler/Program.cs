@@ -31,7 +31,7 @@ public static class Program
     public static int Main(string[] args)
     {
         // Attach to the parent process's console so we can display help, version information, and command-line errors.
-        PInvoke.AttachConsole(Helpers.AttachParentProcess);
+        _ = PInvoke.AttachConsole(Helpers.AttachParentProcess);
 
         // Ensure that we are the only instance of the Mouse Jiggler currently running.
         var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
@@ -56,14 +56,14 @@ public static class Program
             instance.Close();
 
             // Detach from the parent console.
-            PInvoke.FreeConsole();
+            _ = PInvoke.FreeConsole();
         }
     }
 
     private static int RootHandler(bool jiggle, bool minimized, bool zen, bool random, int seconds)
     {
         // Prepare Windows Forms to run the application.
-        Application.SetHighDpiMode(HighDpiMode.SystemAware);
+        _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 
@@ -109,7 +109,7 @@ public static class Program
             DefaultValueFactory = _ => Settings.Default.RandomTimer
         };
 
-        // -s:60 --seconds:60
+        // -s 60 --seconds 60
         var optPeriod = new Option<int>("--seconds", "-s")
         {
             Description = "Set X number of seconds for the jiggle interval.",
