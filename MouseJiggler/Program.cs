@@ -60,7 +60,7 @@ public static class Program
         }
     }
 
-    private static int RootHandler(bool jiggle, bool minimized, bool zen, bool random, int seconds)
+    private static int RootHandler(bool jiggle, bool minimized, bool zen, bool random, bool settings, int seconds)
     {
         // Prepare Windows Forms to run the application.
         _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
@@ -72,7 +72,8 @@ public static class Program
             minimized,
             zen,
             random,
-            seconds);
+            seconds,
+            settings);
 
         Application.Run(mainForm);
 
@@ -124,6 +125,13 @@ public static class Program
                 result.AddError("Period cannot be longer than 10800 seconds.");
         });
 
+        // -g --settings
+        var optSettings = new Option<bool>("--settings", "-g")
+        {
+            Description = "Start with settings panel displayed.",
+            DefaultValueFactory = _ => false
+        };
+
         // Create root command.
         var rootCommand = new RootCommand("Virtually jiggles the mouse, making the computer seem not idle.")
         {
@@ -131,7 +139,8 @@ public static class Program
             optMinimized,
             optZen,
             optRandom,
-            optPeriod
+            optPeriod,
+            optSettings
         };
 
         rootCommand.SetAction(parseResult =>
@@ -140,9 +149,10 @@ public static class Program
             var minimized = parseResult.GetValue(optMinimized);
             var zen = parseResult.GetValue(optZen);
             var random = parseResult.GetValue(optRandom);
+            var settings = parseResult.GetValue(optSettings);
             var seconds = parseResult.GetValue(optPeriod);
 
-            return RootHandler(jiggle, minimized, zen, random, seconds);
+            return RootHandler(jiggle, minimized, zen, random, settings, seconds);
         });
 
         // Build the command line parser.
