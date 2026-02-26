@@ -38,7 +38,7 @@ A portable version of Mouse Jiggler (i.e., one which does not require the .NET 5
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
-Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **108 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET runtime, you are much better off installing that and the regular version.
+Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **134 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET runtime, you are much better off installing that and the regular version.
 
 The only reason this exists is for those poor sods whose IT department makes it impossible to do that, and may their deities have mercy on their souls.
 
