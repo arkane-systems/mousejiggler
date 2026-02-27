@@ -43,7 +43,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lblPeriodLabel = new System.Windows.Forms.Label ();
       this.cbMinimize = new System.Windows.Forms.CheckBox ();
       this.cbRandom = new System.Windows.Forms.CheckBox ();
-      this.cbZen = new System.Windows.Forms.CheckBox ();
+      this.cmbJiggleMode = new System.Windows.Forms.ComboBox ();
       this.trayMenu = new System.Windows.Forms.ContextMenuStrip (this.components);
       this.tsmiOpen = new System.Windows.Forms.ToolStripMenuItem ();
       this.tsmiStartJiggling = new System.Windows.Forms.ToolStripMenuItem ();
@@ -135,7 +135,7 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.Controls.Add (this.lblPeriodLabel);
       this.panelSettings.Controls.Add (this.cbMinimize);
       this.panelSettings.Controls.Add (this.cbRandom);
-      this.panelSettings.Controls.Add (this.cbZen);
+      this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Location = new System.Drawing.Point (8, 42);
       this.panelSettings.Name = "panelSettings";
       this.panelSettings.Size = new System.Drawing.Size (289, 92);
@@ -194,48 +194,47 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
       // 
-      // cbZen
+      // cmbJiggleMode
       // 
-      this.cbZen.AutoSize = true;
-      this.cbZen.Location = new System.Drawing.Point (10, 11);
-      this.cbZen.Name = "cbZen";
-      this.cbZen.Size = new System.Drawing.Size (83, 19);
-      this.cbZen.TabIndex = 0;
-      this.cbZen.Text = "Zen jiggle?";
-      this.cbZen.UseVisualStyleBackColor = true;
-      this.cbZen.CheckedChanged += this.cbZen_CheckedChanged;
+      this.cmbJiggleMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmbJiggleMode.FormattingEnabled = true;
+      this.cmbJiggleMode.Location = new System.Drawing.Point (10, 7);
+      this.cmbJiggleMode.Name = "cmbJiggleMode";
+      this.cmbJiggleMode.Size = new System.Drawing.Size (115, 23);
+      this.cmbJiggleMode.TabIndex = 0;
+      this.cmbJiggleMode.SelectedIndexChanged += this.cmbJiggleMode_SelectedIndexChanged;
       // 
       // trayMenu
       // 
       this.trayMenu.Items.AddRange (new System.Windows.Forms.ToolStripItem[] { this.tsmiOpen, this.tsmiStartJiggling, this.tsmiStopJiggling, this.tsmiExit });
       this.trayMenu.Name = "trayMenu";
-      this.trayMenu.Size = new System.Drawing.Size (181, 114);
+      this.trayMenu.Size = new System.Drawing.Size (143, 92);
       // 
       // tsmiOpen
       // 
       this.tsmiOpen.Name = "tsmiOpen";
-      this.tsmiOpen.Size = new System.Drawing.Size (180, 22);
+      this.tsmiOpen.Size = new System.Drawing.Size (142, 22);
       this.tsmiOpen.Text = "Open";
       this.tsmiOpen.Click += this.niTray_DoubleClick;
       // 
       // tsmiStartJiggling
       // 
       this.tsmiStartJiggling.Name = "tsmiStartJiggling";
-      this.tsmiStartJiggling.Size = new System.Drawing.Size (180, 22);
+      this.tsmiStartJiggling.Size = new System.Drawing.Size (142, 22);
       this.tsmiStartJiggling.Text = "Start Jiggling";
       this.tsmiStartJiggling.Click += this.trayMenu_ClickStartJiggling;
       // 
       // tsmiStopJiggling
       // 
       this.tsmiStopJiggling.Name = "tsmiStopJiggling";
-      this.tsmiStopJiggling.Size = new System.Drawing.Size (180, 22);
+      this.tsmiStopJiggling.Size = new System.Drawing.Size (142, 22);
       this.tsmiStopJiggling.Text = "Stop Jiggling";
       this.tsmiStopJiggling.Click += this.trayMenu_ClickStopJiggling;
       // 
       // tsmiExit
       // 
       this.tsmiExit.Name = "tsmiExit";
-      this.tsmiExit.Size = new System.Drawing.Size (180, 22);
+      this.tsmiExit.Size = new System.Drawing.Size (142, 22);
       this.tsmiExit.Text = "Exit";
       this.tsmiExit.Click += this.trayMenu_ClickExit;
       // 
@@ -281,7 +280,7 @@ namespace ArkaneSystems.MouseJiggler
     private System.Windows.Forms.NumericUpDown nudPeriod;
     private System.Windows.Forms.Label lblPeriodLabel;
     private System.Windows.Forms.CheckBox cbMinimize;
-    private System.Windows.Forms.CheckBox cbZen;
+    private System.Windows.Forms.ComboBox cmbJiggleMode;
     private System.Windows.Forms.Panel panelBase;
     private System.Windows.Forms.CheckBox cbSettings;
     private System.Windows.Forms.CheckBox cbJiggling;

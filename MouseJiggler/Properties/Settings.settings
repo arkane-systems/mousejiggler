@@ -5,9 +5,6 @@
     <Setting Name="MinimizeOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ZenJiggle" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="JigglePeriod" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60</Value>
     </Setting>
@@ -15,7 +12,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="JiggleMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NotConfigured</Value>
+      <Value Profile="(Default)">Normal</Value>
     </Setting>
   </Settings>
 </SettingsFile>

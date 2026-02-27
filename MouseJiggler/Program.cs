@@ -69,7 +69,7 @@ public static class Program
     }
   }
 
-  private static int RootHandler (bool jiggle, bool minimized, bool zen, bool random, bool settings, int seconds)
+  private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds)
   {
     // Prepare Windows Forms to run the application.
     _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
@@ -83,7 +83,7 @@ public static class Program
     // Run the application.
     var mainForm = new MainForm(jiggle,
             minimized,
-            zen,
+            mode,
             random,
             seconds,
             settings);
@@ -109,17 +109,17 @@ public static class Program
       DefaultValueFactory = _ => Settings.Default.MinimizeOnStartup
     };
 
-    // -z --zen
-    var optZen = new Option<bool>("--zen", "-z")
+    // -o --mode
+    var optMode = new Option<JiggleMode>("--mode", "-o")
     {
-      Description = "Start with zen (invisible) jiggling enabled.",
-      DefaultValueFactory = _ => Settings.Default.ZenJiggle
+      Description = "Start with the specified jiggle mode enabled.",
+      DefaultValueFactory = _ => Enum.TryParse<JiggleMode>(Settings.Default.JiggleMode, true, out JiggleMode m) ? m : JiggleMode.Normal
     };
 
     // -r --random
     var optRandom = new Option<bool>("--random", "-r")
     {
-      Description = "Start with random timer enabled.",
+      Description = "Start with random variation enabled.",
       DefaultValueFactory = _ => Settings.Default.RandomTimer
     };
 
@@ -150,7 +150,7 @@ public static class Program
         {
             optJiggling,
             optMinimized,
-            optZen,
+            optMode,
             optRandom,
             optPeriod,
             optSettings
@@ -166,12 +166,12 @@ public static class Program
     {
       var jiggle = parseResult.GetValue(optJiggling);
       var minimized = parseResult.GetValue(optMinimized);
-      var zen = parseResult.GetValue(optZen);
+      var mode = parseResult.GetValue(optMode);
       var random = parseResult.GetValue(optRandom);
       var settings = parseResult.GetValue(optSettings);
       var seconds = parseResult.GetValue(optPeriod);
 
-      return RootHandler (jiggle, minimized, zen, random, settings, seconds);
+      return RootHandler (jiggle, minimized, mode, random, settings, seconds);
     });
 
     // Build the command line parser.

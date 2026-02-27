@@ -24,13 +24,20 @@ public partial class MainForm : Form
   ///     Constructor for use by the form designer.
   /// </summary>
   public MainForm ()
-      : this (false, false, false, false, 1, false)
+      : this (false, false, JiggleMode.Normal, false, 1, false)
   {
   }
 
-  public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, bool randomTimer, int jigglePeriod, bool showSettings)
+  public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, bool showSettings)
   {
     this.InitializeComponent ();
+
+    // Initialize JiggleMode combo box with enum values
+    this.cmbJiggleMode.Items.Clear ();
+    foreach (JiggleMode mode in Enum.GetValues (typeof (JiggleMode)))
+    {
+      this.cmbJiggleMode.Items.Add (mode);
+    }
 
     // Jiggling on startup?
     this.JiggleOnStartup = jiggleOnStartup;
@@ -39,7 +46,7 @@ public partial class MainForm : Form
     // We do this by setting the controls, and letting them set the properties.
 
     this.cbMinimize.Checked = minimizeOnStartup;
-    this.cbZen.Checked = zenJiggleEnabled;
+    this.cmbJiggleMode.SelectedItem = jiggleMode;
     this.cbRandom.Checked = randomTimer;
 
     // Validate jigglePeriod before setting it
@@ -78,9 +85,9 @@ public partial class MainForm : Form
     }
     else
     {
-      var ww = this.ZenJiggleEnabled ? "with" : "without";
+      var mode = this.JiggleMode.ToString ();
       var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      this.niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} {ww} Zen.";
+      this.niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode}.";
     }
   }
 
@@ -108,7 +115,11 @@ public partial class MainForm : Form
 
   private void cbMinimize_CheckedChanged (object sender, EventArgs e) => this.MinimizeOnStartup = this.cbMinimize.Checked;
 
-  private void cbZen_CheckedChanged (object sender, EventArgs e) => this.ZenJiggleEnabled = this.cbZen.Checked;
+  private void cmbJiggleMode_SelectedIndexChanged (object sender, EventArgs e)
+  {
+    if (this.cmbJiggleMode.SelectedItem is JiggleMode mode)
+      this.JiggleMode = mode;
+  }
 
   private void cbRandom_CheckedChanged (object sender, EventArgs e) => this.RandomTimer = this.cbRandom.Checked;
 
@@ -134,7 +145,7 @@ public partial class MainForm : Form
 
   private void jiggleTimer_Tick (object sender, EventArgs e)
   {
-    if (this.ZenJiggleEnabled)
+    if (this.JiggleMode == JiggleMode.Zen)
       Helpers.Jiggle (0);
     else if (this.Zig)
       Helpers.Jiggle (4);
@@ -187,6 +198,8 @@ public partial class MainForm : Form
 
   private bool _randomTimer;
 
+  private JiggleMode _jiggleMode;
+
   #endregion Settings property backing fields
 
   #region Settings properties
@@ -205,19 +218,6 @@ public partial class MainForm : Form
     }
   }
 
-  [DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
-
-  public bool ZenJiggleEnabled
-  {
-    get => this._zenJiggleEnabled;
-    set
-    {
-      this._zenJiggleEnabled = value;
-      Settings.Default.ZenJiggle = value;
-      Settings.Default.Save ();
-      this.OnPropertyChanged (nameof (this.ZenJiggleEnabled));
-    }
-  }
 
   [DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
 
@@ -230,6 +230,24 @@ public partial class MainForm : Form
       Settings.Default.RandomTimer = value;
       Settings.Default.Save ();
       this.OnPropertyChanged (nameof (this.RandomTimer));
+    }
+  }
+
+  [DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
+
+  public JiggleMode JiggleMode
+  {
+    get => this._jiggleMode;
+    set
+    {
+      // Validate that the value is a defined enum value
+      if (!Enum.IsDefined (value))
+        throw new ArgumentOutOfRangeException (nameof (value), value, "Invalid JiggleMode value");
+
+      this._jiggleMode = value;
+      Settings.Default.JiggleMode = value.ToString ();
+      Settings.Default.Save ();
+      this.OnPropertyChanged (nameof (this.JiggleMode));
     }
   }
 
