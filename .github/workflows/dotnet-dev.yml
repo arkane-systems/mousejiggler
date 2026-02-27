@@ -19,7 +19,7 @@ jobs:
     runs-on: windows-latest
     
     env:
-      Solution_Name: MouseJiggler.sln
+      Solution_Name: MouseJiggler/MouseJiggler.sln
 
     steps:
     - name: Checkout
