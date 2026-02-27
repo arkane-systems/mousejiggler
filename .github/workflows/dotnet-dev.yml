@@ -1,4 +1,6 @@
-# Build and package the application for every push to dev.
+# New workflow for dev branch builds.
+# This is a separate workflow from any master/main branch workflow,
+# added specifically to build the application on every push to dev.
 
 name: Dev Builds
 
