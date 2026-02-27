@@ -34,8 +34,10 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 10
+        dotnet-quality: ga
         cache: true
+        cache-dependency-path: '**/packages.lock.json'
 
     # Restore dependencies
     - name: Restore dependencies
