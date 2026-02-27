@@ -94,7 +94,7 @@ public partial class MainForm : Form
     {
       var mode = this.JiggleMode.ToString ();
       var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      this.niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode}.";
+      this.niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
     }
   }
 
