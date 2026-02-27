@@ -26,29 +26,29 @@ jobs:
       Solution_Name: MouseJiggler/MouseJiggler.sln
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 10
-        dotnet-quality: ga
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10
+          dotnet-quality: ga
 
-    # Restore dependencies
-    - name: Restore dependencies
-      run: dotnet restore $env:Solution_Name
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore $env:Solution_Name
 
-    # Build application
-    - name: Build application (standard)
-      run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} --no-restore
+      # Build application
+      - name: Build application (standard)
+        run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} --no-restore
 
-    # Upload build artifacts
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: Build Artifacts
-        path: ${{ env.Solution_Path }}\bin\${{ matrix.configuration }}\
+      # Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build Artifacts
+          path: ${{ env.Solution_Path }}\bin\${{ matrix.configuration }}\
