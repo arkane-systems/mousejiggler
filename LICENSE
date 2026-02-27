@@ -1,5 +1,5 @@
-Microsoft Public License (Ms-PL)
-================================
+Microsoft Public License (Ms-PL) / Modified
+===========================================
 
 This license governs use of the accompanying software. If you use the software, you accept this license. If 
 you do not accept the license, do not use the software.
@@ -47,3 +47,11 @@ in the software or derivative works of the contribution in the software.
     warranties, guarantees or conditions. You may have additional consumer rights under your local laws 
     which this license cannot change. To the extent permitted under your local laws, the contributors 
     exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+
+4. Special Usage Limitation
+
+Mouse Jiggler is not to be used by any agency of the United States government, or by any employee of the
+United States government while engaged in their employment, or on any system owned or controlled by the
+United States government, or by any entity doing business with the United States government in a manner
+that would subject Mouse Jiggler or its developers to any regulations or laws governing software used by
+the United States government.
