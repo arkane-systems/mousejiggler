@@ -43,12 +43,12 @@ public partial class MainForm : Form
     cbRandom.Checked = randomTimer;
 
     // Validate jigglePeriod before setting it
-    if (jigglePeriod >= tbPeriod.Minimum && jigglePeriod <= tbPeriod.Maximum)
-      tbPeriod.Value = jigglePeriod;
+    if (jigglePeriod >= nudPeriod.Minimum && jigglePeriod <= nudPeriod.Maximum)
+      nudPeriod.Value = jigglePeriod;
     else
       // Handle invalid jigglePeriod value, e.g., set to default or raise an error
-      tbPeriod.Value = tbPeriod.Minimum; // or any default value within the range
-    JigglePeriod = tbPeriod.Value;
+      nudPeriod.Value = nudPeriod.Minimum; // or any default value within the range
+    JigglePeriod = (int)nudPeriod.Value;
 
     // Show settings panel on startup if requested
     if (showSettings)
@@ -133,9 +133,9 @@ public partial class MainForm : Form
     RandomTimer = cbRandom.Checked;
   }
 
-  private void tbPeriod_ValueChanged (object sender, EventArgs e)
+  private void nudPeriod_ValueChanged (object sender, EventArgs e)
   {
-    JigglePeriod = tbPeriod.Value;
+    JigglePeriod = (int)nudPeriod.Value;
   }
 
   #endregion Property synchronization
