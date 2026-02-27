@@ -13,6 +13,8 @@ using ArkaneSystems.MouseJiggler.Properties;
 using JetBrains.Annotations;
 using System;
 using System.CommandLine;
+using System.CommandLine.Help;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Windows.Win32;
@@ -153,6 +155,12 @@ public static class Program
             optPeriod,
             optSettings
         };
+
+    // Replace default help action with our spaced help action.
+    var ha = (from o in rootCommand.Options
+              where o is HelpOption
+              select o).First();
+    ha.Action = new SpacedHelpAction ((HelpAction)ha.Action!);
 
     rootCommand.SetAction (parseResult =>
     {
