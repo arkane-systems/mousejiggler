@@ -34,9 +34,9 @@ public partial class MainForm : Form
 
     // Initialize JiggleMode combo box with enum values
     this.cmbJiggleMode.Items.Clear ();
-    foreach (JiggleMode mode in Enum.GetValues (typeof (JiggleMode)))
+    foreach (JiggleMode mode in Enum.GetValues<JiggleMode> ())
     {
-      this.cmbJiggleMode.Items.Add (mode);
+      _ = this.cmbJiggleMode.Items.Add (mode);
     }
 
     // Jiggling on startup?
@@ -118,7 +118,17 @@ public partial class MainForm : Form
   private void cmbJiggleMode_SelectedIndexChanged (object sender, EventArgs e)
   {
     if (this.cmbJiggleMode.SelectedItem is JiggleMode mode)
+    {
       this.JiggleMode = mode;
+      this.Pattern = mode switch
+      {
+        JiggleMode.Normal => JigglePatterns.Normal,
+        JiggleMode.Zen => JigglePatterns.Zen,
+        JiggleMode.Circle => JigglePatterns.Circle,
+        JiggleMode.Linear => JigglePatterns.Linear,
+        _ => throw new ArgumentOutOfRangeException (null, mode, "No pattern exists for specified mode.")
+      };
+    }
   }
 
   private void cbRandom_CheckedChanged (object sender, EventArgs e) => this.RandomTimer = this.cbRandom.Checked;
@@ -129,10 +139,12 @@ public partial class MainForm : Form
 
   #region Do the Jiggle!
 
-  protected bool Zig = true;
+  protected (int deltax, int deltay)[] Pattern = null!;
+  protected int Step = 0;
 
   private void cbJiggling_CheckedChanged (object sender, EventArgs e)
   {
+    this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateTrayMenu ();
   }
@@ -145,14 +157,13 @@ public partial class MainForm : Form
 
   private void jiggleTimer_Tick (object sender, EventArgs e)
   {
-    if (this.JiggleMode == JiggleMode.Zen)
-      Helpers.Jiggle (0, 0);
-    else if (this.Zig)
-      Helpers.Jiggle (4, 4);
-    else //zag
-      Helpers.Jiggle (-4, -4);
+    var (deltax, deltay) = this.Pattern[this.Step];
+    this.Step++;
 
-    this.Zig = !this.Zig;
+    if (this.Step >= this.Pattern.Length)
+      this.Step = 0;
+
+    Helpers.Jiggle (deltax, deltay);
 
     if (this.RandomTimer)
     {
@@ -160,6 +171,8 @@ public partial class MainForm : Form
       this.lbPeriod.Text = $@"{newInterval / 1000} s";
       this.jiggleTimer.Interval = newInterval;
     }
+    else
+      this.jiggleTimer.Interval = this.JigglePeriod * 1000;
   }
 
   #endregion Do the Jiggle!
@@ -194,8 +207,6 @@ public partial class MainForm : Form
 
   private bool _minimizeOnStartup;
 
-  private bool _zenJiggleEnabled;
-
   private bool _randomTimer;
 
   private JiggleMode _jiggleMode;
@@ -217,7 +228,6 @@ public partial class MainForm : Form
       this.OnPropertyChanged (nameof (this.MinimizeOnStartup));
     }
   }
-
 
   [DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
 
