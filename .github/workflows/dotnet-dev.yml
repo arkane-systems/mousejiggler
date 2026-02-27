@@ -17,11 +17,12 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Debug]
 
     runs-on: windows-latest
     
     env:
+      Solution_Path: MouseJiggler
       Solution_Name: MouseJiggler/MouseJiggler.sln
 
     steps:
@@ -50,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Build Artifacts
-        path: ${{ env.Solution_Name }}\bin\${{ matrix.configuration }}\
+        path: ${{ env.Solution_Path }}\bin\${{ matrix.configuration }}\
