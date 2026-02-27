@@ -28,7 +28,7 @@ Command line options:
 -s 60 --seconds 60: Set number of seconds for the jiggle interval (1-10800)
 -g --settings: Start with settings panel displayed
     </Description>
-    <Copyright>Copyright © Alistair J. R. Young 2007-2025</Copyright>
+    <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/arkane-systems/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
