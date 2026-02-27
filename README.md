@@ -25,7 +25,7 @@ The easiest means of installing Mouse Jiggler is using Chocolatey:
 
 `choco install mouse-jiggler`
 
-Bare releases continue to be available at right for installation without administrative permissions, although the .NET 9 Desktop runtime must be installed first.
+Bare releases continue to be available at right for installation without administrative permissions, although the .NET 10 Desktop runtime must be installed first.
 
 Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
 
@@ -59,10 +59,10 @@ Usage:
 
 Options:
   -j, --jiggle               Start with jiggling enabled.
-  -m, --minimized            Start minimized (sets persistent option). [default: False]
-  -z, --zen                  Start with zen (invisible) jiggling enabled (sets persistent option). [default: False]
+  -m, --minimized            Start minimized. [default: False]
+  -z, --zen                  Start with zen (invisible) jiggling enabled. [default: False]
   -r, --random               Start with random timer enabled. [default: False]
-  -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 60]
+  -s, --seconds <seconds>    Set number of seconds for the jiggle interval. [default: 60]
   -g, --settings             Start with settings panel displayed.
   --version                  Show version information
   -?, -h, --help             Show help and usage information
