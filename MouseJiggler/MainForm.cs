@@ -9,10 +9,10 @@
 
 #region using
 
+using ArkaneSystems.MouseJiggler.Properties;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using ArkaneSystems.MouseJiggler.Properties;
 
 #endregion
 
@@ -30,113 +30,89 @@ public partial class MainForm : Form
 
   public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, bool zenJiggleEnabled, bool randomTimer, int jigglePeriod, bool showSettings)
   {
-    InitializeComponent ();
+    this.InitializeComponent ();
 
     // Jiggling on startup?
-    JiggleOnStartup = jiggleOnStartup;
+    this.JiggleOnStartup = jiggleOnStartup;
 
     // Set settings properties
     // We do this by setting the controls, and letting them set the properties.
 
-    cbMinimize.Checked = minimizeOnStartup;
-    cbZen.Checked = zenJiggleEnabled;
-    cbRandom.Checked = randomTimer;
+    this.cbMinimize.Checked = minimizeOnStartup;
+    this.cbZen.Checked = zenJiggleEnabled;
+    this.cbRandom.Checked = randomTimer;
 
     // Validate jigglePeriod before setting it
-    if (jigglePeriod >= nudPeriod.Minimum && jigglePeriod <= nudPeriod.Maximum)
-      nudPeriod.Value = jigglePeriod;
+    if (jigglePeriod >= this.nudPeriod.Minimum && jigglePeriod <= this.nudPeriod.Maximum)
+      this.nudPeriod.Value = jigglePeriod;
     else
       // Handle invalid jigglePeriod value, e.g., set to default or raise an error
-      nudPeriod.Value = nudPeriod.Minimum; // or any default value within the range
-    JigglePeriod = (int)nudPeriod.Value;
+      this.nudPeriod.Value = this.nudPeriod.Minimum; // or any default value within the range
+    this.JigglePeriod = (int)this.nudPeriod.Value;
 
     // Show settings panel on startup if requested
     if (showSettings)
     {
-      cbSettings.Checked = true;
-      panelSettings.Visible = true;
+      this.cbSettings.Checked = true;
+      this.panelSettings.Visible = true;
     }
 
     // Component initial setting
-    trayMenu.Items[1].Visible = !cbJiggling.Checked;
-    trayMenu.Items[2].Visible = cbJiggling.Checked;
+    this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
+    this.trayMenu.Items[2].Visible = this.cbJiggling.Checked;
   }
 
   public bool JiggleOnStartup { get; }
 
   private void MainForm_Load (object sender, EventArgs e)
   {
-    if (JiggleOnStartup)
-      cbJiggling.Checked = true;
+    if (this.JiggleOnStartup)
+      this.cbJiggling.Checked = true;
   }
 
   private void UpdateNotificationAreaText ()
   {
-    if (!cbJiggling.Checked)
+    if (!this.cbJiggling.Checked)
     {
-      niTray.Text = @"Not jiggling the mouse.";
+      this.niTray.Text = @"Not jiggling the mouse.";
     }
     else
     {
-      var ww = ZenJiggleEnabled ? "with" : "without";
-      var rnd = RandomTimer ? $@" with random variation," : string.Empty;
-      niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} {ww} Zen.";
+      var ww = this.ZenJiggleEnabled ? "with" : "without";
+      var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
+      this.niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} {ww} Zen.";
     }
   }
 
-  private void cmdAbout_Click (object sender, EventArgs e)
-  {
-    new AboutBox ().ShowDialog (this);
-  }
+  private void cmdAbout_Click (object sender, EventArgs e) => new AboutBox ().ShowDialog (this);
 
-  private void trayMenu_ClickOpen (object sender, EventArgs e)
-  {
-    niTray_DoubleClick (sender, e);
-  }
+  private void trayMenu_ClickOpen (object sender, EventArgs e) => this.niTray_DoubleClick (sender, e);
 
-  private void trayMenu_ClickExit (object sender, EventArgs e)
-  {
-    Application.Exit ();
-  }
+  private void trayMenu_ClickExit (object sender, EventArgs e) => Application.Exit ();
 
   private void trayMenu_ClickStartJuggling (object sender, EventArgs e)
   {
-    cbJiggling.Checked = true;
-    UpdateNotificationAreaText ();
+    this.cbJiggling.Checked = true;
+    this.UpdateNotificationAreaText ();
   }
 
   private void trayMenu_ClickStopJuggling (object sender, EventArgs e)
   {
-    cbJiggling.Checked = false;
-    UpdateNotificationAreaText ();
+    this.cbJiggling.Checked = false;
+    this.UpdateNotificationAreaText ();
   }
 
   #region Property synchronization
 
-  private void cbSettings_CheckedChanged (object sender, EventArgs e)
-  {
-    panelSettings.Visible = cbSettings.Checked;
-  }
+  private void cbSettings_CheckedChanged (object sender, EventArgs e) => this.panelSettings.Visible = this.cbSettings.Checked;
 
-  private void cbMinimize_CheckedChanged (object sender, EventArgs e)
-  {
-    MinimizeOnStartup = cbMinimize.Checked;
-  }
+  private void cbMinimize_CheckedChanged (object sender, EventArgs e) => this.MinimizeOnStartup = this.cbMinimize.Checked;
 
-  private void cbZen_CheckedChanged (object sender, EventArgs e)
-  {
-    ZenJiggleEnabled = cbZen.Checked;
-  }
+  private void cbZen_CheckedChanged (object sender, EventArgs e) => this.ZenJiggleEnabled = this.cbZen.Checked;
 
-  private void cbRandom_CheckedChanged (object sender, EventArgs e)
-  {
-    RandomTimer = cbRandom.Checked;
-  }
+  private void cbRandom_CheckedChanged (object sender, EventArgs e) => this.RandomTimer = this.cbRandom.Checked;
 
-  private void nudPeriod_ValueChanged (object sender, EventArgs e)
-  {
-    JigglePeriod = (int)nudPeriod.Value;
-  }
+  private void nudPeriod_ValueChanged (object sender, EventArgs e) => this.JigglePeriod = (int)this.nudPeriod.Value;
 
   #endregion Property synchronization
 
@@ -146,32 +122,32 @@ public partial class MainForm : Form
 
   private void cbJiggling_CheckedChanged (object sender, EventArgs e)
   {
-    jiggleTimer.Enabled = cbJiggling.Checked;
-    UpdateTrayMenu ();
+    this.jiggleTimer.Enabled = this.cbJiggling.Checked;
+    this.UpdateTrayMenu ();
   }
 
   private void UpdateTrayMenu ()
   {
-    trayMenu.Items[1].Visible = !cbJiggling.Checked;
-    trayMenu.Items[2].Visible = cbJiggling.Checked;
+    this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
+    this.trayMenu.Items[2].Visible = this.cbJiggling.Checked;
   }
 
   private void jiggleTimer_Tick (object sender, EventArgs e)
   {
-    if (ZenJiggleEnabled)
+    if (this.ZenJiggleEnabled)
       Helpers.Jiggle (0);
-    else if (Zig)
+    else if (this.Zig)
       Helpers.Jiggle (4);
     else //zag
       Helpers.Jiggle (-4);
 
-    Zig = !Zig;
+    this.Zig = !this.Zig;
 
-    if (RandomTimer)
+    if (this.RandomTimer)
     {
-      var newInterval = Random.Shared.Next(1, JigglePeriod + 1) * 1000;
-      lbRandom.Text = $@"{newInterval / 1000} s";
-      jiggleTimer.Interval = newInterval;
+      var newInterval = Random.Shared.Next(1, this.JigglePeriod + 1) * 1000;
+      this.lbRandom.Text = $@"{newInterval / 1000} s";
+      this.jiggleTimer.Interval = newInterval;
     }
   }
 
@@ -179,30 +155,24 @@ public partial class MainForm : Form
 
   #region Minimize and restore
 
-  private void cmdTrayify_Click (object sender, EventArgs e)
-  {
-    MinimizeToTray ();
-  }
+  private void cmdTrayify_Click (object sender, EventArgs e) => this.MinimizeToTray ();
 
-  private void niTray_DoubleClick (object sender, EventArgs e)
-  {
-    RestoreFromTray ();
-  }
+  private void niTray_DoubleClick (object sender, EventArgs e) => this.RestoreFromTray ();
 
   private void MinimizeToTray ()
   {
-    Visible = false;
-    ShowInTaskbar = false;
-    niTray.Visible = true;
+    this.Visible = false;
+    this.ShowInTaskbar = false;
+    this.niTray.Visible = true;
 
-    UpdateNotificationAreaText ();
+    this.UpdateNotificationAreaText ();
   }
 
   private void RestoreFromTray ()
   {
-    Visible = true;
-    ShowInTaskbar = true;
-    niTray.Visible = false;
+    this.Visible = true;
+    this.ShowInTaskbar = true;
+    this.niTray.Visible = false;
   }
 
   #endregion Minimize and restore
@@ -225,13 +195,13 @@ public partial class MainForm : Form
 
   public bool MinimizeOnStartup
   {
-    get => _minimizeOnStartup;
+    get => this._minimizeOnStartup;
     set
     {
-      _minimizeOnStartup = value;
+      this._minimizeOnStartup = value;
       Settings.Default.MinimizeOnStartup = value;
       Settings.Default.Save ();
-      OnPropertyChanged (nameof (MinimizeOnStartup));
+      this.OnPropertyChanged (nameof (this.MinimizeOnStartup));
     }
   }
 
@@ -239,13 +209,13 @@ public partial class MainForm : Form
 
   public bool ZenJiggleEnabled
   {
-    get => _zenJiggleEnabled;
+    get => this._zenJiggleEnabled;
     set
     {
-      _zenJiggleEnabled = value;
+      this._zenJiggleEnabled = value;
       Settings.Default.ZenJiggle = value;
       Settings.Default.Save ();
-      OnPropertyChanged (nameof (ZenJiggleEnabled));
+      this.OnPropertyChanged (nameof (this.ZenJiggleEnabled));
     }
   }
 
@@ -253,13 +223,13 @@ public partial class MainForm : Form
 
   public bool RandomTimer
   {
-    get => _randomTimer;
+    get => this._randomTimer;
     set
     {
-      _randomTimer = value;
+      this._randomTimer = value;
       Settings.Default.RandomTimer = value;
       Settings.Default.Save ();
-      OnPropertyChanged (nameof (RandomTimer));
+      this.OnPropertyChanged (nameof (this.RandomTimer));
     }
   }
 
@@ -267,23 +237,20 @@ public partial class MainForm : Form
 
   public int JigglePeriod
   {
-    get => _jigglePeriod;
+    get => this._jigglePeriod;
     set
     {
-      _jigglePeriod = value;
+      this._jigglePeriod = value;
       Settings.Default.JigglePeriod = value;
       Settings.Default.Save ();
 
-      jiggleTimer.Interval = value * 1000;
-      lbPeriod.Text = $@"{value} s";
-      OnPropertyChanged (nameof (JigglePeriod));
+      this.jiggleTimer.Interval = value * 1000;
+      this.lbPeriod.Text = $@"{value} s";
+      this.OnPropertyChanged (nameof (this.JigglePeriod));
     }
   }
 
-  private void OnPropertyChanged (string propertyName)
-  {
-    PropertyChanged?.Invoke (this, new PropertyChangedEventArgs (propertyName));
-  }
+  private void OnPropertyChanged (string propertyName) => PropertyChanged?.Invoke (this, new PropertyChangedEventArgs (propertyName));
 
   public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -295,10 +262,10 @@ public partial class MainForm : Form
 
   private void MainForm_Shown (object sender, EventArgs e)
   {
-    if (_firstShown && MinimizeOnStartup)
-      MinimizeToTray ();
+    if (this._firstShown && this.MinimizeOnStartup)
+      this.MinimizeToTray ();
 
-    _firstShown = false;
+    this._firstShown = false;
   }
 
   #endregion

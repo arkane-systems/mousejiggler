@@ -21,49 +21,50 @@ namespace ArkaneSystems.MouseJiggler;
 
 internal static class Helpers
 {
-    #region Console management
+  #region Console management
 
-    /// <summary>
-    ///     Constant value signifying a request to attach to the console of the parent process.
-    /// </summary>
-    internal const uint AttachParentProcess = uint.MaxValue;
+  /// <summary>
+  ///     Constant value signifying a request to attach to the console of the parent process.
+  /// </summary>
+  internal const uint AttachParentProcess = uint.MaxValue;
 
-    #endregion Console management
+  #endregion Console management
 
-    #region Jiggling
+  #region Jiggling
 
-    /// <summary>
-    ///     Jiggle the mouse; i.e., fake a mouse movement event.
-    /// </summary>
-    /// <param name="delta">The mouse will be moved by delta pixels along both X and Y.</param>
-    internal static void Jiggle(int delta)
+  /// <summary>
+  ///     Jiggle the mouse; i.e., fake a mouse movement event.
+  /// </summary>
+  /// <param name="delta">The mouse will be moved by delta pixels along both X and Y.</param>
+  internal static void Jiggle (int delta)
+  {
+    var inp = new INPUT
     {
-        var inp = new INPUT
+      type = INPUT_TYPE.INPUT_MOUSE,
+      Anonymous = new INPUT._Anonymous_e__Union
+      {
+        mi = new MOUSEINPUT
         {
-          type = INPUT_TYPE.INPUT_MOUSE,
-          Anonymous = new INPUT._Anonymous_e__Union
-          {
-            mi = new MOUSEINPUT
-            {
-              dx = delta,
-              dy = delta,
-              mouseData = 0,
-              dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE,
-              time = 0,
-              dwExtraInfo = 0
-            }
-          }
-        };
-    
-        var returnValue = PInvoke.SendInput(new ReadOnlySpan<INPUT>(in inp), Marshal.SizeOf<INPUT>());
+          dx = delta,
+          dy = delta,
+          mouseData = 0,
+          dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE,
+          time = 0,
+          dwExtraInfo = 0
+        }
+      }
+    };
 
-        if (returnValue == 1) return;
-        var errorCode = Marshal.GetLastWin32Error();
+    var returnValue = PInvoke.SendInput(new ReadOnlySpan<INPUT>(in inp), Marshal.SizeOf<INPUT>());
 
-        Debugger.Log(1,
-            "Jiggle",
-            $"failed to insert event to input stream; retval={returnValue}, errcode=0x{errorCode:x8}\n");
-    }
+    if (returnValue == 1)
+      return;
+    var errorCode = Marshal.GetLastWin32Error();
 
-    #endregion Jiggling
+    Debugger.Log (1,
+        "Jiggle",
+        $"failed to insert event to input stream; retval={returnValue}, errcode=0x{errorCode:x8}\n");
+  }
+
+  #endregion Jiggling
 }
