@@ -8,7 +8,7 @@ on:
   push:
     branches:
       - 'dev'
-      - 'dev**'
+      - 'dev/**'
   workflow_dispatch:
 
 jobs:
