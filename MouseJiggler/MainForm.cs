@@ -79,7 +79,7 @@ public partial class MainForm : Form
         else
         {
             var ww = ZenJiggleEnabled ? "with" : "without";
-            niTray.Text = $@"Jiggling mouse every {JigglePeriod} s, {ww} Zen.";
+            niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s, {ww} Zen.";
         }
     }
 
