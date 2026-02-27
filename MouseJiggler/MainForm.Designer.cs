@@ -156,6 +156,7 @@ namespace ArkaneSystems.MouseJiggler
       this.nudPeriod.Name = "nudPeriod";
       this.nudPeriod.Size = new System.Drawing.Size (147, 23);
       this.nudPeriod.TabIndex = 6;
+      this.nudPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
       this.nudPeriod.Value = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudPeriod.ValueChanged += this.nudPeriod_ValueChanged;
       // 
