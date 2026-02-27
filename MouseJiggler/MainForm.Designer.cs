@@ -1,24 +1,24 @@
 namespace ArkaneSystems.MouseJiggler
 {
-    partial class MainForm
-    {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+  partial class MainForm
+  {
+    /// <summary>
+    ///  Required designer variable.
+    /// </summary>
+    private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (this.components != null))
-            {
-                this.components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    /// <summary>
+    ///  Clean up any resources being used.
+    /// </summary>
+    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+    protected override void Dispose (bool disposing)
+    {
+      if (disposing && (this.components != null))
+      {
+        this.components.Dispose ();
+      }
+      base.Dispose (disposing);
+    }
 
     #region Windows Form Designer generated code
 
@@ -43,14 +43,18 @@ namespace ArkaneSystems.MouseJiggler
       this.lblPeriodLabel = new System.Windows.Forms.Label ();
       this.cbMinimize = new System.Windows.Forms.CheckBox ();
       this.cbRandom = new System.Windows.Forms.CheckBox ();
-      this.lbRandom = new System.Windows.Forms.Label ();
       this.cbZen = new System.Windows.Forms.CheckBox ();
       this.trayMenu = new System.Windows.Forms.ContextMenuStrip (this.components);
+      this.tsmiOpen = new System.Windows.Forms.ToolStripMenuItem ();
+      this.tsmiStartJiggling = new System.Windows.Forms.ToolStripMenuItem ();
+      this.tsmiStopJiggling = new System.Windows.Forms.ToolStripMenuItem ();
+      this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem ();
       this.niTray = new System.Windows.Forms.NotifyIcon (this.components);
       this.flpLayout.SuspendLayout ();
       this.panelBase.SuspendLayout ();
       this.panelSettings.SuspendLayout ();
       ((System.ComponentModel.ISupportInitialize)this.nudPeriod).BeginInit ();
+      this.trayMenu.SuspendLayout ();
       this.SuspendLayout ();
       // 
       // jiggleTimer
@@ -131,7 +135,6 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.Controls.Add (this.lblPeriodLabel);
       this.panelSettings.Controls.Add (this.cbMinimize);
       this.panelSettings.Controls.Add (this.cbRandom);
-      this.panelSettings.Controls.Add (this.lbRandom);
       this.panelSettings.Controls.Add (this.cbZen);
       this.panelSettings.Location = new System.Drawing.Point (8, 42);
       this.panelSettings.Name = "panelSettings";
@@ -191,14 +194,6 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
       // 
-      // lbRandom
-      // 
-      this.lbRandom.AutoSize = true;
-      this.lbRandom.Location = new System.Drawing.Point (244, 14);
-      this.lbRandom.Name = "lbRandom";
-      this.lbRandom.Size = new System.Drawing.Size (0, 15);
-      this.lbRandom.TabIndex = 2;
-      // 
       // cbZen
       // 
       this.cbZen.AutoSize = true;
@@ -212,12 +207,37 @@ namespace ArkaneSystems.MouseJiggler
       // 
       // trayMenu
       // 
+      this.trayMenu.Items.AddRange (new System.Windows.Forms.ToolStripItem[] { this.tsmiOpen, this.tsmiStartJiggling, this.tsmiStopJiggling, this.tsmiExit });
       this.trayMenu.Name = "trayMenu";
-      this.trayMenu.Size = new System.Drawing.Size (61, 4);
-      trayMenu.Items.Add ("Open", null, this.niTray_DoubleClick);
-      trayMenu.Items.Add ("Start Jiggling", null, this.trayMenu_ClickStartJuggling);
-      trayMenu.Items.Add ("Stop Jiggling", null, this.trayMenu_ClickStopJuggling);
-      trayMenu.Items.Add ("Exit", null, this.trayMenu_ClickExit);
+      this.trayMenu.Size = new System.Drawing.Size (181, 114);
+      // 
+      // tsmiOpen
+      // 
+      this.tsmiOpen.Name = "tsmiOpen";
+      this.tsmiOpen.Size = new System.Drawing.Size (180, 22);
+      this.tsmiOpen.Text = "Open";
+      this.tsmiOpen.Click += this.niTray_DoubleClick;
+      // 
+      // tsmiStartJiggling
+      // 
+      this.tsmiStartJiggling.Name = "tsmiStartJiggling";
+      this.tsmiStartJiggling.Size = new System.Drawing.Size (180, 22);
+      this.tsmiStartJiggling.Text = "Start Jiggling";
+      this.tsmiStartJiggling.Click += this.trayMenu_ClickStartJiggling;
+      // 
+      // tsmiStopJiggling
+      // 
+      this.tsmiStopJiggling.Name = "tsmiStopJiggling";
+      this.tsmiStopJiggling.Size = new System.Drawing.Size (180, 22);
+      this.tsmiStopJiggling.Text = "Stop Jiggling";
+      this.tsmiStopJiggling.Click += this.trayMenu_ClickStopJiggling;
+      // 
+      // tsmiExit
+      // 
+      this.tsmiExit.Name = "tsmiExit";
+      this.tsmiExit.Size = new System.Drawing.Size (180, 22);
+      this.tsmiExit.Text = "Exit";
+      this.tsmiExit.Click += this.trayMenu_ClickExit;
       // 
       // niTray
       // 
@@ -248,6 +268,7 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.ResumeLayout (false);
       this.panelSettings.PerformLayout ();
       ((System.ComponentModel.ISupportInitialize)this.nudPeriod).EndInit ();
+      this.trayMenu.ResumeLayout (false);
       this.ResumeLayout (false);
       this.PerformLayout ();
     }
@@ -255,21 +276,24 @@ namespace ArkaneSystems.MouseJiggler
     #endregion
 
     private System.Windows.Forms.Timer jiggleTimer;
-        private System.Windows.Forms.FlowLayoutPanel flpLayout;
-        private System.Windows.Forms.Panel panelSettings;
-        private System.Windows.Forms.NumericUpDown nudPeriod;
-        private System.Windows.Forms.Label lblPeriodLabel;
-        private System.Windows.Forms.CheckBox cbMinimize;
-        private System.Windows.Forms.CheckBox cbZen;
-        private System.Windows.Forms.Panel panelBase;
-        private System.Windows.Forms.CheckBox cbSettings;
-        private System.Windows.Forms.CheckBox cbJiggling;
-        private System.Windows.Forms.Label lbPeriod;
-        private System.Windows.Forms.Button cmdAbout;
-        private System.Windows.Forms.NotifyIcon niTray;
-        private System.Windows.Forms.Button cmdTrayify;
-        private System.Windows.Forms.ContextMenuStrip trayMenu;
-        private System.Windows.Forms.CheckBox cbRandom;
-        private System.Windows.Forms.Label lbRandom;
-    }
+    private System.Windows.Forms.FlowLayoutPanel flpLayout;
+    private System.Windows.Forms.Panel panelSettings;
+    private System.Windows.Forms.NumericUpDown nudPeriod;
+    private System.Windows.Forms.Label lblPeriodLabel;
+    private System.Windows.Forms.CheckBox cbMinimize;
+    private System.Windows.Forms.CheckBox cbZen;
+    private System.Windows.Forms.Panel panelBase;
+    private System.Windows.Forms.CheckBox cbSettings;
+    private System.Windows.Forms.CheckBox cbJiggling;
+    private System.Windows.Forms.Label lbPeriod;
+    private System.Windows.Forms.Button cmdAbout;
+    private System.Windows.Forms.NotifyIcon niTray;
+    private System.Windows.Forms.Button cmdTrayify;
+    private System.Windows.Forms.ContextMenuStrip trayMenu;
+    private System.Windows.Forms.CheckBox cbRandom;
+    private System.Windows.Forms.ToolStripMenuItem tsmiOpen;
+    private System.Windows.Forms.ToolStripMenuItem tsmiStartJiggling;
+    private System.Windows.Forms.ToolStripMenuItem tsmiStopJiggling;
+    private System.Windows.Forms.ToolStripMenuItem tsmiExit;
+  }
 }

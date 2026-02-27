@@ -58,8 +58,8 @@ public partial class MainForm : Form
     }
 
     // Component initial setting
-    this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
-    this.trayMenu.Items[2].Visible = this.cbJiggling.Checked;
+    this.tsmiStartJiggling.Visible = !this.cbJiggling.Checked;
+    this.tsmiStopJiggling.Visible = this.cbJiggling.Checked;
   }
 
   public bool JiggleOnStartup { get; }
@@ -90,13 +90,13 @@ public partial class MainForm : Form
 
   private void trayMenu_ClickExit (object sender, EventArgs e) => Application.Exit ();
 
-  private void trayMenu_ClickStartJuggling (object sender, EventArgs e)
+  private void trayMenu_ClickStartJiggling (object sender, EventArgs e)
   {
     this.cbJiggling.Checked = true;
     this.UpdateNotificationAreaText ();
   }
 
-  private void trayMenu_ClickStopJuggling (object sender, EventArgs e)
+  private void trayMenu_ClickStopJiggling (object sender, EventArgs e)
   {
     this.cbJiggling.Checked = false;
     this.UpdateNotificationAreaText ();
@@ -146,7 +146,7 @@ public partial class MainForm : Form
     if (this.RandomTimer)
     {
       var newInterval = Random.Shared.Next(1, this.JigglePeriod + 1) * 1000;
-      this.lbRandom.Text = $@"{newInterval / 1000} s";
+      this.lbPeriod.Text = $@"{newInterval / 1000} s";
       this.jiggleTimer.Interval = newInterval;
     }
   }
