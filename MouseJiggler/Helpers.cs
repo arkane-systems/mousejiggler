@@ -13,6 +13,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Windows.Win32;
+using Windows.Win32.System.Power;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
@@ -29,6 +30,37 @@ internal static class Helpers
   internal const uint AttachParentProcess = uint.MaxValue;
 
   #endregion Console management
+
+  #region Execution state
+
+  public static void StayAwake ()
+  {
+    var returnValue = PInvoke.SetThreadExecutionState (EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
+
+    if (returnValue != 0)
+      return;
+
+    var errorCode = Marshal.GetLastWin32Error();
+
+    Debugger.Log (1,
+        "StayAwake",
+        $"failed to set execution state; retval={returnValue}, errcode=0x{errorCode:x8}\n");
+  }
+
+  public static void AllowSleep ()
+  {
+    var returnValue = PInvoke.SetThreadExecutionState (EXECUTION_STATE.ES_CONTINUOUS);
+
+    if (returnValue != 0)
+      return;
+
+    var errorCode = Marshal.GetLastWin32Error();
+    Debugger.Log (1,
+        "AllowSleep",
+        $"failed to set execution state; retval={returnValue}, errcode=0x{errorCode:x8}\n");
+  }
+
+  #endregion Execution state
 
   #region Jiggling
 

@@ -153,6 +153,11 @@ public partial class MainForm : Form
 
   private void cbJiggling_CheckedChanged (object sender, EventArgs e)
   {
+    if (this.cbJiggling.Checked)
+      Helpers.StayAwake ();
+    else
+      Helpers.AllowSleep ();
+
     this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateTrayMenu ();

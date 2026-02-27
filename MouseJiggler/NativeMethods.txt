@@ -1,3 +1,5 @@
 AttachConsole
 FreeConsole
 SendInput
+GetCursorPos
+SetThreadExecutionState
