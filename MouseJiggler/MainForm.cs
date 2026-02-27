@@ -146,11 +146,11 @@ public partial class MainForm : Form
   private void jiggleTimer_Tick (object sender, EventArgs e)
   {
     if (this.JiggleMode == JiggleMode.Zen)
-      Helpers.Jiggle (0);
+      Helpers.Jiggle (0, 0);
     else if (this.Zig)
-      Helpers.Jiggle (4);
+      Helpers.Jiggle (4, 4);
     else //zag
-      Helpers.Jiggle (-4);
+      Helpers.Jiggle (-4, -4);
 
     this.Zig = !this.Zig;
 

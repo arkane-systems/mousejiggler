@@ -36,7 +36,7 @@ internal static class Helpers
   ///     Jiggle the mouse; i.e., fake a mouse movement event.
   /// </summary>
   /// <param name="delta">The mouse will be moved by delta pixels along both X and Y.</param>
-  internal static void Jiggle (int delta)
+  internal static void Jiggle (int deltax, int deltay)
   {
     var inp = new INPUT
     {
@@ -45,8 +45,8 @@ internal static class Helpers
       {
         mi = new MOUSEINPUT
         {
-          dx = delta,
-          dy = delta,
+          dx = deltax,
+          dy = deltay,
           mouseData = 0,
           dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE,
           time = 0,
