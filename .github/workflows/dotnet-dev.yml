@@ -6,9 +6,10 @@ name: Dev Builds
 
 on:
   push:
-    branches: [ "dev" ]
-  pull_request:
-    branches: [ "dev" ]
+    branches:
+      - 'dev'
+      - 'dev**'
+  workflow_dispatch:
 
 jobs:
 
