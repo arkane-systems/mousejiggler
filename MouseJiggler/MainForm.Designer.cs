@@ -70,7 +70,7 @@ namespace ArkaneSystems.MouseJiggler
       this.flpLayout.Name = "flpLayout";
       this.flpLayout.Padding = new System.Windows.Forms.Padding (5);
       this.flpLayout.Size = new System.Drawing.Size (304, 143);
-      this.flpLayout.TabIndex = 2;
+      this.flpLayout.TabIndex = 0;
       // 
       // panelBase
       // 
@@ -81,7 +81,7 @@ namespace ArkaneSystems.MouseJiggler
       this.panelBase.Location = new System.Drawing.Point (8, 8);
       this.panelBase.Name = "panelBase";
       this.panelBase.Size = new System.Drawing.Size (289, 28);
-      this.panelBase.TabIndex = 3;
+      this.panelBase.TabIndex = 0;
       // 
       // cmdAbout
       // 
@@ -136,7 +136,7 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.Location = new System.Drawing.Point (8, 42);
       this.panelSettings.Name = "panelSettings";
       this.panelSettings.Size = new System.Drawing.Size (289, 92);
-      this.panelSettings.TabIndex = 2;
+      this.panelSettings.TabIndex = 1;
       this.panelSettings.Visible = false;
       // 
       // lbPeriod
@@ -166,7 +166,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lblPeriodLabel.Location = new System.Drawing.Point (10, 65);
       this.lblPeriodLabel.Name = "lblPeriodLabel";
       this.lblPeriodLabel.Size = new System.Drawing.Size (98, 15);
-      this.lblPeriodLabel.TabIndex = 9;
+      this.lblPeriodLabel.TabIndex = 5;
       this.lblPeriodLabel.Text = "Jiggle interval (s):";
       // 
       // cbMinimize
@@ -175,7 +175,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbMinimize.Location = new System.Drawing.Point (10, 37);
       this.cbMinimize.Name = "cbMinimize";
       this.cbMinimize.Size = new System.Drawing.Size (123, 19);
-      this.cbMinimize.TabIndex = 5;
+      this.cbMinimize.TabIndex = 4;
       this.cbMinimize.Text = "Minimize on start?";
       this.cbMinimize.UseVisualStyleBackColor = true;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
@@ -186,7 +186,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.Location = new System.Drawing.Point (131, 11);
       this.cbRandom.Name = "cbRandom";
       this.cbRandom.Size = new System.Drawing.Size (125, 19);
-      this.cbRandom.TabIndex = 7;
+      this.cbRandom.TabIndex = 1;
       this.cbRandom.Text = "Random variation?";
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
@@ -197,7 +197,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lbRandom.Location = new System.Drawing.Point (244, 14);
       this.lbRandom.Name = "lbRandom";
       this.lbRandom.Size = new System.Drawing.Size (0, 15);
-      this.lbRandom.TabIndex = 8;
+      this.lbRandom.TabIndex = 2;
       // 
       // cbZen
       // 
@@ -205,7 +205,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbZen.Location = new System.Drawing.Point (10, 11);
       this.cbZen.Name = "cbZen";
       this.cbZen.Size = new System.Drawing.Size (83, 19);
-      this.cbZen.TabIndex = 4;
+      this.cbZen.TabIndex = 0;
       this.cbZen.Text = "Zen jiggle?";
       this.cbZen.UseVisualStyleBackColor = true;
       this.cbZen.CheckedChanged += this.cbZen_CheckedChanged;
@@ -254,7 +254,7 @@ namespace ArkaneSystems.MouseJiggler
 
     #endregion
 
-    private System.Windows.Forms.Timer jiggleTimer;
+        private System.Windows.Forms.Timer jiggleTimer;
         private System.Windows.Forms.FlowLayoutPanel flpLayout;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.NumericUpDown nudPeriod;
