@@ -47,7 +47,14 @@ Operation
 
 Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. The jiggle is slight enough (by default) that you should be able to use the computer normally even with jiggling enabled.
 
-Check the "Settings..." checkbox to reveal the settings; these should be relatively self-explanatory. The jiggle mode dropdown allows you to select from different jiggling modes, including 'Zen' mode in which the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. This, however, may not work with a few applications which chose to implement their own idle detection.
+Check the "Settings..." checkbox to reveal the settings; these should be relatively self-explanatory. The jiggle mode dropdown allows you to select from different jiggling modes. These include:
+
+* Normal: the pointer is jiggled back and forth diagonally.
+* Zen: the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. This, however, may not work with a few applications which chose to implement their own idle detection.
+* Circle: the pointer is jiggled in a circular pattern.
+* Linear: the pointer is jiggled back and forth horizontally.
+
+Other settings permit you to adjust the jiggle interval, the distance multiplier of the jiggle up to 120 (_not_ a direct pixel value; note that high multipliers will make it difficult to use the mouse to turn off jiggling), and whether the timer is randomized (i.e., whether the interval between jiggles is constant or random within a range from one second to the selected interval). 
 
 To minimize Mouse Jiggler to the notification area, click the down-arrow button.
 
@@ -63,6 +70,7 @@ Options:
   -o, --mode <mode>          Start with the specified jiggle mode (Normal, Zen, Circle, Linear). [default: Normal]
   -r, --random               Start with random timer enabled. [default: False]
   -s, --seconds <seconds>    Set number of seconds for the jiggle interval. [default: 60]
+  -d, --distance <distance>  Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings             Start with settings panel displayed.
   --version                  Show version information
   -?, -h, --help             Show help and usage information

@@ -69,7 +69,7 @@ public static class Program
     }
   }
 
-  private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds)
+  private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds, int distance)
   {
     // Prepare Windows Forms to run the application.
     _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
@@ -77,8 +77,11 @@ public static class Program
     Application.SetCompatibleTextRenderingDefault (false);
 
     // Detach from console before running the application, as we won't be needing it anymore.
-    _ = PInvoke.FreeConsole ();
-    Program.AttachedToConsole = false;
+    if (AttachedToConsole)
+    {
+      _ = PInvoke.FreeConsole ();
+      Program.AttachedToConsole = false;
+    }
 
     // Run the application.
     var mainForm = new MainForm(jiggle,
@@ -86,6 +89,7 @@ public static class Program
             mode,
             random,
             seconds,
+            distance,
             settings);
 
     Application.Run (mainForm);
@@ -129,6 +133,7 @@ public static class Program
       Description = "Set X number of seconds for the jiggle interval.",
       DefaultValueFactory = _ => Settings.Default.JigglePeriod
     };
+
     optPeriod.Validators.Add (result =>
     {
       var value = result.GetValue(optPeriod);
@@ -136,6 +141,22 @@ public static class Program
         result.AddError ("Period cannot be shorter than 1 second.");
       else if (value > 10800)
         result.AddError ("Period cannot be longer than 10800 seconds.");
+    });
+
+    // -d 1 --distance 1
+    var optDistance = new Option<int>("--distance", "-d")
+    {
+      Description = "Set the multiplier for the jiggle distance.",
+      DefaultValueFactory = _ => Settings.Default.JiggleDistance
+    };
+
+    optDistance.Validators.Add (result =>
+    {
+      var value = result.GetValue(optDistance);
+      if (value < 1)
+        result.AddError ("Distance multiplier cannot be less than 1.");
+      else if (value > 120)
+        result.AddError ("Distance multiplier cannot be greater than 120.");
     });
 
     // -g --settings
@@ -153,6 +174,7 @@ public static class Program
             optMode,
             optRandom,
             optPeriod,
+            optDistance,
             optSettings
         };
 
@@ -168,10 +190,11 @@ public static class Program
       var minimized = parseResult.GetValue(optMinimized);
       var mode = parseResult.GetValue(optMode);
       var random = parseResult.GetValue(optRandom);
-      var settings = parseResult.GetValue(optSettings);
       var seconds = parseResult.GetValue(optPeriod);
+      var distance = parseResult.GetValue(optDistance);
+      var settings = parseResult.GetValue(optSettings);
 
-      return RootHandler (jiggle, minimized, mode, random, settings, seconds);
+      return RootHandler (jiggle, minimized, mode, random, settings, seconds, distance);
     });
 
     // Build the command line parser.

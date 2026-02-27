@@ -26,6 +26,7 @@ Command line options:
   -o, --mode &lt;Circle|Linear|Normal|Zen&gt; - Start with the specified jiggle mode enabled. [default: Normal]
   -r, --random - Start with random variation enabled.
   -s, --seconds &lt;seconds&gt; - Set X number of seconds for the jiggle interval. [default: 60]
+  -d, --distance &lt;distance&gt; - Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings - Start with settings panel displayed.
   -?, -h, --help - Show help and usage information
   --version - Show version information</Description>

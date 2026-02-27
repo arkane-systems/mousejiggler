@@ -24,11 +24,10 @@ public partial class MainForm : Form
   ///     Constructor for use by the form designer.
   /// </summary>
   public MainForm ()
-      : this (false, false, JiggleMode.Normal, false, 1, false)
-  {
-  }
+      : this (false, false, JiggleMode.Normal, false, 1, 1, false)
+  { }
 
-  public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, bool showSettings)
+  public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings)
   {
     this.InitializeComponent ();
 
@@ -56,6 +55,14 @@ public partial class MainForm : Form
       // Handle invalid jigglePeriod value, e.g., set to default or raise an error
       this.nudPeriod.Value = this.nudPeriod.Minimum; // or any default value within the range
     this.JigglePeriod = (int)this.nudPeriod.Value;
+
+    // Validate jiggleDistance before setting it
+    if (jiggleDistance >= this.nudDistance.Minimum && jiggleDistance <= this.nudDistance.Maximum)
+      this.nudDistance.Value = jiggleDistance;
+    else
+      // Handle invalid jiggleDistance value, e.g., set to default or raise an error
+      this.nudDistance.Value = this.nudDistance.Minimum; // or any default value within the range
+    this.JiggleDistance = (int)this.nudDistance.Value;
 
     // Show settings panel on startup if requested
     if (showSettings)
@@ -135,6 +142,8 @@ public partial class MainForm : Form
 
   private void nudPeriod_ValueChanged (object sender, EventArgs e) => this.JigglePeriod = (int)this.nudPeriod.Value;
 
+  private void nudDistance_ValueChanged (object sender, EventArgs e) => this.JiggleDistance = (int)this.nudDistance.Value;
+
   #endregion Property synchronization
 
   #region Do the Jiggle!
@@ -211,6 +220,8 @@ public partial class MainForm : Form
 
   private JiggleMode _jiggleMode;
 
+  private int _jiggleDistance;
+
   #endregion Settings property backing fields
 
   #region Settings properties
@@ -274,7 +285,34 @@ public partial class MainForm : Form
 
       this.jiggleTimer.Interval = value * 1000;
       this.lbPeriod.Text = $@"{value} s";
+
       this.OnPropertyChanged (nameof (this.JigglePeriod));
+    }
+  }
+
+  [DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
+
+  public int JiggleDistance
+  {
+    get => this._jiggleDistance;
+    set
+    {
+      this._jiggleDistance = value;
+      Settings.Default.JiggleDistance = value;
+      Settings.Default.Save ();
+
+      JigglePatterns.UpdatePatterns (value);
+
+      this.Pattern = this.JiggleMode switch
+      {
+        JiggleMode.Normal => JigglePatterns.Normal,
+        JiggleMode.Zen => JigglePatterns.Zen,
+        JiggleMode.Circle => JigglePatterns.Circle,
+        JiggleMode.Linear => JigglePatterns.Linear,
+        _ => throw new ArgumentOutOfRangeException (null, this.JiggleMode, "No pattern exists for specified mode.")
+      };
+
+      this.OnPropertyChanged (nameof (this.JiggleDistance));
     }
   }
 

@@ -70,5 +70,17 @@ namespace ArkaneSystems.MouseJiggler.Properties {
                 this["JiggleMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int JiggleDistance {
+            get {
+                return ((int)(this["JiggleDistance"]));
+            }
+            set {
+                this["JiggleDistance"] = value;
+            }
+        }
     }
 }
