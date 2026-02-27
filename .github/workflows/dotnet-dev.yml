@@ -1,0 +1,54 @@
+# New workflow for dev branch builds.
+# This is a separate workflow from any master/main branch workflow,
+# added specifically to build the application on every push to dev.
+
+name: Dev Builds
+
+on:
+  push:
+    branches:
+      - 'dev'
+      - 'dev/**'
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug]
+
+    runs-on: windows-latest
+    
+    env:
+      Solution_Path: MouseJiggler
+      Solution_Name: MouseJiggler/MouseJiggler.sln
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10
+          dotnet-quality: ga
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore $env:Solution_Name
+
+      # Build application
+      - name: Build application (standard)
+        run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} --no-restore
+
+      # Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build Artifacts
+          path: ${{ env.Solution_Path }}\bin\${{ matrix.configuration }}\
