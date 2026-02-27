@@ -185,9 +185,9 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.AutoSize = true;
       this.cbRandom.Location = new System.Drawing.Point (131, 11);
       this.cbRandom.Name = "cbRandom";
-      this.cbRandom.Size = new System.Drawing.Size (125, 19);
+      this.cbRandom.Size = new System.Drawing.Size (118, 19);
       this.cbRandom.TabIndex = 1;
-      this.cbRandom.Text = "Random variation?";
+      this.cbRandom.Text = "Random interval?";
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
       // 
@@ -254,7 +254,7 @@ namespace ArkaneSystems.MouseJiggler
 
     #endregion
 
-        private System.Windows.Forms.Timer jiggleTimer;
+    private System.Windows.Forms.Timer jiggleTimer;
         private System.Windows.Forms.FlowLayoutPanel flpLayout;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.NumericUpDown nudPeriod;

@@ -14,5 +14,8 @@
     <Setting Name="RandomTimer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="JiggleMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NotConfigured</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
