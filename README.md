@@ -76,7 +76,7 @@ Options:
   -?, -h, --help             Show help and usage information
 ```
 
-The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup.
+The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup. Neither this nor '-g' are persistent.
 
 Bugs
 ====
