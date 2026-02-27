@@ -34,7 +34,7 @@ Please note that due to a compatibility issue with the Chocolatey shims, running
 Portable Version
 ----------------
 
-A portable version of Mouse Jiggler (i.e., one which does not require the .NET 5 runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the releases page, as MouseJiggler-portable.zip. Just unzip and go.
+A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler), as MouseJiggler-portable.zip. Just unzip and go.
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
@@ -81,7 +81,10 @@ Features That Will Not Be Implemented
 This is a list of feature requests which I've decided won't be implemented in Mouse Jiggler for one reason or another, along with what those reasons are, just for reference:
 
  * Autorun on startup (because that's what the Startup group, Task Scheduler, etc. are for; it's inelegant to duplicate system facilities in a minimal app).
+ * Concealment features (from as simple as changed icons or names, to more complex schemes¹).
  * Timed startup/shutdown (again, Task Scheduler is for this).
+
+ 1. Look. I know that a lot of folks use this to deal with annoying monitor-your-employees software, and with that motive, I have every sympathy. However, the more I add features that smell malware-ish, the more likely it is that the app will be flagged as malware by antivirus software, and the more likely it is that users will have trouble getting it installed and running. Also, not to put too fine a point on it, but anything I can add that doesn't qualify as *actual* malware is only going to give you a false sense of security. If you're going to end up being fired for running unauthorized anti-monitoring software, I'd much rather it wasn't because you thought I told you'd be safe.
 
 Support
 =======
