@@ -35,8 +35,7 @@ public static class Program
   public static int Main (string[] args)
   {
     // Attach to the parent process's console so we can display help, version information, and command-line errors.
-    _ = PInvoke.AttachConsole (Helpers.AttachParentProcess);
-    Program.AttachedToConsole = true;
+    Program.AttachedToConsole = PInvoke.AttachConsole (Helpers.AttachParentProcess);
 
     // Ensure that we are the only instance of the Mouse Jiggler currently running.
     var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
@@ -178,11 +177,12 @@ public static class Program
             optSettings
         };
 
-    // Replace default help action with our spaced help action.
-    var ha = (from o in rootCommand.Options
-              where o is HelpOption
-              select o).First();
-    ha.Action = new SpacedHelpAction ((HelpAction)ha.Action!);
+    // Replace default help action with our spaced help action, if present.
+    var ha = rootCommand.Options.OfType<HelpOption>().FirstOrDefault();
+    if (ha?.Action is HelpAction helpAction)
+    {
+      ha.Action = new SpacedHelpAction(helpAction);
+    }
 
     rootCommand.SetAction (parseResult =>
     {
