@@ -35,7 +35,7 @@ Command line options:
   -?, -h, --help - Show help and usage information
   --version - Show version information</Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/arkane-systems/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
@@ -53,6 +53,10 @@ Command line options:
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
