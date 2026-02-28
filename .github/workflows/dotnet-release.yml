@@ -5,7 +5,7 @@
 name: Release Builds
 
 permissions:
-  contents: read
+  contents: write
 
 on:
   release:
@@ -46,9 +46,23 @@ jobs:
       - name: Publish application (${{ matrix.configuration }} - ${{ matrix.profile }})
         run: dotnet publish $env:Solution_Name -c ${{ matrix.configuration }} /p:PublishProfile=${{ matrix.profile }}
 
+      # Create zip file of published application
+      - name: Create zip archive
+        run: |
+          $publishPath = "${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/publish/${{ matrix.profile }}"
+          $zipName = "MouseJiggler-${{ matrix.profile }}.zip"
+          Compress-Archive -Path "$publishPath/*" -DestinationPath $zipName
+
       # Upload build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Build Artifacts - ${{ matrix.configuration }} - ${{ matrix.profile }}
           path: ${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/publish/${{ matrix.profile }}/
+
+      # Upload to release (only when triggered by release creation)
+      - name: Upload to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: MouseJiggler-${{ matrix.profile }}.zip

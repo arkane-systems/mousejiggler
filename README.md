@@ -25,7 +25,7 @@ The easiest means of installing Mouse Jiggler is using Winget or Chocolatey:
 
 `choco install mouse-jiggler`
 
-Bare releases continue to be available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _mainline-x64.zip_ or _mainline-arm64.zip_, for installation without administrative permissions, although the [.NET 10 Desktop runtime](https://dotnet.microsoft.com/en-us/download/dotnet/latest/runtime) must be installed first.
+Bare releases continue to be available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _MouseJiggler-mainline-x64.zip_ or _MouseJiggler-mainline-arm64.zip_, for installation without administrative permissions, although the [.NET 10 Desktop runtime](https://dotnet.microsoft.com/en-us/download/dotnet/latest/runtime) must be installed first.
 
 Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
 
@@ -34,7 +34,7 @@ Please note that due to a compatibility issue with the Chocolatey shims, running
 Portable Version
 ----------------
 
-A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _standalone-x64.zip_ or _standalone-arm64.zip_. Just unzip and go.
+A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _MouseJiggler-standalone-x64.zip_ or _MouseJiggler-standalone-arm64.zip_. Just unzip and go.
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
