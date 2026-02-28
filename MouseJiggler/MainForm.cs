@@ -20,6 +20,8 @@ namespace ArkaneSystems.MouseJiggler;
 
 public partial class MainForm : Form
 {
+  private const int MaxNotifyIconTextLength = 63;
+
   /// <summary>
   ///     Constructor for use by the form designer.
   /// </summary>
@@ -94,7 +96,8 @@ public partial class MainForm : Form
     {
       var mode = this.JiggleMode.ToString ();
       var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      this.niTray.Text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
+      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
+      this.niTray.Text = text.Length > MaxNotifyIconTextLength ? text[..(MaxNotifyIconTextLength - 3)] + "..." : text;
     }
   }
 
