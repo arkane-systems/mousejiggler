@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>mouse-jiggler</id>
+    <version>3.0.0</version>
+    <packageSourceUrl>https://github.com/arkane-systems/mousejiggler</packageSourceUrl>
+    <owners>ArkaneSystems</owners>
+    <title>Mouse Jiggler</title>
+    <authors>Alistair J. R. Young, Dimitris Panokostas</authors>
+    <projectUrl>https://github.com/arkane-systems/mousejiggler</projectUrl>
+    <iconUrl>https://arkane-webmisc.s3.us-east-1.amazonaws.com/mouse-jiggler.png</iconUrl>
+    <copyright>Copyright © Alistair J. R. Young 2007-2026</copyright>
+    <licenseUrl>https://github.com/arkane-systems/mousejiggler/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/arkane-systems/mousejiggler</projectSourceUrl>
+    <docsUrl>https://github.com/arkane-systems/mousejiggler#operation</docsUrl>
+    <bugTrackerUrl>https://github.com/arkane-systems/mousejiggler/issues</bugTrackerUrl>
+    <tags>mouse jiggler screensaver idle detection</tags>
+    <summary>A utility to continuously jiggle the mouse pointer to prevent screen saver activation</summary>
+    <description>
+Mouse Jiggler is a simple utility whose sole function is to "fake" mouse input to Windows, and jiggle the mouse pointer back and forth.
+
+Useful for avoiding screensavers or other things triggered by idle detection that you can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or when monitoring a long operation without having to modify screensaver settings.
+
+Features:
+- Four jiggle modes: Normal (diagonal movement), Zen (virtual movement), Circle, and Linear
+- Configurable jiggle interval (in seconds)
+- Adjustable distance multiplier (up to 120x)
+- Optional random timer variation
+- Auto-pause when mouse is moved
+- Minimizable to notification area
+- Command-line interface for scripting and automation
+    </description>
+    <releaseNotes>https://github.com/arkane-systems/mousejiggler/releases</releaseNotes>
+    <dependencies>
+      <dependency id="dotnet-10.0-desktopruntime" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

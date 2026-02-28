@@ -1,0 +1,54 @@
+VERIFICATION
+
+Verification is intended to assist the Chocolatey moderators and community
+in verifying that this package's contents are trustworthy.
+
+The binaries contained in this package are downloaded directly from the official
+GitHub release page for Mouse Jiggler:
+
+https://github.com/arkane-systems/mousejiggler/releases
+
+The package uses the official MouseJiggler-mainline-x64.zip or MouseJiggler-mainline-arm64.zip
+release artifacts depending on system architecture.
+
+To verify the downloaded file:
+1. Download MouseJiggler-mainline-x64.zip or MouseJiggler-mainline-arm64.zip from the releases page
+2. Calculate its SHA256 checksum
+3. Compare against the checksum value in the chocolateyinstall.ps1 script
+
+Additional verification can be performed by:
+- Checking the package source at https://github.com/arkane-systems/mousejiggler
+- Reviewing the LICENSE file included in the release
+- Verifying the digital signature if provided by the authors
+
+Package Details:
+- Package ID: mouse-jiggler
+- Version: 3.0.0
+- Installation Directory: C:\ProgramData\mousejiggler\
+- Application: MouseJiggler.exe
+- Command-line Shim: mousejiggler (created by Chocolatey)
+- License: See LICENSE file in repository
+- Maintainer: ArkaneSystems <avatar@arkane-systems.net>
+- Project URL: https://github.com/arkane-systems/mousejiggler
+
+Architecture Support:
+- Automatic detection of system architecture (x64 or arm64)
+- Downloads appropriate version for target platform
+- Separate SHA256 checksums for each architecture
+
+Features:
+- Start Menu shortcut for GUI access
+- Command-line shim created by Chocolatey for programmatic access
+- Automatic PATH integration via Install-BinFile
+- Installation directory: C:\ProgramData\mousejiggler\
+
+Requirements:
+- Windows 10 or later (Windows 10 build 17763 or later)
+- .NET 10 Desktop Runtime (installed as package dependency)
+
+Known Issues:
+- Due to compatibility with the command-line shim, running Mouse Jiggler via the shim
+  does not display command-line help or version when using -h/--help/-? or --version
+  switches. To use these features, invoke the executable directly at:
+  C:\ProgramData\mousejiggler\MouseJiggler.exe
+  Or use: mousejiggler --shimgen-log

@@ -177,3 +177,6 @@ UpgradeLog*.htm
 FakesAssemblies/
 /.vs
 /MouseJiggler/.vs
+
+# Chocolatey package
+*.nupkg
