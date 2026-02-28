@@ -21,6 +21,10 @@ to make yourself a nice convenient little plug-in.
 Installation
 ============
 
+The easiest means of installing Mouse Jiggler is using Chocolatey:
+
+`choco install mouse-jiggler --version=3.0.0`
+
 Bare releases continue to be available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _MouseJiggler-mainline-x64.zip_ or _MouseJiggler-mainline-arm64.zip_, for installation without administrative permissions, although the [.NET 10 Desktop runtime](https://dotnet.microsoft.com/en-us/download/dotnet/latest/runtime) must be installed first.
 
 Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
