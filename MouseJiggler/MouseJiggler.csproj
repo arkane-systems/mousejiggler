@@ -100,4 +100,8 @@ Command line options:
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="winget\" />
+  </ItemGroup>
+
 </Project>
