@@ -4,6 +4,9 @@
 
 name: Dev Builds
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
