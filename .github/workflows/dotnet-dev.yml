@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Build Artifacts
-          path: ${{ env.Solution_Path }}\bin\${{ matrix.configuration }}\
+          path: ${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/
