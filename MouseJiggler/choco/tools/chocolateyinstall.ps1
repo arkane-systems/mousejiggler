@@ -24,10 +24,6 @@ $checksums = @{
 }
 
 $checksum = $checksums[$archString]
-if ([string]::IsNullOrWhiteSpace($checksum)) {
-    Write-Warning "Checksum for $archString is not set. Skipping checksum verification."
-    Write-Warning "To enable checksum verification, update the checksums in chocolateyinstall.ps1"
-}
 
 # Create installation directory
 if (!(Test-Path $installDir)) {
@@ -38,17 +34,11 @@ if (!(Test-Path $installDir)) {
 $downloadPath = Join-Path $env:TEMP "$packageName-$archString-$($env:chocolateyPackageVersion).zip"
 Write-Host "Downloading Mouse Jiggler ($archString) from $url" -ForegroundColor Cyan
 
-if ([string]::IsNullOrWhiteSpace($checksum)) {
-    Get-ChocolateyWebFile -PackageName $packageName `
-                          -FileFullPath $downloadPath `
-                          -Url $url
-} else {
-    Get-ChocolateyWebFile -PackageName $packageName `
-                          -FileFullPath $downloadPath `
-                          -Url $url `
-                          -ChecksumType $checksumType `
-                          -Checksum $checksum
-}
+Get-ChocolateyWebFile -PackageName $packageName `
+                      -FileFullPath $downloadPath `
+                      -Url $url `
+                      -ChecksumType $checksumType `
+                      -Checksum $checksum
 
 # Extract to installation directory
 Write-Host "Extracting files to $installDir" -ForegroundColor Cyan
@@ -58,24 +48,25 @@ Get-ChocolateyUnzip -FileFullPath $downloadPath `
 # Remove the downloaded zip
 Remove-Item $downloadPath -ErrorAction SilentlyContinue
 
+Write-Host "Mouse Jiggler ($archString) has been installed to $installDir" -ForegroundColor Green
+
 # Create command-line shim using Chocolatey's built-in shim generator
 Write-Host "Creating command-line shim" -ForegroundColor Cyan
 $exePath = Join-Path $installDir "MouseJiggler.exe"
 Install-BinFile -Name "mousejiggler" -Path $exePath
+
+Write-Host "Command-line shim 'mousejiggler' is now available in PATH" -ForegroundColor Green
 
 # Create Start Menu shortcut
 $startMenuDir = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
 $shortcutPath = Join-Path $startMenuDir "Mouse Jiggler.lnk"
 
 Write-Host "Creating Start Menu shortcut" -ForegroundColor Cyan
-$WshShell = New-Object -ComObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut($shortcutPath)
-$Shortcut.TargetPath = $exePath
-$Shortcut.WorkingDirectory = $installDir
-$Shortcut.Description = "Mouse Jiggler - Prevent screensaver activation"
-$Shortcut.IconLocation = $exePath
-$Shortcut.Save()
+Install-ChocolateyShortcut -ShortcutFilePath $shortcutPath `
+                           -TargetPath $exePath `
+                           -WorkingDirectory $installDir `
+                           -Description "Mouse Jiggler - Prevent screensaver activation" `
+                           -IconLocation $exePath
 
-Write-Host "Mouse Jiggler ($archString) has been installed to $installDir" -ForegroundColor Green
 Write-Host "A Start Menu shortcut has been created" -ForegroundColor Green
-Write-Host "Command-line shim 'mousejiggler' is now available in PATH" -ForegroundColor Green
+
