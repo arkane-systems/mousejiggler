@@ -21,6 +21,7 @@ jobs:
     strategy:
       matrix:
         configuration: [Release]
+        profile: [mainline-arm64, mainline-x64, standalone-arm64, standalone-x64]
 
     runs-on: windows-latest
 
@@ -42,16 +43,16 @@ jobs:
           dotnet-quality: ga
 
       # Restore dependencies
-      - name: Restore dependencies (${{ matrix.configuration }}
+      - name: Restore dependencies (${{ matrix.configuration }})
         run: dotnet restore $env:Solution_Name
 
-      # Build application
-      - name: Build application (${{ matrix.configuration }}
-        run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} --no-restore
+      # Publish application
+      - name: Publish application (${{ matrix.configuration }} - ${{ matrix.profile }})
+        run: dotnet publish $env:Solution_Name -c ${{ matrix.configuration }} /p:PublishProfile=${{ matrix.profile }} --no-restore
 
       # Upload build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Build Artifacts - ${{ matrix.configuration }}
-          path: ${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/
+          name: Build Artifacts - ${{ matrix.configuration }} - ${{ matrix.profile }}
+          path: ${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/publish/${{ matrix.profile }}/
