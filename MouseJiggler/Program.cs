@@ -177,11 +177,12 @@ public static class Program
             optSettings
         };
 
-    // Replace default help action with our spaced help action.
-    var ha = (from o in rootCommand.Options
-              where o is HelpOption
-              select o).First();
-    ha.Action = new SpacedHelpAction ((HelpAction)ha.Action!);
+    // Replace default help action with our spaced help action, if present.
+    var ha = rootCommand.Options.OfType<HelpOption>().FirstOrDefault();
+    if (ha?.Action is HelpAction helpAction)
+    {
+      ha.Action = new SpacedHelpAction(helpAction);
+    }
 
     rootCommand.SetAction (parseResult =>
     {
