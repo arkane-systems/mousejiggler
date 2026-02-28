@@ -34,7 +34,7 @@ Please note that due to a compatibility issue with the Chocolatey shims, running
 Portable Version
 ----------------
 
-A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler), as MouseJiggler-portable.zip. Just unzip and go.
+A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as MouseJiggler-portable.zip. Just unzip and go.
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
