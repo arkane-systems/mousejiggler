@@ -169,12 +169,12 @@ namespace ArkaneSystems.MouseJiggler
       // 
       // lbPeriod
       // 
-      this.lbPeriod.AutoSize = true;
-      this.lbPeriod.Location = new System.Drawing.Point (271, 12);
+      this.lbPeriod.Location = new System.Drawing.Point (238, 12);
       this.lbPeriod.Name = "lbPeriod";
-      this.lbPeriod.Size = new System.Drawing.Size (12, 15);
+      this.lbPeriod.Size = new System.Drawing.Size (45, 15);
       this.lbPeriod.TabIndex = 2;
       this.lbPeriod.Text = "s";
+      this.lbPeriod.TextAlign = System.Drawing.ContentAlignment.TopRight;
       // 
       // nudDistance
       // 
@@ -213,9 +213,9 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.AutoSize = true;
       this.cbRandom.Location = new System.Drawing.Point (138, 11);
       this.cbRandom.Name = "cbRandom";
-      this.cbRandom.Size = new System.Drawing.Size (118, 19);
+      this.cbRandom.Size = new System.Drawing.Size (90, 19);
       this.cbRandom.TabIndex = 1;
-      this.cbRandom.Text = "Random interval?";
+      this.cbRandom.Text = "Randomize?";
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
       // 
