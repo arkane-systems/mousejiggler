@@ -16,9 +16,13 @@
     <Description>
 A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
 
-Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. 
-The 'Zen jiggle?' checkbox (under "Settings...") enables a mode in which the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. 
-This may not work for idle detection under all applications.
+Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop.
+The jiggle mode (under "Settings...") can be set to one of four options:
+  - Normal: the pointer moves slightly with each jiggle.
+  - Zen: the system believes the pointer is moving, preventing screen saver activation, but the pointer does not actually move. This may not work for idle detection under all applications.
+  - Circle: the pointer moves in a circular pattern.
+  - Linear: the pointer slides left and right.
+Additional settings allow configuring the jiggle interval (in seconds), a distance multiplier, and optional random timer variation.
 
 Command line options:
   -j, --jiggle - Start with jiggling enabled.
