@@ -171,6 +171,12 @@ public partial class MainForm : Form
 
   private void jiggleTimer_Tick (object sender, EventArgs e)
   {
+    // Don't jiggle if the user has moved the mouse since the last jiggle, to avoid interfering with user input.
+    if (Helpers.HasMouseMoved ())
+    {
+      return;
+    }
+
     var (deltax, deltay) = this.Pattern[this.Step];
     this.Step++;
 
@@ -178,6 +184,8 @@ public partial class MainForm : Form
       this.Step = 0;
 
     Helpers.Jiggle (deltax, deltay);
+
+    Helpers.UpdateMousePosition ();
 
     if (this.RandomTimer)
     {

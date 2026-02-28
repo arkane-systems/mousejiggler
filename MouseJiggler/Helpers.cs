@@ -99,4 +99,46 @@ internal static class Helpers
   }
 
   #endregion Jiggling
+
+  #region Movement detection
+
+  private static int? lastx, lasty;
+
+  /// <summary>
+  /// Determines whether the mouse cursor has moved since the last check.
+  /// </summary>
+  /// <remarks>This method updates its internal state each time it is called. Repeated calls will return true
+  /// only if the cursor position has changed since the last call. This method is not thread-safe.</remarks>
+  /// <returns>true if the mouse cursor position has changed since the previous invocation; otherwise, false.</returns>
+  public static bool HasMouseMoved ()
+  {
+    bool result = false;
+
+    if (PInvoke.GetCursorPos (out var point))
+    {
+      result = lastx != point.X || lasty != point.Y;
+
+      lastx = point.X;
+      lasty = point.Y;
+    }
+
+    return result;
+  }
+
+  /// <summary>
+  /// Updates the stored mouse cursor position to reflect the current location on the screen.
+  /// </summary>
+  /// <remarks>This method retrieves the current position of the mouse cursor using platform invocation and
+  /// updates internal state accordingly. If the cursor position cannot be obtained, the stored values remain
+  /// unchanged.</remarks>
+  public static void UpdateMousePosition ()
+  {
+    if (PInvoke.GetCursorPos (out var point))
+    {
+      lastx = point.X;
+      lasty = point.Y;
+    }
+  }
+
+  #endregion Movement detection
 }
