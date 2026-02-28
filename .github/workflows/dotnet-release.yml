@@ -42,13 +42,9 @@ jobs:
           dotnet-version: 10
           dotnet-quality: ga
 
-      # Restore dependencies
-      - name: Restore dependencies (${{ matrix.configuration }})
-        run: dotnet restore $env:Solution_Name
-
-      # Publish application
+      # Publish application (restore will happen automatically with correct RuntimeIdentifier)
       - name: Publish application (${{ matrix.configuration }} - ${{ matrix.profile }})
-        run: dotnet publish $env:Solution_Name -c ${{ matrix.configuration }} /p:PublishProfile=${{ matrix.profile }} --no-restore
+        run: dotnet publish $env:Solution_Name -c ${{ matrix.configuration }} /p:PublishProfile=${{ matrix.profile }}
 
       # Upload build artifacts
       - name: Upload build artifacts
