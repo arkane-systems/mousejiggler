@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>ArkaneSystems.MouseJiggler</RootNamespace>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Mouse (ISO).ico</ApplicationIcon>
-    <Version>2.1.0</Version>
+    <Version>3.0.0</Version>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -16,28 +16,36 @@
     <Description>
 A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
 
-Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. 
-The 'Zen jiggle?' checkbox (under "Settings...") enables a mode in which the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. 
-This may not work for idle detection under all applications.
+Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop.
+The jiggle mode (under "Settings...") can be set to one of four options:
+  - Normal: the pointer moves slightly with each jiggle.
+  - Zen: the system believes the pointer is moving, preventing screen saver activation, but the pointer does not actually move. This may not work for idle detection under all applications.
+  - Circle: the pointer moves in a circular pattern.
+  - Linear: the pointer slides left and right.
+Additional settings allow configuring the jiggle interval (in seconds), a distance multiplier, and optional random timer variation.
 
 Command line options:
--j --jiggle: Start with jiggling enabled
--m --minimized: Start minimized
--z --zen: Start with zen (invisible) jiggling enabled
--r --random: Start with random timer enabled
--s 60 --seconds 60: Set number of seconds for the jiggle interval (1-10800)
-    </Description>
-    <Copyright>Copyright © Alistair J. R. Young 2007-2025</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  -j, --jiggle - Start with jiggling enabled.
+  -m, --minimized - Start minimized.
+  -o, --mode &lt;Circle|Linear|Normal|Zen&gt; - Start with the specified jiggle mode enabled. [default: Normal]
+  -r, --random - Start with random variation enabled.
+  -s, --seconds &lt;seconds&gt; - Set X number of seconds for the jiggle interval. [default: 60]
+  -d, --distance &lt;distance&gt; - Set the multiplier for the jiggle distance. [default: 1]
+  -g, --settings - Start with settings panel displayed.
+  -?, -h, --help - Show help and usage information
+  --version - Show version information</Description>
+    <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/arkane-systems/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/arkane-systems/mousejiggler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>MouseJiggler</Title>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -45,6 +53,10 @@ Command line options:
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -52,14 +64,12 @@ Command line options:
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.162">
+    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.269">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20574.7" />
-    <PackageReference Include="System.Memory" Version="4.6.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
+    <PackageReference Include="System.CommandLine" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

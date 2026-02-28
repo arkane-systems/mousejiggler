@@ -9,14 +9,14 @@
 
 #region using
 
-using System;
-using System.CommandLine;
-using System.CommandLine.Invocation;
-using System.CommandLine.Parsing;
-using System.Threading;
-using System.Windows.Forms;
 using ArkaneSystems.MouseJiggler.Properties;
 using JetBrains.Annotations;
+using System;
+using System.CommandLine;
+using System.CommandLine.Help;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using Windows.Win32;
 
 #endregion
@@ -26,110 +26,178 @@ namespace ArkaneSystems.MouseJiggler;
 [PublicAPI]
 public static class Program
 {
-    /// <summary>
-    ///     The main entry point for the application.
-    /// </summary>
-    [STAThread]
-    public static int Main(string[] args)
+  static bool AttachedToConsole { get; set; } = false;
+
+  /// <summary>
+  ///     The main entry point for the application.
+  /// </summary>
+  [STAThread]
+  public static int Main (string[] args)
+  {
+    // Attach to the parent process's console so we can display help, version information, and command-line errors.
+    Program.AttachedToConsole = PInvoke.AttachConsole (Helpers.AttachParentProcess);
+
+    // Ensure that we are the only instance of the Mouse Jiggler currently running.
+    var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
+
+    try
     {
-        // Attach to the parent process's console so we can display help, version information, and command-line errors.
-        PInvoke.AttachConsole(Helpers.AttachParentProcess);
+      if (instance.WaitOne (0))
 
-        // Ensure that we are the only instance of the Mouse Jiggler currently running.
-        var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
+      // Parse arguments and do the appropriate thing.
+      {
+        return GetCommandLineParser ().Parse (args).Invoke ();
+      }
+      else
+      {
+        Console.WriteLine (@"Mouse Jiggler is already running. Aborting.");
 
-        try
-        {
-            if (instance.WaitOne(0))
+        return 1;
+      }
+    }
+    finally
+    {
+      instance.Close ();
 
-                // Parse arguments and do the appropriate thing.
-            {
-                return GetCommandLineParser().Invoke(args);
-            }
-            else
-            {
-                Console.WriteLine(@"Mouse Jiggler is already running. Aborting.");
+      // Detach from the parent console.
+      if (AttachedToConsole)
+      {
+        _ = PInvoke.FreeConsole ();
+        Program.AttachedToConsole = false;
+      }
+    }
+  }
 
-                return 1;
-            }
-        }
-        finally
-        {
-            instance.Close();
+  private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds, int distance)
+  {
+    // Prepare Windows Forms to run the application.
+    _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
+    Application.EnableVisualStyles ();
+    Application.SetCompatibleTextRenderingDefault (false);
 
-            // Detach from the parent console.
-            PInvoke.FreeConsole();
-        }
+    // Detach from console before running the application, as we won't be needing it anymore.
+    if (AttachedToConsole)
+    {
+      _ = PInvoke.FreeConsole ();
+      Program.AttachedToConsole = false;
     }
 
-    private static int RootHandler(bool jiggle, bool minimized, bool zen, bool random, int seconds)
-    {
-        // Prepare Windows Forms to run the application.
-        Application.SetHighDpiMode(HighDpiMode.SystemAware);
-        Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(false);
-
-        // Run the application.
-        var mainForm = new MainForm(jiggle,
+    // Run the application.
+    var mainForm = new MainForm(jiggle,
             minimized,
-            zen,
+            mode,
             random,
-            seconds);
+            seconds,
+            distance,
+            settings);
 
-        Application.Run(mainForm);
+    Application.Run (mainForm);
 
-        return 0;
-    }
+    return 0;
+  }
 
-    private static RootCommand GetCommandLineParser()
+  private static RootCommand GetCommandLineParser ()
+  {
+    // -j --jiggle
+    var optJiggling = new Option<bool>("--jiggle", "-j")
     {
-        // Create root command.
-        var rootCommand = new RootCommand
+      Description = "Start with jiggling enabled.",
+      DefaultValueFactory = _ => false
+    };
+
+    // -m --minimized
+    var optMinimized = new Option<bool>("--minimized", "-m")
+    {
+      Description = "Start minimized.",
+      DefaultValueFactory = _ => Settings.Default.MinimizeOnStartup
+    };
+
+    // -o --mode
+    var optMode = new Option<JiggleMode>("--mode", "-o")
+    {
+      Description = "Start with the specified jiggle mode enabled.",
+      DefaultValueFactory = _ => Enum.TryParse<JiggleMode>(Settings.Default.JiggleMode, true, out JiggleMode m) ? m : JiggleMode.Normal
+    };
+
+    // -r --random
+    var optRandom = new Option<bool>("--random", "-r")
+    {
+      Description = "Start with random variation enabled.",
+      DefaultValueFactory = _ => Settings.Default.RandomTimer
+    };
+
+    // -s 60 --seconds 60
+    var optPeriod = new Option<int>("--seconds", "-s")
+    {
+      Description = "Set X number of seconds for the jiggle interval.",
+      DefaultValueFactory = _ => Settings.Default.JigglePeriod
+    };
+
+    optPeriod.Validators.Add (result =>
+    {
+      var value = result.GetValue(optPeriod);
+      if (value < 1)
+        result.AddError ("Period cannot be shorter than 1 second.");
+      else if (value > 10800)
+        result.AddError ("Period cannot be longer than 10800 seconds.");
+    });
+
+    // -d 1 --distance 1
+    var optDistance = new Option<int>("--distance", "-d")
+    {
+      Description = "Set the multiplier for the jiggle distance.",
+      DefaultValueFactory = _ => Settings.Default.JiggleDistance
+    };
+
+    optDistance.Validators.Add (result =>
+    {
+      var value = result.GetValue(optDistance);
+      if (value < 1)
+        result.AddError ("Distance multiplier cannot be less than 1.");
+      else if (value > 120)
+        result.AddError ("Distance multiplier cannot be greater than 120.");
+    });
+
+    // -g --settings
+    var optSettings = new Option<bool>("--settings", "-g")
+    {
+      Description = "Start with settings panel displayed.",
+      DefaultValueFactory = _ => false
+    };
+
+    // Create root command.
+    var rootCommand = new RootCommand("Virtually jiggles the mouse, making the computer seem not idle.")
         {
-            Description = "Virtually jiggles the mouse, making the computer seem not idle.",
-            Handler =
-                CommandHandler.Create(new Func<bool, bool, bool, bool, int, int>(RootHandler))
+            optJiggling,
+            optMinimized,
+            optMode,
+            optRandom,
+            optPeriod,
+            optDistance,
+            optSettings
         };
 
-        // -j --jiggle
-        Option optJiggling = new(["--jiggle", "-j"], "Start with jiggling enabled.")
-        {
-            Argument = new Argument<bool>(() => false)
-        };
-        rootCommand.AddOption(optJiggling);
-
-        // -m --minimized
-        Option optMinimized = new(["--minimized", "-m"], "Start minimized.")
-        {
-            Argument = new Argument<bool>(() => Settings.Default.MinimizeOnStartup)
-        };
-        rootCommand.AddOption(optMinimized);
-
-        // -z --zen
-        Option optZen = new(["--zen", "-z"], "Start with zen (invisible) jiggling enabled.")
-        {
-            Argument = new Argument<bool>(() => Settings.Default.ZenJiggle)
-        };
-        rootCommand.AddOption(optZen);
-
-        // -r --random
-        Option optRandom = new(["--random", "-r"], "Start with random timer enabled.")
-        {
-            Argument = new Argument<bool>(() => Settings.Default.RandomTimer)
-        };
-        rootCommand.AddOption(optRandom);
-
-        // -s:60 --seconds:60
-        var optPeriod = new Option<int>(["--seconds", "-s"], "Set X number of seconds for the jiggle interval.")
-        {
-            Argument = new Argument<int>(() => Settings.Default.JigglePeriod)
-        };
-        optPeriod.AddValidator(p => p.GetValueOrDefault<int>() < 1 ? "Period cannot be shorter than 1 second." : null);
-        optPeriod.AddValidator(p =>
-            p.GetValueOrDefault<int>() > 10800 ? "Period cannot be longer than 10800 seconds." : null);
-        rootCommand.AddOption(optPeriod);
-
-        // Build the command line parser.
-        return rootCommand;
+    // Replace default help action with our spaced help action, if present.
+    var ha = rootCommand.Options.OfType<HelpOption>().FirstOrDefault();
+    if (ha?.Action is HelpAction helpAction)
+    {
+      ha.Action = new SpacedHelpAction(helpAction);
     }
+
+    rootCommand.SetAction (parseResult =>
+    {
+      var jiggle = parseResult.GetValue(optJiggling);
+      var minimized = parseResult.GetValue(optMinimized);
+      var mode = parseResult.GetValue(optMode);
+      var random = parseResult.GetValue(optRandom);
+      var seconds = parseResult.GetValue(optPeriod);
+      var distance = parseResult.GetValue(optDistance);
+      var settings = parseResult.GetValue(optSettings);
+
+      return RootHandler (jiggle, minimized, mode, random, settings, seconds, distance);
+    });
+
+    // Build the command line parser.
+    return rootCommand;
+  }
 }

@@ -1,29 +1,29 @@
-# New workflow for dev branch builds.
-# This is a separate workflow from any master/main branch workflow,
-# added specifically to build the application on every push to dev.
+# New workflow for release builds.
+# This is separate from the dev branch workflow,
+# added specifically for manually-triggered builds and master-targeted releases.
 
-name: Dev Builds
+name: Release Builds
 
 permissions:
   contents: read
 
 on:
-  push:
-    branches:
-      - 'dev'
-      - 'dev/**'
+  release:
+    types:
+      - created
   workflow_dispatch:
 
 jobs:
 
   build:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.release.target_commitish == 'master' }}
 
     strategy:
       matrix:
-        configuration: [Debug]
+        configuration: [Debug, Release]
 
     runs-on: windows-latest
-    
+
     env:
       Solution_Path: MouseJiggler
       Solution_Name: MouseJiggler/MouseJiggler.sln
@@ -42,16 +42,16 @@ jobs:
           dotnet-quality: ga
 
       # Restore dependencies
-      - name: Restore dependencies
+      - name: Restore dependencies (${{ matrix.configuration }}
         run: dotnet restore $env:Solution_Name
 
       # Build application
-      - name: Build application (standard)
+      - name: Build application (${{ matrix.configuration }}
         run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} --no-restore
 
       # Upload build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Build Artifacts
+          name: Build Artifacts - ${{ matrix.configuration }}
           path: ${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/

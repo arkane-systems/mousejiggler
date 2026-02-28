@@ -25,7 +25,7 @@ The easiest means of installing Mouse Jiggler is using Chocolatey:
 
 `choco install mouse-jiggler`
 
-Bare releases continue to be available at right for installation without administrative permissions, although the .NET 9 Desktop runtime must be installed first.
+Bare releases continue to be available at right for installation without administrative permissions, although the .NET 10 Desktop runtime must be installed first.
 
 Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
 
@@ -34,20 +34,27 @@ Please note that due to a compatibility issue with the Chocolatey shims, running
 Portable Version
 ----------------
 
-A portable version of Mouse Jiggler (i.e., one which does not require the .NET 5 runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the releases page, as MouseJiggler-portable.zip. Just unzip and go.
+A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as MouseJiggler-portable.zip. Just unzip and go.
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
-Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **108 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET 5 runtime, you are much better off installing that and the regular version.
+Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **134 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET runtime, you are much better off installing that and the regular version.
 
 The only reason this exists is for those poor sods whose IT department makes it impossible to do that, and may their deities have mercy on their souls.
 
 Operation
 =========
 
-Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. The jiggle is slight enough that you should be able to use the computer normally even with jiggling enabled.
+Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. To enable you to use the computer normally even with jiggling enabled, jiggling is automatically paused when the mouse is moved, and resumes after a complete jiggle interval without mouse movement.
 
-Check the "Settings..." checkbox to reveal the settings; these should be relatively self-explanatory. The 'Zen jiggle?' checkbox enables a mode in which the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. This, however, may not work with a few applications which chose to implement their own idle detection.
+Check the "Settings..." checkbox to reveal the settings; these should be relatively self-explanatory. The jiggle mode dropdown allows you to select from different jiggling modes. These include:
+
+* Normal: the pointer is jiggled back and forth diagonally.
+* Zen: the pointer is jiggled 'virtually' - the system believes it to be moving and thus screen saver activation, etc., is prevented, but the pointer does not actually move. This, however, may not work with a few applications which chose to implement their own idle detection.
+* Circle: the pointer is jiggled in a circular pattern.
+* Linear: the pointer is jiggled back and forth horizontally.
+
+Other settings permit you to adjust the jiggle interval, the distance multiplier of the jiggle up to 120 (_not_ a direct pixel value; note that high multipliers will make it difficult to use the mouse to turn off jiggling), and whether the timer is randomized (i.e., whether the interval between jiggles is constant or random within a range from one second to the selected interval). 
 
 To minimize Mouse Jiggler to the notification area, click the down-arrow button.
 
@@ -59,15 +66,17 @@ Usage:
 
 Options:
   -j, --jiggle               Start with jiggling enabled.
-  -m, --minimized            Start minimized (sets persistent option). [default: False]
-  -z, --zen                  Start with zen (invisible) jiggling enabled (sets persistent option). [default: False]
+  -m, --minimized            Start minimized. [default: False]
+  -o, --mode <mode>          Start with the specified jiggle mode (Normal, Zen, Circle, Linear). [default: Normal]
   -r, --random               Start with random timer enabled. [default: False]
-  -s, --seconds <seconds>    Set number of seconds for the jiggle interval (sets persistent option). [default: 60]
+  -s, --seconds <seconds>    Set number of seconds for the jiggle interval. [default: 60]
+  -d, --distance <distance>  Set the multiplier for the jiggle distance. [default: 1]
+  -g, --settings             Start with settings panel displayed.
   --version                  Show version information
   -?, -h, --help             Show help and usage information
 ```
 
-The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup.
+The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup. Neither this nor '-g' are persistent.
 
 Bugs
 ====
@@ -80,9 +89,21 @@ Features That Will Not Be Implemented
 This is a list of feature requests which I've decided won't be implemented in Mouse Jiggler for one reason or another, along with what those reasons are, just for reference:
 
  * Autorun on startup (because that's what the Startup group, Task Scheduler, etc. are for; it's inelegant to duplicate system facilities in a minimal app).
+ * Concealment features (from as simple as changed icons or names, to more complex schemes¹).
  * Timed startup/shutdown (again, Task Scheduler is for this).
+
+ 1. Look. I know that a lot of folks use this to deal with annoying monitor-your-employees software, and with that motive, I have every sympathy. However, the more I add features that smell malware-ish, the more likely it is that the app will be flagged as malware by antivirus software, and the more likely it is that users will have trouble getting it installed and running. Also, not to put too fine a point on it, but anything I can add that doesn't qualify as *actual* malware is only going to give you a false sense of security. If you're going to end up being fired for running unauthorized anti-monitoring software, I'd much rather it wasn't because you thought I told you'd be safe.
 
 Support
 =======
 
 Mouse Jiggler is a free product provided without warranty or support.
+
+Usage Limitations
+=================
+
+As per our new license terms, Mouse Jiggler is not to be used by any agency of the United States government, or by any employee of the United States government while engaged in their employment, or on any system owned or controlled by the United States government, or by any entity doing business with the United States government in a manner that would subject Mouse Jiggler or its developers to any regulations or laws governing software used by the United States government.
+
+I regret the necessity of this, but given the United States government's recent incredible disregard for private property and the obligations of contracts, I have no desire to either (a) get any of it on me, or (b) encourage the belief that such behavior comes without consequence.
+
+I apologize to any users who are affected by this, but I hope you understand the reasons for it.
