@@ -21,11 +21,11 @@ to make yourself a nice convenient little plug-in.
 Installation
 ============
 
-The easiest means of installing Mouse Jiggler is using Chocolatey:
+The easiest means of installing Mouse Jiggler is using Winget or Chocolatey:
 
 `choco install mouse-jiggler`
 
-Bare releases continue to be available at right for installation without administrative permissions, although the .NET 10 Desktop runtime must be installed first.
+Bare releases continue to be available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _mainline-x64.zip_ or _mainline-arm64.zip_, for installation without administrative permissions, although the [.NET 10 Desktop runtime](https://dotnet.microsoft.com/en-us/download/dotnet/latest/runtime) must be installed first.
 
 Please note that due to a compatibility issue with the Chocolatey shims, running Mouse Jiggler via the shim does not display command-line help or the Mouse Jiggler version when the -h/--help/-? or --version switches are used. To do so, Mouse Jiggler must be invoked directly. To easily discover the location of the original Mouse Jiggler executable for this purpose, run:
 
@@ -34,11 +34,11 @@ Please note that due to a compatibility issue with the Chocolatey shims, running
 Portable Version
 ----------------
 
-A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as MouseJiggler-portable.zip. Just unzip and go.
+A portable version of Mouse Jiggler (i.e., one which does not require the .NET runtime, and so can be installed on locked-down corporate machines that don't have it installed) is available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _standalone-x64.zip_ or _standalone-arm64.zip_. Just unzip and go.
 
 **DO NOT USE THIS VERSION IF YOU HAVE ANY OTHER ALTERNATIVE.**
 
-Let me put it to you this way. _Standard_ Mouse Jiggler, at the time of writing, is a single executable a mite under 1 MB in size. _Portable_ Mouse Jiggler is a folder of executables summing to approximately **134 MB**, for one of the most trivial applications imaginable, after all the assorted trimming-and-compressing magic is done. It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET runtime, you are much better off installing that and the regular version.
+Let me put it to you this way. _Mainline_ Mouse Jiggler, at the time of writing, is a single executable 24 MB in size. _Portable_ Mouse Jiggler is an executable **134 MB** in size, for one of the most trivial applications imaginable, after all the assorted  magic is done. (These numbers are for x64. The arm64 numbers are slightly bigger.) It's a bloated behemoth. If there is _any_ possibility that you will _ever_ run any other app that uses the .NET runtime, you are much better off installing that and the regular version.
 
 The only reason this exists is for those poor sods whose IT department makes it impossible to do that, and may their deities have mercy on their souls.
 
