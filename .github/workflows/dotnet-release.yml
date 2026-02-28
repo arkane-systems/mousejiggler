@@ -1,0 +1,58 @@
+# New workflow for release builds.
+# This is separate from the dev branch workflow,
+# added specifically for manually-triggered builds and master-targeted releases.
+
+name: Release Builds
+
+permissions:
+  contents: read
+
+on:
+  release:
+    types:
+      - created
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.release.target_commitish == 'master' }}
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        platform: [x64, arm64]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Path: MouseJiggler
+      Solution_Name: MouseJiggler/MouseJiggler.sln
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10
+          dotnet-quality: ga
+
+      # Restore dependencies
+      - name: Restore dependencies (${{ matrix.configuration }} | ${{ matrix.platform }})
+        run: dotnet restore $env:Solution_Name -p:RuntimeIdentifier=win-${{ matrix.platform }}
+
+      # Build application
+      - name: Build application (${{ matrix.configuration }} | ${{ matrix.platform }})
+        run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -p:RuntimeIdentifier=win-${{ matrix.platform }} --no-restore
+
+      # Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build Artifacts - ${{ matrix.configuration }} - win-${{ matrix.platform }}
+          path: ${{ env.Solution_Path }}/bin/${{ matrix.configuration }}/**/win-${{ matrix.platform }}/
