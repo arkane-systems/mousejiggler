@@ -104,6 +104,6 @@ Usage Limitations
 
 As per our new license terms, Mouse Jiggler is not to be used by any agency of the United States government, or by any employee of the United States government while engaged in their employment, or on any system owned or controlled by the United States government, or by any entity doing business with the United States government in a manner that would subject Mouse Jiggler or its developers to any regulations or laws governing software used by the United States government.
 
-I regret the necessity of this, but given the United States governments' recent incredible disregard for private property and the obligations of contracts, I have no desire to either (a) get any of it on me, or (b) encourage the belief that such behavior comes without consequence.
+I regret the necessity of this, but given the United States government's recent incredible disregard for private property and the obligations of contracts, I have no desire to either (a) get any of it on me, or (b) encourage the belief that such behavior comes without consequence.
 
 I apologize to any users who are affected by this, but I hope you understand the reasons for it.
