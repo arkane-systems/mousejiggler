@@ -21,7 +21,11 @@ to make yourself a nice convenient little plug-in.
 Installation
 ============
 
-The easiest means of installing Mouse Jiggler is using Chocolatey:
+The easiest means of installing Mouse Jiggler is using either Winget or Chocolatey:
+
+`winget install ArkaneSystems.MouseJiggler`
+
+or
 
 `choco install mouse-jiggler --version=3.0.0`
 
