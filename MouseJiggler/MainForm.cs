@@ -68,14 +68,11 @@ public partial class MainForm : Form
 
     // Show settings panel on startup if requested
     if (showSettings)
-    {
-      this.cbSettings.Checked = true;
       this.panelSettings.Visible = true;
-    }
 
     // Component initial setting
     this.tsmiStartJiggling.Visible = !this.cbJiggling.Checked;
-    this.tsmiStopJiggling.Visible = this.cbJiggling.Checked;
+    this.tsmiStopJiggling.Visible  = this.cbJiggling.Checked;
   }
 
   public bool JiggleOnStartup { get; }
@@ -121,7 +118,7 @@ public partial class MainForm : Form
 
   #region Property synchronization
 
-  private void cbSettings_CheckedChanged (object sender, EventArgs e) => this.panelSettings.Visible = this.cbSettings.Checked;
+  private void btnSettings_Click (object sender, EventArgs e) => this.panelSettings.Visible = !this.panelSettings.Visible;
 
   private void cbMinimize_CheckedChanged (object sender, EventArgs e) => this.MinimizeOnStartup = this.cbMinimize.Checked;
 
@@ -163,13 +160,14 @@ public partial class MainForm : Form
 
     this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
+    this.UpdateStatusIndicator ();
     this.UpdateTrayMenu ();
   }
 
   private void UpdateTrayMenu ()
   {
-    this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
-    this.trayMenu.Items[2].Visible = this.cbJiggling.Checked;
+    this.tsmiStartJiggling.Visible = !this.cbJiggling.Checked;
+    this.tsmiStopJiggling.Visible  = this.cbJiggling.Checked;
   }
 
   private void jiggleTimer_Tick (object sender, EventArgs e)
@@ -201,6 +199,49 @@ public partial class MainForm : Form
   }
 
   #endregion Do the Jiggle!
+
+  #region Visual status
+
+  private void UpdateStatusIndicator ()
+  {
+    bool active = this.cbJiggling.Checked;
+    this.pnlIndicator.Invalidate ();
+    this.lblStatusText.Text      = active ? "ACTIVE" : "IDLE";
+    this.lblStatusText.ForeColor = active
+      ? System.Drawing.Color.FromArgb (16, 185, 129)
+      : System.Drawing.Color.FromArgb (100, 116, 139);
+    this.lblJiggleTitle.ForeColor = active
+      ? System.Drawing.Color.FromArgb (0, 212, 255)
+      : System.Drawing.Color.FromArgb (100, 116, 139);
+  }
+
+  private void pnlIndicator_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
+  {
+    var g = e.Graphics;
+    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+    if (this.cbJiggling.Checked)
+    {
+      using var outerGlow = new System.Drawing.SolidBrush (System.Drawing.Color.FromArgb (25, 16, 185, 129));
+      g.FillEllipse (outerGlow, 0, 0, 20, 20);
+      using var midGlow = new System.Drawing.SolidBrush (System.Drawing.Color.FromArgb (55, 16, 185, 129));
+      g.FillEllipse (midGlow, 3, 3, 14, 14);
+      using var core = new System.Drawing.SolidBrush (System.Drawing.Color.FromArgb (16, 185, 129));
+      g.FillEllipse (core, 6, 6, 8, 8);
+    }
+    else
+    {
+      using var core = new System.Drawing.SolidBrush (System.Drawing.Color.FromArgb (71, 85, 105));
+      g.FillEllipse (core, 6, 6, 8, 8);
+    }
+  }
+
+  private void panelHeader_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
+  {
+    using var pen = new System.Drawing.Pen (System.Drawing.Color.FromArgb (30, 48, 70));
+    e.Graphics.DrawLine (pen, 0, this.panelHeader.Height - 1, this.panelHeader.Width, this.panelHeader.Height - 1);
+  }
+
+  #endregion Visual status
 
   #region Minimize and restore
 
