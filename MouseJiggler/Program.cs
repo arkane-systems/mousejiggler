@@ -74,7 +74,7 @@ public static class Program
     _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
     Application.EnableVisualStyles ();
     Application.SetCompatibleTextRenderingDefault (false);
-    Application.SetColorMode(SystemColorMode.System);
+    Application.SetColorMode (SystemColorMode.System);
 
     // Detach from console before running the application, as we won't be needing it anymore.
     if (AttachedToConsole)
