@@ -50,7 +50,8 @@ public partial class MainForm : Form
     this.cbMinimize.Checked = minimizeOnStartup;
     this.cmbJiggleMode.SelectedItem = jiggleMode;
     this.cbRandom.Checked = randomTimer;
-    this.cbRespectLockedState.Checked = Settings.Default.RespectLockedState;
+    this.RespectLockedState = Settings.Default.RespectLockedState;
+    this.cbRespectLockedState.Checked = this.RespectLockedState;
 
     // Validate jigglePeriod before setting it
     if (jigglePeriod >= this.nudPeriod.Minimum && jigglePeriod <= this.nudPeriod.Maximum)
@@ -90,10 +91,10 @@ public partial class MainForm : Form
       this.cbJiggling.Checked = true;
   }
 
-  protected override void OnFormClosed (FormClosedEventArgs e)
+  protected override void OnFormClosing (FormClosingEventArgs e)
   {
     SystemEvents.SessionSwitch -= this.SystemEvents_SessionSwitch;
-    base.OnFormClosed (e);
+    base.OnFormClosing (e);
   }
 
   private void UpdateNotificationAreaText ()
