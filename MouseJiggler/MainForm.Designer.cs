@@ -44,6 +44,7 @@ namespace ArkaneSystems.MouseJiggler
       this.nudDistance = new System.Windows.Forms.NumericUpDown ();
       this.lblDistanceLabel = new System.Windows.Forms.Label ();
       this.cbMinimize = new System.Windows.Forms.CheckBox ();
+      this.cbRespectLockedState = new System.Windows.Forms.CheckBox ();
       this.cbRandom = new System.Windows.Forms.CheckBox ();
       this.cmbJiggleMode = new System.Windows.Forms.ComboBox ();
       this.trayMenu = new System.Windows.Forms.ContextMenuStrip (this.components);
@@ -138,6 +139,7 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.Controls.Add (this.nudDistance);
       this.panelSettings.Controls.Add (this.lblDistanceLabel);
       this.panelSettings.Controls.Add (this.cbMinimize);
+      this.panelSettings.Controls.Add (this.cbRespectLockedState);
       this.panelSettings.Controls.Add (this.cbRandom);
       this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Location = new System.Drawing.Point (8, 42);
@@ -207,6 +209,17 @@ namespace ArkaneSystems.MouseJiggler
       this.cbMinimize.Text = "Minimize on start?";
       this.cbMinimize.UseVisualStyleBackColor = true;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
+      // 
+      // cbRespectLockedState
+      // 
+      this.cbRespectLockedState.AutoSize = true;
+      this.cbRespectLockedState.Location = new System.Drawing.Point (10, 94);
+      this.cbRespectLockedState.Name = "cbRespectLockedState";
+      this.cbRespectLockedState.Size = new System.Drawing.Size (128, 19);
+      this.cbRespectLockedState.TabIndex = 8;
+      this.cbRespectLockedState.Text = "Respect lock state?";
+      this.cbRespectLockedState.UseVisualStyleBackColor = true;
+      this.cbRespectLockedState.CheckedChanged += this.cbRespectLockedState_CheckedChanged;
       // 
       // cbRandom
       // 
@@ -318,6 +331,7 @@ namespace ArkaneSystems.MouseJiggler
     private System.Windows.Forms.Button cmdTrayify;
     private System.Windows.Forms.ContextMenuStrip trayMenu;
     private System.Windows.Forms.CheckBox cbRandom;
+    private System.Windows.Forms.CheckBox cbRespectLockedState;
     private System.Windows.Forms.ToolStripMenuItem tsmiOpen;
     private System.Windows.Forms.ToolStripMenuItem tsmiStartJiggling;
     private System.Windows.Forms.ToolStripMenuItem tsmiStopJiggling;
