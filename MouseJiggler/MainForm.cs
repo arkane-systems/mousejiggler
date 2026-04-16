@@ -10,6 +10,7 @@
 #region using
 
 using ArkaneSystems.MouseJiggler.Properties;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -49,6 +50,7 @@ public partial class MainForm : Form
     this.cbMinimize.Checked = minimizeOnStartup;
     this.cmbJiggleMode.SelectedItem = jiggleMode;
     this.cbRandom.Checked = randomTimer;
+    this.cbRespectLockedState.Checked = Settings.Default.RespectLockedState;
 
     // Validate jigglePeriod before setting it
     if (jigglePeriod >= this.nudPeriod.Minimum && jigglePeriod <= this.nudPeriod.Maximum)
@@ -82,8 +84,16 @@ public partial class MainForm : Form
 
   private void MainForm_Load (object sender, EventArgs e)
   {
+    SystemEvents.SessionSwitch += this.SystemEvents_SessionSwitch;
+
     if (this.JiggleOnStartup)
       this.cbJiggling.Checked = true;
+  }
+
+  protected override void OnFormClosed (FormClosedEventArgs e)
+  {
+    SystemEvents.SessionSwitch -= this.SystemEvents_SessionSwitch;
+    base.OnFormClosed (e);
   }
 
   private void UpdateNotificationAreaText ()
@@ -142,6 +152,8 @@ public partial class MainForm : Form
   }
 
   private void cbRandom_CheckedChanged (object sender, EventArgs e) => this.RandomTimer = this.cbRandom.Checked;
+
+  private void cbRespectLockedState_CheckedChanged (object sender, EventArgs e) => this.RespectLockedState = this.cbRespectLockedState.Checked;
 
   private void nudPeriod_ValueChanged (object sender, EventArgs e) => this.JigglePeriod = (int)this.nudPeriod.Value;
 
@@ -202,6 +214,29 @@ public partial class MainForm : Form
 
   #endregion Do the Jiggle!
 
+  private void SystemEvents_SessionSwitch (object sender, SessionSwitchEventArgs e)
+  {
+    if (this.InvokeRequired)
+    {
+      this.BeginInvoke (() => this.SystemEvents_SessionSwitch (sender, e));
+      return;
+    }
+
+    if (!this.RespectLockedState)
+      return;
+
+    if (e.Reason == SessionSwitchReason.SessionLock && this.cbJiggling.Checked)
+    {
+      this._resumeJigglingAfterUnlock = true;
+      this.cbJiggling.Checked = false;
+    }
+    else if (e.Reason == SessionSwitchReason.SessionUnlock && this._resumeJigglingAfterUnlock)
+    {
+      this._resumeJigglingAfterUnlock = false;
+      this.cbJiggling.Checked = true;
+    }
+  }
+
   #region Minimize and restore
 
   private void cmdTrayify_Click (object sender, EventArgs e) => this.MinimizeToTray ();
@@ -237,6 +272,10 @@ public partial class MainForm : Form
   private JiggleMode _jiggleMode;
 
   private int _jiggleDistance;
+
+  private bool _respectLockedState;
+
+  private bool _resumeJigglingAfterUnlock;
 
   #endregion Settings property backing fields
 
@@ -329,6 +368,20 @@ public partial class MainForm : Form
       };
 
       this.OnPropertyChanged (nameof (this.JiggleDistance));
+    }
+  }
+
+  [DesignerSerializationVisibility (DesignerSerializationVisibility.Hidden)]
+
+  public bool RespectLockedState
+  {
+    get => this._respectLockedState;
+    set
+    {
+      this._respectLockedState = value;
+      Settings.Default.RespectLockedState = value;
+      Settings.Default.Save ();
+      this.OnPropertyChanged (nameof (this.RespectLockedState));
     }
   }
 
