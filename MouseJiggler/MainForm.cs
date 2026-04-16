@@ -12,6 +12,7 @@
 using ArkaneSystems.MouseJiggler.Properties;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -26,6 +27,9 @@ public partial class MainForm : Form
   private const int MaxNotifyIconTextLength = 63;
   private const int ToggleJigglingHotKeyId = 1;
   private const int HotKeyMessage = 0x0312;
+  private const HOT_KEY_MODIFIERS ToggleJigglingHotKeyModifiers = HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT;
+  private const VIRTUAL_KEY ToggleJigglingHotKeyKey = VIRTUAL_KEY.VK_J;
+  private const string ToggleJigglingHotKeyText = "Ctrl+Shift+J";
 
   private bool _hotKeyRegistered;
 
@@ -141,10 +145,7 @@ public partial class MainForm : Form
   protected override void WndProc (ref Message m)
   {
     if (m.Msg == HotKeyMessage && m.WParam == (IntPtr)ToggleJigglingHotKeyId)
-    {
       this.cbJiggling.Checked = !this.cbJiggling.Checked;
-      return;
-    }
 
     base.WndProc (ref m);
   }
@@ -156,8 +157,18 @@ public partial class MainForm : Form
 
     this._hotKeyRegistered = PInvoke.RegisterHotKey (new HWND(this.Handle),
         ToggleJigglingHotKeyId,
-        HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT,
-        (uint)VIRTUAL_KEY.VK_J);
+        ToggleJigglingHotKeyModifiers,
+        (uint)ToggleJigglingHotKeyKey);
+
+    if (!this._hotKeyRegistered)
+    {
+      Debugger.Log (1, nameof (MainForm), $"failed to register {ToggleJigglingHotKeyText} hotkey.\n");
+      _ = MessageBox.Show (this,
+          $@"Could not register global hotkey ({ToggleJigglingHotKeyText}). It may already be in use by another application.",
+          @"Mouse Jiggler",
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Warning);
+    }
   }
 
   private void UnregisterToggleJigglingHotKey ()
