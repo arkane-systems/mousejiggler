@@ -13,6 +13,9 @@ using ArkaneSystems.MouseJiggler.Properties;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
@@ -21,6 +24,10 @@ namespace ArkaneSystems.MouseJiggler;
 public partial class MainForm : Form
 {
   private const int MaxNotifyIconTextLength = 63;
+  private const int ToggleJigglingHotKeyId = 1;
+  private const int HotKeyMessage = 0x0312;
+
+  private bool _hotKeyRegistered;
 
   /// <summary>
   ///     Constructor for use by the form designer.
@@ -119,6 +126,49 @@ public partial class MainForm : Form
     this.UpdateNotificationAreaText ();
   }
 
+  protected override void OnHandleCreated (EventArgs e)
+  {
+    base.OnHandleCreated (e);
+    this.RegisterToggleJigglingHotKey ();
+  }
+
+  protected override void OnHandleDestroyed (EventArgs e)
+  {
+    this.UnregisterToggleJigglingHotKey ();
+    base.OnHandleDestroyed (e);
+  }
+
+  protected override void WndProc (ref Message m)
+  {
+    if (m.Msg == HotKeyMessage && m.WParam == (IntPtr)ToggleJigglingHotKeyId)
+    {
+      this.cbJiggling.Checked = !this.cbJiggling.Checked;
+      return;
+    }
+
+    base.WndProc (ref m);
+  }
+
+  private void RegisterToggleJigglingHotKey ()
+  {
+    if (this._hotKeyRegistered)
+      return;
+
+    this._hotKeyRegistered = PInvoke.RegisterHotKey (new HWND(this.Handle),
+        ToggleJigglingHotKeyId,
+        HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT,
+        (uint)VIRTUAL_KEY.VK_J);
+  }
+
+  private void UnregisterToggleJigglingHotKey ()
+  {
+    if (!this._hotKeyRegistered)
+      return;
+
+    _ = PInvoke.UnregisterHotKey (new HWND(this.Handle), ToggleJigglingHotKeyId);
+    this._hotKeyRegistered = false;
+  }
+
   #region Property synchronization
 
   private void cbSettings_CheckedChanged (object sender, EventArgs e) => this.panelSettings.Visible = this.cbSettings.Checked;
@@ -164,6 +214,7 @@ public partial class MainForm : Form
     this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateTrayMenu ();
+    this.UpdateNotificationAreaText ();
   }
 
   private void UpdateTrayMenu ()
