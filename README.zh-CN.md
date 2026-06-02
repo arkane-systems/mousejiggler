@@ -2,7 +2,7 @@
 
 这是 Mouse Jiggler 的非官方简体中文本地化版本，基于原项目 [arkane-systems/mousejiggler](https://github.com/arkane-systems/mousejiggler)。
 
-感谢原作者维护这个轻量、实用的 Windows 鼠标防空闲工具。本分支主要面向中文用户，保留原有功能，只对界面文本、托盘提示、模式名称和程序元数据做中文化处理。
+感谢原作者维护这个轻量、实用的 Windows 鼠标防空闲工具。本分支由 Codex 生成，主要面向中文用户，保留原有功能，只对界面文本、托盘提示、模式名称和程序元数据做中文化处理。
 
 ## 功能简介
 
