@@ -32,6 +32,11 @@ public partial class MainForm : Form
   public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings)
   {
     this.InitializeComponent ();
+    this.cmbJiggleMode.Format += (_, e) =>
+    {
+      if (e.ListItem is JiggleMode mode)
+        e.Value = GetJiggleModeDisplayName (mode);
+    };
 
     // Initialize JiggleMode combo box with enum values
     this.cmbJiggleMode.Items.Clear ();
@@ -90,16 +95,24 @@ public partial class MainForm : Form
   {
     if (!this.cbJiggling.Checked)
     {
-      this.niTray.Text = @"Not jiggling the mouse.";
+      this.niTray.Text = @"未启用鼠标晃动。";
+      return;
     }
-    else
-    {
-      var mode = this.JiggleMode.ToString ();
-      var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
-      this.niTray.Text = text.Length > MaxNotifyIconTextLength ? text[..(MaxNotifyIconTextLength - 3)] + "..." : text;
-    }
+
+    var localizedMode = GetJiggleModeDisplayName (this.JiggleMode);
+    var localizedRandom = this.RandomTimer ? @"，随机间隔" : string.Empty;
+    var localizedText = $@"每 {this.JigglePeriod} 秒晃动鼠标{localizedRandom}，模式：{localizedMode}，倍率：{this.JiggleDistance}。";
+    this.niTray.Text = localizedText.Length > MaxNotifyIconTextLength ? localizedText[..(MaxNotifyIconTextLength - 3)] + "..." : localizedText;
   }
+
+  private static string GetJiggleModeDisplayName (JiggleMode mode) => mode switch
+  {
+    JiggleMode.Normal => "普通",
+    JiggleMode.Zen => "禅模式",
+    JiggleMode.Circle => "圆形",
+    JiggleMode.Linear => "线性",
+    _ => mode.ToString ()
+  };
 
   private void cmdAbout_Click (object sender, EventArgs e) => new AboutBox ().ShowDialog (this);
 
@@ -136,7 +149,7 @@ public partial class MainForm : Form
         JiggleMode.Zen => JigglePatterns.Zen,
         JiggleMode.Circle => JigglePatterns.Circle,
         JiggleMode.Linear => JigglePatterns.Linear,
-        _ => throw new ArgumentOutOfRangeException (null, mode, "No pattern exists for specified mode.")
+        _ => throw new ArgumentOutOfRangeException (null, mode, "指定模式没有对应的晃动轨迹。")
       };
     }
   }
@@ -279,7 +292,7 @@ public partial class MainForm : Form
     {
       // Validate that the value is a defined enum value
       if (!Enum.IsDefined (value))
-        throw new ArgumentOutOfRangeException (nameof (value), value, "Invalid JiggleMode value");
+        throw new ArgumentOutOfRangeException (nameof (value), value, "无效的晃动模式。");
 
       this._jiggleMode = value;
       Settings.Default.JiggleMode = value.ToString ();
@@ -325,7 +338,7 @@ public partial class MainForm : Form
         JiggleMode.Zen => JigglePatterns.Zen,
         JiggleMode.Circle => JigglePatterns.Circle,
         JiggleMode.Linear => JigglePatterns.Linear,
-        _ => throw new ArgumentOutOfRangeException (null, this.JiggleMode, "No pattern exists for specified mode.")
+        _ => throw new ArgumentOutOfRangeException (null, this.JiggleMode, "指定模式没有对应的晃动轨迹。")
       };
 
       this.OnPropertyChanged (nameof (this.JiggleDistance));

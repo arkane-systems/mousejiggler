@@ -14,26 +14,26 @@
     <Authors>Alistair J. R. Young, Dimitris Panokostas</Authors>
     <Company>Arkane Systems</Company>
     <Description>
-A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
+一个用于周期性模拟鼠标活动、避免系统进入空闲状态的小工具。
 
-Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop.
-The jiggle mode (under "Settings...") can be set to one of four options:
-  - Normal: the pointer moves slightly with each jiggle.
-  - Zen: the system believes the pointer is moving, preventing screen saver activation, but the pointer does not actually move. This may not work for idle detection under all applications.
-  - Circle: the pointer moves in a circular pattern.
-  - Linear: the pointer slides left and right.
-Additional settings allow configuring the jiggle interval (in seconds), a distance multiplier, and optional random timer variation.
+勾选“启用晃动”即可开始模拟鼠标活动；取消勾选则停止。
+“设置...”中的晃动模式提供四种选择：
+  - 普通：每次轻微移动鼠标指针。
+  - 禅模式：让系统认为鼠标在移动，但指针本身不移动。部分应用自带的空闲检测可能不适用。
+  - 圆形：鼠标指针按圆形轨迹移动。
+  - 线性：鼠标指针左右移动。
+其他设置可调整晃动间隔、距离倍率，并可启用随机间隔。
 
-Command line options:
-  -j, --jiggle - Start with jiggling enabled.
-  -m, --minimized - Start minimized.
-  -o, --mode &lt;Circle|Linear|Normal|Zen&gt; - Start with the specified jiggle mode enabled. [default: Normal]
-  -r, --random - Start with random variation enabled.
-  -s, --seconds &lt;seconds&gt; - Set X number of seconds for the jiggle interval. [default: 60]
-  -d, --distance &lt;distance&gt; - Set the multiplier for the jiggle distance. [default: 1]
-  -g, --settings - Start with settings panel displayed.
-  -?, -h, --help - Show help and usage information
-  --version - Show version information</Description>
+命令行选项：
+  -j, --jiggle - 启动时直接启用鼠标晃动。
+  -m, --minimized - 启动时最小化。
+  -o, --mode &lt;Circle|Linear|Normal|Zen&gt; - 启动时使用指定的晃动模式。[默认: Normal]
+  -r, --random - 启动时启用随机间隔。
+  -s, --seconds &lt;seconds&gt; - 设置鼠标晃动间隔秒数。[默认: 60]
+  -d, --distance &lt;distance&gt; - 设置鼠标晃动距离倍率。[默认: 1]
+  -g, --settings - 启动时显示设置面板。
+  -?, -h, --help - 显示帮助和用法信息
+  --version - 显示版本信息</Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/arkane-systems/mousejiggler</PackageProjectUrl>
@@ -44,7 +44,8 @@ Command line options:
     <RepositoryUrl>https://github.com/arkane-systems/mousejiggler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Title>MouseJiggler</Title>
+    <Title>Mouse Jiggler 中文版</Title>
+    <Product>Mouse Jiggler 中文版</Product>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>

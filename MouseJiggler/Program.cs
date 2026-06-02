@@ -50,7 +50,7 @@ public static class Program
       }
       else
       {
-        Console.WriteLine (@"Mouse Jiggler is already running. Aborting.");
+        Console.WriteLine (@"Mouse Jiggler 已在运行，正在退出。");
 
         return 1;
       }
@@ -102,35 +102,35 @@ public static class Program
     // -j --jiggle
     var optJiggling = new Option<bool>("--jiggle", "-j")
     {
-      Description = "Start with jiggling enabled.",
+      Description = "启动时直接启用鼠标晃动。",
       DefaultValueFactory = _ => false
     };
 
     // -m --minimized
     var optMinimized = new Option<bool>("--minimized", "-m")
     {
-      Description = "Start minimized.",
+      Description = "启动时最小化。",
       DefaultValueFactory = _ => Settings.Default.MinimizeOnStartup
     };
 
     // -o --mode
     var optMode = new Option<JiggleMode>("--mode", "-o")
     {
-      Description = "Start with the specified jiggle mode enabled.",
+      Description = "启动时使用指定的晃动模式。",
       DefaultValueFactory = _ => Enum.TryParse<JiggleMode>(Settings.Default.JiggleMode, true, out JiggleMode m) ? m : JiggleMode.Normal
     };
 
     // -r --random
     var optRandom = new Option<bool>("--random", "-r")
     {
-      Description = "Start with random variation enabled.",
+      Description = "启动时启用随机间隔。",
       DefaultValueFactory = _ => Settings.Default.RandomTimer
     };
 
     // -s 60 --seconds 60
     var optPeriod = new Option<int>("--seconds", "-s")
     {
-      Description = "Set X number of seconds for the jiggle interval.",
+      Description = "设置鼠标晃动间隔秒数。",
       DefaultValueFactory = _ => Settings.Default.JigglePeriod
     };
 
@@ -138,15 +138,15 @@ public static class Program
     {
       var value = result.GetValue(optPeriod);
       if (value < 1)
-        result.AddError ("Period cannot be shorter than 1 second.");
+        result.AddError ("间隔不能短于 1 秒。");
       else if (value > 10800)
-        result.AddError ("Period cannot be longer than 10800 seconds.");
+        result.AddError ("间隔不能超过 10800 秒。");
     });
 
     // -d 1 --distance 1
     var optDistance = new Option<int>("--distance", "-d")
     {
-      Description = "Set the multiplier for the jiggle distance.",
+      Description = "设置鼠标晃动距离倍率。",
       DefaultValueFactory = _ => Settings.Default.JiggleDistance
     };
 
@@ -154,20 +154,20 @@ public static class Program
     {
       var value = result.GetValue(optDistance);
       if (value < 1)
-        result.AddError ("Distance multiplier cannot be less than 1.");
+        result.AddError ("距离倍率不能小于 1。");
       else if (value > 120)
-        result.AddError ("Distance multiplier cannot be greater than 120.");
+        result.AddError ("距离倍率不能大于 120。");
     });
 
     // -g --settings
     var optSettings = new Option<bool>("--settings", "-g")
     {
-      Description = "Start with settings panel displayed.",
+      Description = "启动时显示设置面板。",
       DefaultValueFactory = _ => false
     };
 
     // Create root command.
-    var rootCommand = new RootCommand("Virtually jiggles the mouse, making the computer seem not idle.")
+    var rootCommand = new RootCommand("模拟鼠标活动，让系统保持非空闲状态。")
         {
             optJiggling,
             optMinimized,
@@ -182,6 +182,7 @@ public static class Program
     var ha = rootCommand.Options.OfType<HelpOption>().FirstOrDefault();
     if (ha?.Action is HelpAction helpAction)
     {
+      ha.Description = "显示帮助和用法信息";
       ha.Action = new SpacedHelpAction(helpAction);
     }
 
