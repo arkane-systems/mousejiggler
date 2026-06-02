@@ -1,5 +1,7 @@
-mousejiggler
-============
+MouseJiggler 中文版 - 模拟鼠标抖动工具（Windows 防锁屏/防休眠）
+================================================================
+
+[简体中文说明](README.zh-CN.md)
 
 Mouse Jiggler is a very simple piece of software whose sole function is to "fake" mouse input to Windows, and jiggle the mouse pointer back and forth.
 

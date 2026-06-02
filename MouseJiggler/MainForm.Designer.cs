@@ -111,11 +111,11 @@ namespace ArkaneSystems.MouseJiggler
       // 
       // cbSettings
       // 
-      this.cbSettings.Location = new System.Drawing.Point (88, 5);
+      this.cbSettings.Location = new System.Drawing.Point (92, 5);
       this.cbSettings.Name = "cbSettings";
-      this.cbSettings.Size = new System.Drawing.Size (77, 19);
+      this.cbSettings.Size = new System.Drawing.Size (70, 19);
       this.cbSettings.TabIndex = 1;
-      this.cbSettings.Text = "Settings...";
+      this.cbSettings.Text = "设置...";
       this.cbSettings.UseVisualStyleBackColor = true;
       this.cbSettings.CheckedChanged += this.cbSettings_CheckedChanged;
       // 
@@ -124,9 +124,9 @@ namespace ArkaneSystems.MouseJiggler
       this.cbJiggling.AutoSize = true;
       this.cbJiggling.Location = new System.Drawing.Point (3, 5);
       this.cbJiggling.Name = "cbJiggling";
-      this.cbJiggling.Size = new System.Drawing.Size (72, 19);
+      this.cbJiggling.Size = new System.Drawing.Size (86, 19);
       this.cbJiggling.TabIndex = 0;
-      this.cbJiggling.Text = "Jiggling?";
+      this.cbJiggling.Text = "启用晃动";
       this.cbJiggling.UseVisualStyleBackColor = true;
       this.cbJiggling.CheckedChanged += this.cbJiggling_CheckedChanged;
       // 
@@ -165,7 +165,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lblPeriodLabel.Name = "lblPeriodLabel";
       this.lblPeriodLabel.Size = new System.Drawing.Size (65, 15);
       this.lblPeriodLabel.TabIndex = 3;
-      this.lblPeriodLabel.Text = "Interval (s):";
+      this.lblPeriodLabel.Text = "间隔(秒):";
       // 
       // lbPeriod
       // 
@@ -195,7 +195,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lblDistanceLabel.Name = "lblDistanceLabel";
       this.lblDistanceLabel.Size = new System.Drawing.Size (117, 15);
       this.lblDistanceLabel.TabIndex = 5;
-      this.lblDistanceLabel.Text = "Distance (multiplier):";
+      this.lblDistanceLabel.Text = "距离倍率:";
       // 
       // cbMinimize
       // 
@@ -204,7 +204,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbMinimize.Name = "cbMinimize";
       this.cbMinimize.Size = new System.Drawing.Size (123, 19);
       this.cbMinimize.TabIndex = 7;
-      this.cbMinimize.Text = "Minimize on start?";
+      this.cbMinimize.Text = "启动时最小化";
       this.cbMinimize.UseVisualStyleBackColor = true;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
       // 
@@ -215,7 +215,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.Name = "cbRandom";
       this.cbRandom.Size = new System.Drawing.Size (90, 19);
       this.cbRandom.TabIndex = 1;
-      this.cbRandom.Text = "Randomize?";
+      this.cbRandom.Text = "随机间隔";
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
       // 
@@ -239,35 +239,35 @@ namespace ArkaneSystems.MouseJiggler
       // 
       this.tsmiOpen.Name = "tsmiOpen";
       this.tsmiOpen.Size = new System.Drawing.Size (142, 22);
-      this.tsmiOpen.Text = "Open";
+      this.tsmiOpen.Text = "打开";
       this.tsmiOpen.Click += this.niTray_DoubleClick;
       // 
       // tsmiStartJiggling
       // 
       this.tsmiStartJiggling.Name = "tsmiStartJiggling";
       this.tsmiStartJiggling.Size = new System.Drawing.Size (142, 22);
-      this.tsmiStartJiggling.Text = "Start Jiggling";
+      this.tsmiStartJiggling.Text = "开始晃动";
       this.tsmiStartJiggling.Click += this.trayMenu_ClickStartJiggling;
       // 
       // tsmiStopJiggling
       // 
       this.tsmiStopJiggling.Name = "tsmiStopJiggling";
       this.tsmiStopJiggling.Size = new System.Drawing.Size (142, 22);
-      this.tsmiStopJiggling.Text = "Stop Jiggling";
+      this.tsmiStopJiggling.Text = "停止晃动";
       this.tsmiStopJiggling.Click += this.trayMenu_ClickStopJiggling;
       // 
       // tsmiExit
       // 
       this.tsmiExit.Name = "tsmiExit";
       this.tsmiExit.Size = new System.Drawing.Size (142, 22);
-      this.tsmiExit.Text = "Exit";
+      this.tsmiExit.Text = "退出";
       this.tsmiExit.Click += this.trayMenu_ClickExit;
       // 
       // niTray
       // 
       this.niTray.ContextMenuStrip = this.trayMenu;
       this.niTray.Icon = (System.Drawing.Icon)resources.GetObject ("niTray.Icon");
-      this.niTray.Text = "Mouse Jiggler";
+      this.niTray.Text = "Mouse Jiggler 中文版";
       this.niTray.DoubleClick += this.niTray_DoubleClick;
       // 
       // MainForm
@@ -283,7 +283,7 @@ namespace ArkaneSystems.MouseJiggler
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "MainForm";
-      this.Text = "Mouse Jiggler";
+      this.Text = "Mouse Jiggler 中文版";
       this.Load += this.MainForm_Load;
       this.Shown += this.MainForm_Shown;
       this.flpLayout.ResumeLayout (false);

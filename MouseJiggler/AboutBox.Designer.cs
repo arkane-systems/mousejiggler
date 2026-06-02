@@ -77,7 +77,7 @@ namespace ArkaneSystems.MouseJiggler
             cmdOk.Name = "cmdOk";
             cmdOk.Size = new System.Drawing.Size(86, 28);
             cmdOk.TabIndex = 0;
-            cmdOk.Text = "&OK";
+            cmdOk.Text = "确定";
             cmdOk.UseVisualStyleBackColor = true;
             cmdOk.Click += cmdOk_Click;
             // 
@@ -174,7 +174,7 @@ namespace ArkaneSystems.MouseJiggler
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "About...";
+            Text = "关于...";
             baseLayout.ResumeLayout(false);
             baseLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();

@@ -24,9 +24,9 @@ public sealed partial class AboutBox : Form
     this.InitializeComponent ();
 
     // Initialize the about box to display the product information from the assembly information.
-    this.Text = $"About {AssemblyTitle}";
+    this.Text = $"关于 {AssemblyTitle}";
     this.lbProductName.Text = AssemblyProduct;
-    this.lbVersion.Text = $"Version {AssemblyVersion}";
+    this.lbVersion.Text = $"版本 {AssemblyVersion}";
     this.lbCopyright.Text = AssemblyCopyright;
     this.lbCompanyName.Text = AssemblyCompany;
     this.tbDescription.Text = AssemblyDescription;
