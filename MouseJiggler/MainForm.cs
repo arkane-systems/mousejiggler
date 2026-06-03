@@ -180,6 +180,9 @@ public partial class MainForm : Form
       return;
     }
 
+    if (this.Step >= this.Pattern.Length)
+      this.Step = 0;
+
     var (deltax, deltay) = this.Pattern[this.Step];
     this.Step++;
 
