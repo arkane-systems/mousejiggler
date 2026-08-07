@@ -31,6 +31,7 @@ namespace ArkaneSystems.MouseJiggler
       this.components = new System.ComponentModel.Container ();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.jiggleTimer = new System.Windows.Forms.Timer (this.components);
+      this.endTimeTimer = new System.Windows.Forms.Timer (this.components);
       this.flpLayout = new System.Windows.Forms.FlowLayoutPanel ();
       this.panelBase = new System.Windows.Forms.Panel ();
       this.cmdAbout = new System.Windows.Forms.Button ();
@@ -45,6 +46,8 @@ namespace ArkaneSystems.MouseJiggler
       this.lblDistanceLabel = new System.Windows.Forms.Label ();
       this.cbMinimize = new System.Windows.Forms.CheckBox ();
       this.cbRandom = new System.Windows.Forms.CheckBox ();
+      this.cbStopAt = new System.Windows.Forms.CheckBox ();
+      this.dtpStopAt = new System.Windows.Forms.DateTimePicker ();
       this.cmbJiggleMode = new System.Windows.Forms.ComboBox ();
       this.trayMenu = new System.Windows.Forms.ContextMenuStrip (this.components);
       this.tsmiOpen = new System.Windows.Forms.ToolStripMenuItem ();
@@ -59,12 +62,17 @@ namespace ArkaneSystems.MouseJiggler
       ((System.ComponentModel.ISupportInitialize)this.nudDistance).BeginInit ();
       this.trayMenu.SuspendLayout ();
       this.SuspendLayout ();
-      // 
+      //
       // jiggleTimer
-      // 
+      //
       this.jiggleTimer.Interval = 1000;
       this.jiggleTimer.Tick += this.jiggleTimer_Tick;
-      // 
+      //
+      // endTimeTimer
+      //
+      this.endTimeTimer.Interval = 1000;
+      this.endTimeTimer.Tick += this.endTimeTimer_Tick;
+      //
       // flpLayout
       // 
       this.flpLayout.AutoSize = true;
@@ -75,7 +83,7 @@ namespace ArkaneSystems.MouseJiggler
       this.flpLayout.Location = new System.Drawing.Point (0, 0);
       this.flpLayout.Name = "flpLayout";
       this.flpLayout.Padding = new System.Windows.Forms.Padding (5);
-      this.flpLayout.Size = new System.Drawing.Size (305, 170);
+      this.flpLayout.Size = new System.Drawing.Size (305, 200);
       this.flpLayout.TabIndex = 0;
       // 
       // panelBase
@@ -137,12 +145,14 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.Controls.Add (this.lbPeriod);
       this.panelSettings.Controls.Add (this.nudDistance);
       this.panelSettings.Controls.Add (this.lblDistanceLabel);
+      this.panelSettings.Controls.Add (this.cbStopAt);
+      this.panelSettings.Controls.Add (this.dtpStopAt);
       this.panelSettings.Controls.Add (this.cbMinimize);
       this.panelSettings.Controls.Add (this.cbRandom);
       this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Location = new System.Drawing.Point (8, 42);
       this.panelSettings.Name = "panelSettings";
-      this.panelSettings.Size = new System.Drawing.Size (289, 120);
+      this.panelSettings.Size = new System.Drawing.Size (289, 150);
       this.panelSettings.TabIndex = 1;
       this.panelSettings.Visible = false;
       // 
@@ -198,16 +208,37 @@ namespace ArkaneSystems.MouseJiggler
       this.lblDistanceLabel.Text = "Distance (multiplier):";
       // 
       // cbMinimize
-      // 
+      //
       this.cbMinimize.AutoSize = true;
-      this.cbMinimize.Location = new System.Drawing.Point (138, 94);
+      this.cbMinimize.Location = new System.Drawing.Point (10, 123);
       this.cbMinimize.Name = "cbMinimize";
       this.cbMinimize.Size = new System.Drawing.Size (123, 19);
-      this.cbMinimize.TabIndex = 7;
+      this.cbMinimize.TabIndex = 8;
       this.cbMinimize.Text = "Minimize on start?";
       this.cbMinimize.UseVisualStyleBackColor = true;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
-      // 
+      //
+      // cbStopAt
+      //
+      this.cbStopAt.AutoSize = true;
+      this.cbStopAt.Location = new System.Drawing.Point (10, 98);
+      this.cbStopAt.Name = "cbStopAt";
+      this.cbStopAt.Size = new System.Drawing.Size (66, 19);
+      this.cbStopAt.TabIndex = 7;
+      this.cbStopAt.Text = "Stop at:";
+      this.cbStopAt.UseVisualStyleBackColor = true;
+      this.cbStopAt.CheckedChanged += this.cbStopAt_CheckedChanged;
+      //
+      // dtpStopAt
+      //
+      this.dtpStopAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+      this.dtpStopAt.Location = new System.Drawing.Point (136, 94);
+      this.dtpStopAt.Name = "dtpStopAt";
+      this.dtpStopAt.ShowUpDown = true;
+      this.dtpStopAt.Size = new System.Drawing.Size (147, 23);
+      this.dtpStopAt.TabIndex = 6;
+      this.dtpStopAt.ValueChanged += this.dtpStopAt_ValueChanged;
+      //
       // cbRandom
       // 
       this.cbRandom.AutoSize = true;
@@ -276,7 +307,7 @@ namespace ArkaneSystems.MouseJiggler
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.AutoSize = true;
       this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-      this.ClientSize = new System.Drawing.Size (304, 168);
+      this.ClientSize = new System.Drawing.Size (304, 198);
       this.Controls.Add (this.flpLayout);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
       this.Icon = (System.Drawing.Icon)resources.GetObject ("$this.Icon");
@@ -301,6 +332,7 @@ namespace ArkaneSystems.MouseJiggler
     #endregion
 
     private System.Windows.Forms.Timer jiggleTimer;
+    private System.Windows.Forms.Timer endTimeTimer;
     private System.Windows.Forms.FlowLayoutPanel flpLayout;
     private System.Windows.Forms.Panel panelSettings;
     private System.Windows.Forms.NumericUpDown nudPeriod;
@@ -308,6 +340,8 @@ namespace ArkaneSystems.MouseJiggler
     private System.Windows.Forms.Label lbPeriod;
     private System.Windows.Forms.NumericUpDown nudDistance;
     private System.Windows.Forms.Label lblDistanceLabel;
+    private System.Windows.Forms.CheckBox cbStopAt;
+    private System.Windows.Forms.DateTimePicker dtpStopAt;
     private System.Windows.Forms.CheckBox cbMinimize;
     private System.Windows.Forms.ComboBox cmbJiggleMode;
     private System.Windows.Forms.Panel panelBase;
