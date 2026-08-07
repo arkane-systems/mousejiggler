@@ -143,6 +143,14 @@ public partial class MainForm : Form
 
   private void cbRandom_CheckedChanged (object sender, EventArgs e) => this.RandomTimer = this.cbRandom.Checked;
 
+  private void cbStopAt_CheckedChanged (object sender, EventArgs e) => this.UpdateStopAtState ();
+
+  private void dtpStopAt_ValueChanged (object sender, EventArgs e)
+  {
+    if (this.cbJiggling.Checked && this.cbStopAt.Checked)
+      this.RecomputeStopAtTarget ();
+  }
+
   private void nudPeriod_ValueChanged (object sender, EventArgs e) => this.JigglePeriod = (int)this.nudPeriod.Value;
 
   private void nudDistance_ValueChanged (object sender, EventArgs e) => this.JiggleDistance = (int)this.nudDistance.Value;
@@ -164,6 +172,7 @@ public partial class MainForm : Form
     this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateTrayMenu ();
+    this.UpdateStopAtState ();
   }
 
   private void UpdateTrayMenu ()
@@ -204,6 +213,43 @@ public partial class MainForm : Form
   }
 
   #endregion Do the Jiggle!
+
+  #region Stop at a given time
+
+  private DateTime? _stopAtTarget;
+
+  private void UpdateStopAtState ()
+  {
+    if (this.cbJiggling.Checked && this.cbStopAt.Checked)
+    {
+      this.RecomputeStopAtTarget ();
+      this.endTimeTimer.Enabled = true;
+    }
+    else
+    {
+      this.endTimeTimer.Enabled = false;
+      this._stopAtTarget = null;
+    }
+  }
+
+  private void RecomputeStopAtTarget ()
+  {
+    var target = DateTime.Today.Add (this.dtpStopAt.Value.TimeOfDay);
+
+    // If that time of day has already passed today, it must mean tomorrow.
+    if (target <= DateTime.Now)
+      target = target.AddDays (1);
+
+    this._stopAtTarget = target;
+  }
+
+  private void endTimeTimer_Tick (object sender, EventArgs e)
+  {
+    if (this._stopAtTarget.HasValue && DateTime.Now >= this._stopAtTarget.Value)
+      this.cbJiggling.Checked = false;
+  }
+
+  #endregion Stop at a given time
 
   #region Minimize and restore
 
