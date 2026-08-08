@@ -22,7 +22,7 @@ The jiggle mode (under "Settings...") can be set to one of four options:
   - Zen: the system believes the pointer is moving, preventing screen saver activation, but the pointer does not actually move. This may not work for idle detection under all applications.
   - Circle: the pointer moves in a circular pattern.
   - Linear: the pointer slides left and right.
-Additional settings allow configuring the jiggle interval (in seconds), a distance multiplier, and optional random timer variation.
+Additional settings allow configuring the jiggle interval (in seconds), a distance multiplier, optional random timer variation, and optionally pausing jiggling while Windows is locked.
 
 Command line options:
   -j, --jiggle - Start with jiggling enabled.
