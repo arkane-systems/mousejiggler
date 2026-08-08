@@ -77,7 +77,7 @@ namespace ArkaneSystems.MouseJiggler
             cmdOk.Name = "cmdOk";
             cmdOk.Size = new System.Drawing.Size(86, 28);
             cmdOk.TabIndex = 0;
-            cmdOk.Text = "&OK";
+            cmdOk.Text = resources.GetString ("cmdOk.Text");
             cmdOk.UseVisualStyleBackColor = true;
             cmdOk.Click += cmdOk_Click;
             // 
@@ -104,7 +104,7 @@ namespace ArkaneSystems.MouseJiggler
             lbProductName.Name = "lbProductName";
             lbProductName.Size = new System.Drawing.Size(394, 35);
             lbProductName.TabIndex = 1;
-            lbProductName.Text = "Product Name";
+            lbProductName.Text = resources.GetString ("lbProductName.Text");
             lbProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbVersion
@@ -116,7 +116,7 @@ namespace ArkaneSystems.MouseJiggler
             lbVersion.Name = "lbVersion";
             lbVersion.Size = new System.Drawing.Size(394, 35);
             lbVersion.TabIndex = 2;
-            lbVersion.Text = "Version";
+            lbVersion.Text = resources.GetString ("lbVersion.Text");
             lbVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbCopyright
@@ -128,7 +128,7 @@ namespace ArkaneSystems.MouseJiggler
             lbCopyright.Name = "lbCopyright";
             lbCopyright.Size = new System.Drawing.Size(394, 35);
             lbCopyright.TabIndex = 3;
-            lbCopyright.Text = "Copyright";
+            lbCopyright.Text = resources.GetString ("lbCopyright.Text");
             lbCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbCompanyName
@@ -140,7 +140,7 @@ namespace ArkaneSystems.MouseJiggler
             lbCompanyName.Name = "lbCompanyName";
             lbCompanyName.Size = new System.Drawing.Size(394, 35);
             lbCompanyName.TabIndex = 4;
-            lbCompanyName.Text = "Company Name";
+            lbCompanyName.Text = resources.GetString ("lbCompanyName.Text");
             lbCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbDescription
@@ -154,7 +154,7 @@ namespace ArkaneSystems.MouseJiggler
             tbDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             tbDescription.Size = new System.Drawing.Size(394, 167);
             tbDescription.TabIndex = 5;
-            tbDescription.Text = "Description";
+            tbDescription.Text = resources.GetString ("tbDescription.Text");
             // 
             // AboutBox
             // 
@@ -174,7 +174,7 @@ namespace ArkaneSystems.MouseJiggler
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "About...";
+            Text = resources.GetString ("$this.Text");
             baseLayout.ResumeLayout(false);
             baseLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();

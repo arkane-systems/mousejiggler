@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutBox_TitleFormat" xml:space="preserve">
+    <value>关于 {0}</value>
+  </data>
+  <data name="AboutBox_VersionFormat" xml:space="preserve">
+    <value>版本 {0}</value>
+  </data>
+  <data name="Error_InvalidJiggleModeValue" xml:space="preserve">
+    <value>无效的晃动模式。</value>
+  </data>
+  <data name="Error_NoPatternForMode" xml:space="preserve">
+    <value>指定模式没有对应的晃动轨迹。</value>
+  </data>
+  <data name="JiggleMode_Circle_DisplayName" xml:space="preserve">
+    <value>圆形</value>
+  </data>
+  <data name="JiggleMode_Linear_DisplayName" xml:space="preserve">
+    <value>线性</value>
+  </data>
+  <data name="JiggleMode_Normal_DisplayName" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="JiggleMode_Zen_DisplayName" xml:space="preserve">
+    <value>禅模式</value>
+  </data>
+  <data name="MainForm_PeriodValueFormat" xml:space="preserve">
+    <value>{0} 秒</value>
+  </data>
+  <data name="MainForm_TrayEllipsis" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="MainForm_TrayNotJiggling" xml:space="preserve">
+    <value>未启用鼠标晃动。</value>
+  </data>
+  <data name="MainForm_TrayRandomSegment" xml:space="preserve">
+    <value>，随机间隔</value>
+  </data>
+  <data name="MainForm_TrayStatusFormat" xml:space="preserve">
+    <value>每 {0} 秒晃动鼠标{1}，模式：{2} (Δ {3})。</value>
+  </data>
+  <data name="Program_AlreadyRunning" xml:space="preserve">
+    <value>Mouse Jiggler 已在运行，正在退出。</value>
+  </data>
+  <data name="Program_Error_DistanceTooLong" xml:space="preserve">
+    <value>距离倍率不能大于 120。</value>
+  </data>
+  <data name="Program_Error_DistanceTooShort" xml:space="preserve">
+    <value>距离倍率不能小于 1。</value>
+  </data>
+  <data name="Program_Error_PeriodTooLong" xml:space="preserve">
+    <value>间隔不能超过 10800 秒。</value>
+  </data>
+  <data name="Program_Error_PeriodTooShort" xml:space="preserve">
+    <value>间隔不能短于 1 秒。</value>
+  </data>
+  <data name="Program_HelpOption_Description" xml:space="preserve">
+    <value>显示帮助和用法信息</value>
+  </data>
+  <data name="Program_OptDistance_Description" xml:space="preserve">
+    <value>设置鼠标晃动距离倍率。</value>
+  </data>
+  <data name="Program_OptJiggle_Description" xml:space="preserve">
+    <value>启动时直接启用鼠标晃动。</value>
+  </data>
+  <data name="Program_OptMinimized_Description" xml:space="preserve">
+    <value>启动时最小化。</value>
+  </data>
+  <data name="Program_OptMode_Description" xml:space="preserve">
+    <value>启动时使用指定的晃动模式（Normal/Zen/Circle/Linear）。</value>
+  </data>
+  <data name="Program_OptRandom_Description" xml:space="preserve">
+    <value>启动时启用随机间隔。</value>
+  </data>
+  <data name="Program_OptSeconds_Description" xml:space="preserve">
+    <value>设置鼠标晃动间隔秒数。</value>
+  </data>
+  <data name="Program_OptSettings_Description" xml:space="preserve">
+    <value>启动时显示设置面板。</value>
+  </data>
+  <data name="Program_RootCommand_Description" xml:space="preserve">
+    <value>模拟鼠标活动，让系统保持非空闲状态。</value>
+  </data>
+</root>

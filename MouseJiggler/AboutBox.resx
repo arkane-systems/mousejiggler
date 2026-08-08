@@ -801,4 +801,25 @@
         AAD+AQAA+AEAAOAAAADgAAAAwAAAAMABAADAAwAA4A8AAIA/AAAf/wAAf/8AAP//AAD//wAA//8AAA==
 </value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>About...</value>
+  </data>
+  <data name="cmdOk.Text" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="lbProductName.Text" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="lbVersion.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="lbCopyright.Text" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="lbCompanyName.Text" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="tbDescription.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
 </root>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>关于...</value>
+  </data>
+  <data name="cmdOk.Text" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="lbProductName.Text" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="lbVersion.Text" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="lbCopyright.Text" xml:space="preserve">
+    <value>版权</value>
+  </data>
+  <data name="lbCompanyName.Text" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="tbDescription.Text" xml:space="preserve">
+    <value>说明</value>
+  </data>
+</root>

@@ -50,7 +50,7 @@ public static class Program
       }
       else
       {
-        Console.WriteLine (@"Mouse Jiggler is already running. Aborting.");
+        Console.WriteLine (GetResourceString ("Program_AlreadyRunning"));
 
         return 1;
       }
@@ -116,35 +116,35 @@ public static class Program
     // -j --jiggle
     var optJiggling = new Option<bool>("--jiggle", "-j")
     {
-      Description = "Start with jiggling enabled.",
+      Description = GetResourceString ("Program_OptJiggle_Description"),
       DefaultValueFactory = _ => false
     };
 
     // -m --minimized
     var optMinimized = new Option<bool>("--minimized", "-m")
     {
-      Description = "Start minimized.",
+      Description = GetResourceString ("Program_OptMinimized_Description"),
       DefaultValueFactory = _ => Settings.Default.MinimizeOnStartup
     };
 
     // -o --mode
     var optMode = new Option<JiggleMode>("--mode", "-o")
     {
-      Description = "Start with the specified jiggle mode enabled.",
+      Description = GetResourceString ("Program_OptMode_Description"),
       DefaultValueFactory = _ => Enum.TryParse<JiggleMode>(Settings.Default.JiggleMode, true, out JiggleMode m) ? m : JiggleMode.Normal
     };
 
     // -r --random
     var optRandom = new Option<bool>("--random", "-r")
     {
-      Description = "Start with random variation enabled.",
+      Description = GetResourceString ("Program_OptRandom_Description"),
       DefaultValueFactory = _ => Settings.Default.RandomTimer
     };
 
     // -s 60 --seconds 60
     var optPeriod = new Option<int>("--seconds", "-s")
     {
-      Description = "Set X number of seconds for the jiggle interval.",
+      Description = GetResourceString ("Program_OptSeconds_Description"),
       DefaultValueFactory = _ => Settings.Default.JigglePeriod
     };
 
@@ -152,15 +152,15 @@ public static class Program
     {
       var value = result.GetValue(optPeriod);
       if (value < 1)
-        result.AddError ("Period cannot be shorter than 1 second.");
+        result.AddError (GetResourceString ("Program_Error_PeriodTooShort"));
       else if (value > 10800)
-        result.AddError ("Period cannot be longer than 10800 seconds.");
+        result.AddError (GetResourceString ("Program_Error_PeriodTooLong"));
     });
 
     // -d 1 --distance 1
     var optDistance = new Option<int>("--distance", "-d")
     {
-      Description = "Set the multiplier for the jiggle distance.",
+      Description = GetResourceString ("Program_OptDistance_Description"),
       DefaultValueFactory = _ => Settings.Default.JiggleDistance
     };
 
@@ -168,20 +168,20 @@ public static class Program
     {
       var value = result.GetValue(optDistance);
       if (value < 1)
-        result.AddError ("Distance multiplier cannot be less than 1.");
+        result.AddError (GetResourceString ("Program_Error_DistanceTooShort"));
       else if (value > 120)
-        result.AddError ("Distance multiplier cannot be greater than 120.");
+        result.AddError (GetResourceString ("Program_Error_DistanceTooLong"));
     });
 
     // -g --settings
     var optSettings = new Option<bool>("--settings", "-g")
     {
-      Description = "Start with settings panel displayed.",
+      Description = GetResourceString ("Program_OptSettings_Description"),
       DefaultValueFactory = _ => false
     };
 
     // Create root command.
-    var rootCommand = new RootCommand("Virtually jiggles the mouse, making the computer seem not idle.")
+    var rootCommand = new RootCommand(GetResourceString ("Program_RootCommand_Description"))
         {
             optJiggling,
             optMinimized,
@@ -196,6 +196,7 @@ public static class Program
     var ha = rootCommand.Options.OfType<HelpOption>().FirstOrDefault();
     if (ha?.Action is HelpAction helpAction)
     {
+      ha.Description = GetResourceString ("Program_HelpOption_Description");
       ha.Action = new SpacedHelpAction(helpAction);
     }
 
@@ -215,4 +216,6 @@ public static class Program
     // Build the command line parser.
     return rootCommand;
   }
+
+  private static string GetResourceString (string key) => Resources.ResourceManager.GetString (key, Resources.Culture) ?? key;
 }

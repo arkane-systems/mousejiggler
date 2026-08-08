@@ -117,4 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutBox_TitleFormat" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
+  <data name="AboutBox_VersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Error_InvalidJiggleModeValue" xml:space="preserve">
+    <value>Invalid JiggleMode value</value>
+  </data>
+  <data name="Error_NoPatternForMode" xml:space="preserve">
+    <value>No pattern exists for specified mode.</value>
+  </data>
+  <data name="JiggleMode_Circle_DisplayName" xml:space="preserve">
+    <value>Circle</value>
+  </data>
+  <data name="JiggleMode_Linear_DisplayName" xml:space="preserve">
+    <value>Linear</value>
+  </data>
+  <data name="JiggleMode_Normal_DisplayName" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="JiggleMode_Zen_DisplayName" xml:space="preserve">
+    <value>Zen</value>
+  </data>
+  <data name="MainForm_PeriodValueFormat" xml:space="preserve">
+    <value>{0} s</value>
+  </data>
+  <data name="MainForm_TrayEllipsis" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="MainForm_TrayNotJiggling" xml:space="preserve">
+    <value>Not jiggling the mouse.</value>
+  </data>
+  <data name="MainForm_TrayRandomSegment" xml:space="preserve">
+    <value> with random variation,</value>
+  </data>
+  <data name="MainForm_TrayStatusFormat" xml:space="preserve">
+    <value>Jiggling mouse every {0} s,{1} mode: {2} (Δ {3}).</value>
+  </data>
+  <data name="Program_AlreadyRunning" xml:space="preserve">
+    <value>Mouse Jiggler is already running. Aborting.</value>
+  </data>
+  <data name="Program_Error_DistanceTooLong" xml:space="preserve">
+    <value>Distance multiplier cannot be greater than 120.</value>
+  </data>
+  <data name="Program_Error_DistanceTooShort" xml:space="preserve">
+    <value>Distance multiplier cannot be less than 1.</value>
+  </data>
+  <data name="Program_Error_PeriodTooLong" xml:space="preserve">
+    <value>Period cannot be longer than 10800 seconds.</value>
+  </data>
+  <data name="Program_Error_PeriodTooShort" xml:space="preserve">
+    <value>Period cannot be shorter than 1 second.</value>
+  </data>
+  <data name="Program_HelpOption_Description" xml:space="preserve">
+    <value>Show help and usage information</value>
+  </data>
+  <data name="Program_OptDistance_Description" xml:space="preserve">
+    <value>Set the multiplier for the jiggle distance.</value>
+  </data>
+  <data name="Program_OptJiggle_Description" xml:space="preserve">
+    <value>Start with jiggling enabled.</value>
+  </data>
+  <data name="Program_OptMinimized_Description" xml:space="preserve">
+    <value>Start minimized.</value>
+  </data>
+  <data name="Program_OptMode_Description" xml:space="preserve">
+    <value>Start with the specified jiggle mode enabled.</value>
+  </data>
+  <data name="Program_OptRandom_Description" xml:space="preserve">
+    <value>Start with random variation enabled.</value>
+  </data>
+  <data name="Program_OptSeconds_Description" xml:space="preserve">
+    <value>Set X number of seconds for the jiggle interval.</value>
+  </data>
+  <data name="Program_OptSettings_Description" xml:space="preserve">
+    <value>Start with settings panel displayed.</value>
+  </data>
+  <data name="Program_RootCommand_Description" xml:space="preserve">
+    <value>Virtually jiggles the mouse, making the computer seem not idle.</value>
+  </data>
 </root>
