@@ -49,7 +49,7 @@ The only reason this exists is for those poor sods whose IT department makes it 
 Operation
 =========
 
-Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. To enable you to use the computer normally even with jiggling enabled, jiggling is automatically paused when the mouse is moved, and resumes after a complete jiggle interval without mouse movement.
+Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. You can also press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> to toggle jiggling at any time. To enable you to use the computer normally even with jiggling enabled, jiggling is automatically paused when the mouse is moved, and resumes after a complete jiggle interval without mouse movement.
 
 Check the "Settings..." checkbox to reveal the settings; these should be relatively self-explanatory. The jiggle mode dropdown allows you to select from different jiggling modes. These include:
 
