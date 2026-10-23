@@ -34,7 +34,10 @@
     <value>普通</value>
   </data>
   <data name="JiggleMode_Zen_DisplayName" xml:space="preserve">
-    <value>禅模式</value>
+    <value>禅</value>
+  </data>
+  <data name="MainForm_HotKeyRegistrationFailed" xml:space="preserve">
+    <value>无法注册全局热键（{0}）。该热键可能已被其他应用程序占用。</value>
   </data>
   <data name="MainForm_PeriodValueFormat" xml:space="preserve">
     <value>{0} 秒</value>
@@ -92,5 +95,13 @@
   </data>
   <data name="Program_RootCommand_Description" xml:space="preserve">
     <value>模拟鼠标活动，让系统保持非空闲状态。</value>
+  </data>
+  <data name="Program_UnexpectedError_Console" xml:space="preserve">
+    <value>Mouse Jiggler 遇到意外错误：{0}</value>
+  </data>
+  <data name="Program_UnexpectedError_Dialog" xml:space="preserve">
+    <value>Mouse Jiggler 遇到意外错误：
+
+{0}</value>
   </data>
 </root>

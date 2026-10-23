@@ -177,7 +177,7 @@ public partial class MainForm : Form
     if (!this._hotKeyRegistered)
     {
       _ = MessageBox.Show (this,
-          $@"Could not register global hotkey ({ToggleJigglingHotKeyText}). It may already be in use by another application.",
+          string.Format (GetResourceString ("MainForm_HotKeyRegistrationFailed"), ToggleJigglingHotKeyText),
           @"Mouse Jiggler",
           MessageBoxButtons.OK,
           MessageBoxIcon.Warning);

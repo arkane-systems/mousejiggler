@@ -84,6 +84,13 @@ Options:
 
 The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup. Neither this nor '-g' are persistent.
 
+Localization
+============
+
+Mouse Jiggler is available in English and Simplified Chinese ([简体中文说明](README.zh-CN.md)). Strings are stored as resource (`.resx`) files alongside the source files that use them (`MainForm.resx`, `AboutBox.resx`, `Properties/Resources.resx`), with one culture-specific `.<culture>.resx` file per language (e.g. `MainForm.zh-CN.resx`).
+
+Contributions of additional localizations are very welcome — if you'd like to add a translation for another language, open a pull request with the corresponding `.<culture>.resx` files (and, ideally, a translated `README.<culture>.md`); you don't need to touch any code.
+
 Bugs
 ====
 

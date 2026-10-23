@@ -20,6 +20,7 @@ Mouse Jiggler 是一个通过模拟鼠标输入来避免系统进入空闲状态
 - 勾选“启用晃动”开始晃动
 - 取消勾选停止晃动
 - 勾选“设置...”可展开设置面板
+- 也可以随时按下 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> 切换晃动状态
 
 支持模式：Normal、Zen、Circle、Linear。
 

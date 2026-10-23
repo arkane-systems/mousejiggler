@@ -141,6 +141,9 @@
   <data name="JiggleMode_Zen_DisplayName" xml:space="preserve">
     <value>Zen</value>
   </data>
+  <data name="MainForm_HotKeyRegistrationFailed" xml:space="preserve">
+    <value>Could not register global hotkey ({0}). It may already be in use by another application.</value>
+  </data>
   <data name="MainForm_PeriodValueFormat" xml:space="preserve">
     <value>{0} s</value>
   </data>
@@ -197,5 +200,13 @@
   </data>
   <data name="Program_RootCommand_Description" xml:space="preserve">
     <value>Virtually jiggles the mouse, making the computer seem not idle.</value>
+  </data>
+  <data name="Program_UnexpectedError_Console" xml:space="preserve">
+    <value>Mouse Jiggler encountered an unexpected error: {0}</value>
+  </data>
+  <data name="Program_UnexpectedError_Dialog" xml:space="preserve">
+    <value>Mouse Jiggler encountered an unexpected error:
+
+{0}</value>
   </data>
 </root>

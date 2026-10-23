@@ -60,9 +60,9 @@ public static class Program
       // Report unhandled exceptions instead of letting the process crash silently, since a GUI launch
       // has no console for the default unhandled-exception dialog to be useful on.
       if (AttachedToConsole)
-        Console.Error.WriteLine ($@"Mouse Jiggler encountered an unexpected error: {ex.Message}");
+        Console.Error.WriteLine (string.Format (GetResourceString ("Program_UnexpectedError_Console"), ex.Message));
       else
-        MessageBox.Show ($"Mouse Jiggler encountered an unexpected error:\n\n{ex.Message}",
+        MessageBox.Show (string.Format (GetResourceString ("Program_UnexpectedError_Dialog"), ex.Message),
             @"Mouse Jiggler",
             MessageBoxButtons.OK,
             MessageBoxIcon.Error);
