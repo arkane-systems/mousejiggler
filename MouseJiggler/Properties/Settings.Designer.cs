@@ -82,5 +82,17 @@ namespace ArkaneSystems.MouseJiggler.Properties {
                 this["JiggleDistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RespectLockedState {
+            get {
+                return ((bool)(this["RespectLockedState"]));
+            }
+            set {
+                this["RespectLockedState"] = value;
+            }
+        }
     }
 }

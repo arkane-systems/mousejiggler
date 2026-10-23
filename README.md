@@ -60,7 +60,7 @@ Check the "Settings..." checkbox to reveal the settings; these should be relativ
 * Circle: the pointer is jiggled in a circular pattern.
 * Linear: the pointer is jiggled back and forth horizontally.
 
-Other settings permit you to adjust the jiggle interval, the distance multiplier of the jiggle up to 120 (_not_ a direct pixel value; note that high multipliers will make it difficult to use the mouse to turn off jiggling), and whether the timer is randomized (i.e., whether the interval between jiggles is constant or random within a range from one second to the selected interval). 
+Other settings permit you to adjust the jiggle interval, the distance multiplier of the jiggle up to 120 (_not_ a direct pixel value; note that high multipliers will make it difficult to use the mouse to turn off jiggling), whether the timer is randomized (i.e., whether the interval between jiggles is constant or random within a range from one second to the selected interval), and whether jiggling should pause when Windows is locked.
 
 To minimize Mouse Jiggler to the notification area, click the down-arrow button.
 
@@ -78,6 +78,7 @@ Options:
   -s, --seconds <seconds>    Set number of seconds for the jiggle interval. [default: 60]
   -d, --distance <distance>  Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings             Start with settings panel displayed.
+  -l, --respect-locked-state Respect the locked state by pausing jiggling while the workstation is locked. [default: False]
   --version                  Show version information
   -?, -h, --help             Show help and usage information
 ```

@@ -33,6 +33,7 @@ Mouse Jiggler 是一个通过模拟鼠标输入来避免系统进入空闲状态
 - `-s, --seconds <seconds>`：设置间隔秒数
 - `-d, --distance <distance>`：设置距离倍率
 - `-g, --settings`：启动时显示设置
+- `-l, --respect-locked-state`：锁定工作站时暂停晃动
 - `--version`：显示版本
 - `-?, -h, --help`：显示帮助
 

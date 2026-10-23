@@ -27,6 +27,9 @@
   <data name="cbMinimize.Text" xml:space="preserve">
     <value>启动时最小化</value>
   </data>
+  <data name="cbRespectLockedState.Text" xml:space="preserve">
+    <value>锁定时暂停晃动</value>
+  </data>
   <data name="lblPeriodLabel.Text" xml:space="preserve">
     <value>间隔(秒):</value>
   </data>

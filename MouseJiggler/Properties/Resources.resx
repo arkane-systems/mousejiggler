@@ -198,6 +198,9 @@
   <data name="Program_OptSettings_Description" xml:space="preserve">
     <value>Start with settings panel displayed.</value>
   </data>
+  <data name="Program_OptRespectLockedState_Description" xml:space="preserve">
+    <value>Respect the locked state by pausing jiggling (and allowing sleep) while the workstation is locked.</value>
+  </data>
   <data name="Program_RootCommand_Description" xml:space="preserve">
     <value>Virtually jiggles the mouse, making the computer seem not idle.</value>
   </data>
