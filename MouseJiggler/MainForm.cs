@@ -25,6 +25,9 @@ public partial class MainForm : Form
   private const int MaxNotifyIconTextLength = 63;
   private const int ToggleJigglingHotKeyId = 1;
   private const int HotKeyMessage = 0x0312;
+  private const int PowerBroadcastMessage = 0x0218; // WM_POWERBROADCAST
+  private const int ResumeSuspendEvent = 0x0007; // PBT_APMRESUMESUSPEND
+  private const int ResumeAutomaticEvent = 0x0012; // PBT_APMRESUMEAUTOMATIC
   private const HOT_KEY_MODIFIERS ToggleJigglingHotKeyModifiers = HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT | HOT_KEY_MODIFIERS.MOD_NOREPEAT;
   private const VIRTUAL_KEY ToggleJigglingHotKeyKey = VIRTUAL_KEY.VK_J;
   private const string ToggleJigglingHotKeyText = "Ctrl+Shift+J";
@@ -170,6 +173,9 @@ public partial class MainForm : Form
   {
     if (m.Msg == HotKeyMessage && m.WParam == (IntPtr)ToggleJigglingHotKeyId)
       this.cbJiggling.Checked = !this.cbJiggling.Checked;
+    else if (m.Msg == PowerBroadcastMessage
+        && (m.WParam == (IntPtr)ResumeSuspendEvent || m.WParam == (IntPtr)ResumeAutomaticEvent))
+      this.RestartJiggleTimerIfActive ();
 
     base.WndProc (ref m);
   }
@@ -271,6 +277,19 @@ public partial class MainForm : Form
     this.jiggleTimer.Enabled = this.JigglingActive;
   }
 
+  /// <summary>
+  ///     Forces <see cref="jiggleTimer" /> to stop and restart (rather than just reapplying its current
+  ///     <c>Enabled</c> value, which is a no-op if it hasn't changed) and re-asserts the execution state.
+  ///     On some Modern Standby (S0 low-power idle) laptops, display-off can silently stop WM_TIMER
+  ///     delivery and drop the execution-state request without the process ever being told it happened;
+  ///     a genuine resume broadcast is the one reliable signal that it's safe, and worth it, to recover.
+  /// </summary>
+  private void RestartJiggleTimerIfActive ()
+  {
+    this.jiggleTimer.Enabled = false;
+    this.UpdateJigglingState ();
+  }
+
   private void UpdateTrayMenu ()
   {
     this.trayMenu.Items[1].Visible = !this.cbJiggling.Checked;
@@ -279,6 +298,11 @@ public partial class MainForm : Form
 
   private void jiggleTimer_Tick (object sender, EventArgs e)
   {
+    // Re-assert on every tick rather than relying on the one call made when jiggling started: cheap,
+    // and guards against the execution-state request silently lapsing (observed on some Modern Standby
+    // hardware) without our ever being notified.
+    Helpers.StayAwake ();
+
     // Don't jiggle if the user has moved the mouse since the last jiggle, to avoid interfering with user input.
     if (Helpers.HasMouseMoved ())
     {
