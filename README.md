@@ -79,11 +79,23 @@ Options:
   -d, --distance <distance>  Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings             Start with settings panel displayed.
   -l, --respect-locked-state Respect the locked state by pausing jiggling while the workstation is locked. [default: False]
+  --stop-jiggling            Tell an already-running instance to stop jiggling, then exit. Does not start the application.
   --version                  Show version information
   -?, -h, --help             Show help and usage information
 ```
 
 The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup. Neither this nor '-g' are persistent.
+
+Scheduling a stop
+-----------------
+
+Mouse Jiggler deliberately doesn't have a built-in timer to stop jiggling at a set time (see "Features That Will Not Be Implemented" below) — Windows Task Scheduler already does this well, and `--stop-jiggling` gives it something clean to drive: it finds the already-running instance, tells it to uncheck "Jiggling?", and exits, without starting a second copy of the app. If there's no instance running, it does nothing and exits with a non-zero status.
+
+For example, to stop jiggling at 17:00 every day:
+
+```
+schtasks /create /tn "Stop Mouse Jiggler" /tr "\"C:\Path\To\MouseJiggler.exe\" --stop-jiggling" /sc daily /st 17:00
+```
 
 Localization
 ============
@@ -104,7 +116,7 @@ This is a list of feature requests which I've decided won't be implemented in Mo
 
  * Autorun on startup (because that's what the Startup group, Task Scheduler, etc. are for; it's inelegant to duplicate system facilities in a minimal app).
  * Concealment features (from as simple as changed icons or names, to more complex schemes¹).
- * Timed startup/shutdown (again, Task Scheduler is for this).
+ * Timed startup/shutdown (again, Task Scheduler is for this — see "Scheduling a stop" above for a clean way to drive it with `--stop-jiggling`).
 
  1. Look. I know that a lot of folks use this to deal with annoying monitor-your-employees software, and with that motive, I have every sympathy. However, the more I add features that smell malware-ish, the more likely it is that the app will be flagged as malware by antivirus software, and the more likely it is that users will have trouble getting it installed and running. Also, not to put too fine a point on it, but anything I can add that doesn't qualify as *actual* malware is only going to give you a false sense of security. If you're going to end up being fired for running unauthorized anti-monitoring software, I'd much rather it wasn't because you thought I told you'd be safe.
 

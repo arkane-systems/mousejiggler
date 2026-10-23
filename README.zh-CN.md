@@ -34,8 +34,19 @@ Mouse Jiggler 是一个通过模拟鼠标输入来避免系统进入空闲状态
 - `-d, --distance <distance>`：设置距离倍率
 - `-g, --settings`：启动时显示设置
 - `-l, --respect-locked-state`：锁定工作站时暂停晃动
+- `--stop-jiggling`：通知正在运行的实例停止晃动，然后退出（不会启动应用程序）
 - `--version`：显示版本
 - `-?, -h, --help`：显示帮助
+
+## 定时停止
+
+Mouse Jiggler 没有内置的定时停止功能——Windows 任务计划程序已经能很好地完成这件事，`--stop-jiggling` 让它可以干净地驱动：它会找到正在运行的实例，通知它取消勾选“启用晃动”，然后退出，不会另外启动一个实例。如果没有正在运行的实例，它什么都不做，并以非零状态退出。
+
+例如，每天 17:00 停止晃动：
+
+```
+schtasks /create /tn "Stop Mouse Jiggler" /tr "\"C:\Path\To\MouseJiggler.exe\" --stop-jiggling" /sc daily /st 17:00
+```
 
 ## 说明
 

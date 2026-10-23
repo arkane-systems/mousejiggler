@@ -37,23 +37,12 @@ public static class Program
     // Attach to the parent process's console so we can display help, version information, and command-line errors.
     Program.AttachedToConsole = PInvoke.AttachConsole (Helpers.AttachParentProcess);
 
-    // Ensure that we are the only instance of the Mouse Jiggler currently running.
-    var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
-
     try
     {
-      if (instance.WaitOne (0))
-
-      // Parse arguments and do the appropriate thing.
-      {
-        return GetCommandLineParser ().Parse (args).Invoke ();
-      }
-      else
-      {
-        Console.WriteLine (GetResourceString ("Program_AlreadyRunning"));
-
-        return 1;
-      }
+      // Parse arguments and do the appropriate thing. Single-instance enforcement happens inside
+      // RootHandler, not here, since --stop-jiggling is meant to signal an already-running instance
+      // rather than compete with it for the mutex.
+      return GetCommandLineParser ().Parse (args).Invoke ();
     }
     catch (Exception ex)
     {
@@ -71,8 +60,6 @@ public static class Program
     }
     finally
     {
-      instance.Close ();
-
       // Detach from the parent console.
       if (AttachedToConsole)
       {
@@ -84,30 +71,67 @@ public static class Program
 
   private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds, int distance, bool respectLockedState)
   {
-    // Prepare Windows Forms to run the application.
-    _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
-    Application.EnableVisualStyles ();
-    Application.SetCompatibleTextRenderingDefault (false);
-    Application.SetColorMode (SystemColorMode.System);
+    // Ensure that we are the only instance of the Mouse Jiggler currently running.
+    var instance = new Mutex(false, "single instance: ArkaneSystems.MouseJiggler");
 
-    // Detach from console before running the application, as we won't be needing it anymore.
-    if (AttachedToConsole)
+    try
     {
-      _ = PInvoke.FreeConsole ();
-      Program.AttachedToConsole = false;
+      if (!instance.WaitOne (0))
+      {
+        Console.WriteLine (GetResourceString ("Program_AlreadyRunning"));
+
+        return 1;
+      }
+
+      // Prepare Windows Forms to run the application.
+      _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
+      Application.EnableVisualStyles ();
+      Application.SetCompatibleTextRenderingDefault (false);
+      Application.SetColorMode (SystemColorMode.System);
+
+      // Detach from console before running the application, as we won't be needing it anymore.
+      if (AttachedToConsole)
+      {
+        _ = PInvoke.FreeConsole ();
+        Program.AttachedToConsole = false;
+      }
+
+      // Run the application.
+      var mainForm = new MainForm(jiggle,
+              minimized,
+              mode,
+              random,
+              seconds,
+              distance,
+              settings,
+              respectLockedState);
+
+      Application.Run (mainForm);
+
+      return 0;
+    }
+    finally
+    {
+      instance.Close ();
+    }
+  }
+
+  /// <summary>
+  ///     Signals an already-running Mouse Jiggler instance to stop jiggling, then exits without starting
+  ///     a GUI of its own. Intended to be invoked by Task Scheduler (or similar) as a clean alternative to
+  ///     a timed auto-stop feature built into the app itself.
+  /// </summary>
+  private static int StopRunningInstance ()
+  {
+    if (!EventWaitHandle.TryOpenExisting (Helpers.StopJigglingEventName, out var stopEvent))
+    {
+      Console.WriteLine (GetResourceString ("Program_NoInstanceToStop"));
+
+      return 1;
     }
 
-    // Run the application.
-    var mainForm = new MainForm(jiggle,
-            minimized,
-            mode,
-            random,
-            seconds,
-            distance,
-            settings,
-            respectLockedState);
-
-    Application.Run (mainForm);
+    using (stopEvent)
+      _ = stopEvent.Set ();
 
     return 0;
   }
@@ -188,6 +212,13 @@ public static class Program
       DefaultValueFactory = _ => Settings.Default.RespectLockedState
     };
 
+    // --stop-jiggling
+    var optStopJiggling = new Option<bool>("--stop-jiggling")
+    {
+      Description = GetResourceString ("Program_OptStopJiggling_Description"),
+      DefaultValueFactory = _ => false
+    };
+
     // Create root command.
     var rootCommand = new RootCommand(GetResourceString ("Program_RootCommand_Description"))
         {
@@ -198,7 +229,8 @@ public static class Program
             optPeriod,
             optDistance,
             optSettings,
-            optRespectLockedState
+            optRespectLockedState,
+            optStopJiggling
         };
 
     // Replace default help action with our spaced help action, if present.
@@ -211,6 +243,11 @@ public static class Program
 
     rootCommand.SetAction (parseResult =>
     {
+      // --stop-jiggling signals an already-running instance and exits; it never starts a GUI of its
+      // own, so none of the other options apply when it's given.
+      if (parseResult.GetValue (optStopJiggling))
+        return StopRunningInstance ();
+
       var jiggle = parseResult.GetValue(optJiggling);
       var minimized = parseResult.GetValue(optMinimized);
       var mode = parseResult.GetValue(optMode);
