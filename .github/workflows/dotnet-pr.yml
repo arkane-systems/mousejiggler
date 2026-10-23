@@ -1,0 +1,46 @@
+# New workflow for pull request validation builds.
+# This is separate from the dev and release workflows, added specifically
+# to catch build breaks on every pull request before merge.
+
+name: PR Builds
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: MouseJiggler/MouseJiggler.sln
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10
+          dotnet-quality: ga
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore $env:Solution_Name
+
+      # Build application
+      - name: Build application (standard)
+        run: dotnet build $env:Solution_Name -c ${{ matrix.configuration }} --no-restore
