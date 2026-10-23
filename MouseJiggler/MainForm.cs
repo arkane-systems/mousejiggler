@@ -13,6 +13,7 @@ using ArkaneSystems.MouseJiggler.Properties;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
@@ -21,6 +22,13 @@ namespace ArkaneSystems.MouseJiggler;
 public partial class MainForm : Form
 {
   private const int MaxNotifyIconTextLength = 63;
+  private const int ToggleJigglingHotKeyId = 1;
+  private const int HotKeyMessage = 0x0312;
+  private const HOT_KEY_MODIFIERS ToggleJigglingHotKeyModifiers = HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT | HOT_KEY_MODIFIERS.MOD_NOREPEAT;
+  private const VIRTUAL_KEY ToggleJigglingHotKeyKey = VIRTUAL_KEY.VK_J;
+  private const string ToggleJigglingHotKeyText = "Ctrl+Shift+J";
+
+  private bool _hotKeyRegistered;
 
   /// <summary>
   ///     Constructor for use by the form designer.
@@ -136,6 +144,55 @@ public partial class MainForm : Form
     this.UpdateNotificationAreaText ();
   }
 
+  protected override void OnHandleCreated (EventArgs e)
+  {
+    base.OnHandleCreated (e);
+    this.RegisterToggleJigglingHotKey ();
+  }
+
+  protected override void OnHandleDestroyed (EventArgs e)
+  {
+    this.UnregisterToggleJigglingHotKey ();
+    base.OnHandleDestroyed (e);
+  }
+
+  protected override void WndProc (ref Message m)
+  {
+    if (m.Msg == HotKeyMessage && m.WParam == (IntPtr)ToggleJigglingHotKeyId)
+      this.cbJiggling.Checked = !this.cbJiggling.Checked;
+
+    base.WndProc (ref m);
+  }
+
+  private void RegisterToggleJigglingHotKey ()
+  {
+    if (this._hotKeyRegistered)
+      return;
+
+    this._hotKeyRegistered = Helpers.RegisterHotKey (this.Handle,
+        ToggleJigglingHotKeyId,
+        ToggleJigglingHotKeyModifiers,
+        ToggleJigglingHotKeyKey);
+
+    if (!this._hotKeyRegistered)
+    {
+      _ = MessageBox.Show (this,
+          $@"Could not register global hotkey ({ToggleJigglingHotKeyText}). It may already be in use by another application.",
+          @"Mouse Jiggler",
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Warning);
+    }
+  }
+
+  private void UnregisterToggleJigglingHotKey ()
+  {
+    if (!this._hotKeyRegistered)
+      return;
+
+    Helpers.UnregisterHotKey (this.Handle, ToggleJigglingHotKeyId);
+    this._hotKeyRegistered = false;
+  }
+
   #region Property synchronization
 
   private void cbSettings_CheckedChanged (object sender, EventArgs e) => this.panelSettings.Visible = this.cbSettings.Checked;
@@ -181,6 +238,7 @@ public partial class MainForm : Form
     this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateTrayMenu ();
+    this.UpdateNotificationAreaText ();
   }
 
   private void UpdateTrayMenu ()
@@ -196,6 +254,9 @@ public partial class MainForm : Form
     {
       return;
     }
+
+    if (this.Step >= this.Pattern.Length)
+      this.Step = 0;
 
     var (deltax, deltay) = this.Pattern[this.Step];
     this.Step++;

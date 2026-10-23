@@ -13,6 +13,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Windows.Win32;
+using Windows.Win32.Foundation;
 using Windows.Win32.System.Power;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 
@@ -141,4 +142,45 @@ internal static class Helpers
   }
 
   #endregion Movement detection
+
+  #region Hotkeys
+
+  /// <summary>
+  ///     Registers a global hotkey for the given window handle.
+  /// </summary>
+  /// <returns>true if the hotkey was registered successfully; otherwise, false.</returns>
+  internal static bool RegisterHotKey (IntPtr hWnd, int id, HOT_KEY_MODIFIERS modifiers, VIRTUAL_KEY key)
+  {
+    var returnValue = PInvoke.RegisterHotKey (new HWND (hWnd), id, modifiers, (uint)key);
+
+    if (returnValue)
+      return true;
+
+    var errorCode = Marshal.GetLastWin32Error ();
+
+    Debugger.Log (1,
+        "RegisterHotKey",
+        $"failed to register hotkey; id={id}, errcode=0x{errorCode:x8}\n");
+
+    return false;
+  }
+
+  /// <summary>
+  ///     Unregisters a previously-registered global hotkey for the given window handle.
+  /// </summary>
+  internal static void UnregisterHotKey (IntPtr hWnd, int id)
+  {
+    var returnValue = PInvoke.UnregisterHotKey (new HWND (hWnd), id);
+
+    if (returnValue)
+      return;
+
+    var errorCode = Marshal.GetLastWin32Error ();
+
+    Debugger.Log (1,
+        "UnregisterHotKey",
+        $"failed to unregister hotkey; id={id}, errcode=0x{errorCode:x8}\n");
+  }
+
+  #endregion Hotkeys
 }

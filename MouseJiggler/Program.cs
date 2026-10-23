@@ -55,6 +55,20 @@ public static class Program
         return 1;
       }
     }
+    catch (Exception ex)
+    {
+      // Report unhandled exceptions instead of letting the process crash silently, since a GUI launch
+      // has no console for the default unhandled-exception dialog to be useful on.
+      if (AttachedToConsole)
+        Console.Error.WriteLine ($@"Mouse Jiggler encountered an unexpected error: {ex.Message}");
+      else
+        MessageBox.Show ($"Mouse Jiggler encountered an unexpected error:\n\n{ex.Message}",
+            @"Mouse Jiggler",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
+
+      return 1;
+    }
     finally
     {
       instance.Close ();
