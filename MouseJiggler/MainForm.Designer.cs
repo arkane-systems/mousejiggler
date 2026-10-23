@@ -217,7 +217,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRespectLockedState.Name = "cbRespectLockedState";
       this.cbRespectLockedState.Size = new System.Drawing.Size (128, 19);
       this.cbRespectLockedState.TabIndex = 8;
-      this.cbRespectLockedState.Text = "Respect lock state?";
+      this.cbRespectLockedState.Text = resources.GetString ("cbRespectLockedState.Text");
       this.cbRespectLockedState.UseVisualStyleBackColor = true;
       this.cbRespectLockedState.CheckedChanged += this.cbRespectLockedState_CheckedChanged;
       // 

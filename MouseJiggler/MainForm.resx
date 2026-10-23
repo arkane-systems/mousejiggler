@@ -186,6 +186,9 @@
   <data name="cbMinimize.Text" xml:space="preserve">
     <value>Minimize on start?</value>
   </data>
+  <data name="cbRespectLockedState.Text" xml:space="preserve">
+    <value>Respect lock state?</value>
+  </data>
   <data name="lblPeriodLabel.Text" xml:space="preserve">
     <value>Interval (s):</value>
   </data>

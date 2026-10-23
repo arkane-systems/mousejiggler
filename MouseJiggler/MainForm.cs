@@ -35,10 +35,10 @@ public partial class MainForm : Form
   ///     Constructor for use by the form designer.
   /// </summary>
   public MainForm ()
-      : this (false, false, JiggleMode.Normal, false, 1, 1, false)
+      : this (false, false, JiggleMode.Normal, false, 1, 1, false, false)
   { }
 
-  public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings)
+  public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings, bool respectLockedState)
   {
     this.InitializeComponent ();
     this.cmbJiggleMode.Format += (_, e) =>
@@ -63,8 +63,7 @@ public partial class MainForm : Form
     this.cbMinimize.Checked = minimizeOnStartup;
     this.cmbJiggleMode.SelectedItem = jiggleMode;
     this.cbRandom.Checked = randomTimer;
-    this.RespectLockedState = Settings.Default.RespectLockedState;
-    this.cbRespectLockedState.Checked = this.RespectLockedState;
+    this.cbRespectLockedState.Checked = respectLockedState;
 
     // Validate jigglePeriod before setting it
     if (jigglePeriod >= this.nudPeriod.Minimum && jigglePeriod <= this.nudPeriod.Maximum)
@@ -241,17 +240,35 @@ public partial class MainForm : Form
   protected (int deltax, int deltay)[] Pattern = null!;
   protected int Step = 0;
 
+  private bool _workstationLocked;
+
+  /// <summary>
+  ///     Whether the mouse should currently be jiggled, taking into account both the user's "Jiggling?"
+  ///     setting and whether jiggling is being suppressed because the workstation is locked.
+  /// </summary>
+  private bool JigglingActive => this.cbJiggling.Checked && !(this.RespectLockedState && this._workstationLocked);
+
   private void cbJiggling_CheckedChanged (object sender, EventArgs e)
   {
-    if (this.cbJiggling.Checked)
+    this.UpdateJigglingState ();
+    this.UpdateTrayMenu ();
+    this.UpdateNotificationAreaText ();
+  }
+
+  /// <summary>
+  ///     Applies <see cref="JigglingActive" /> to the timer and execution state, without touching
+  ///     <c>cbJiggling.Checked</c> itself, so the checkbox (and the tray icon/menu it drives) always
+  ///     reflects the user's actual setting rather than a transient lock-induced pause.
+  /// </summary>
+  private void UpdateJigglingState ()
+  {
+    if (this.JigglingActive)
       Helpers.StayAwake ();
     else
       Helpers.AllowSleep ();
 
     this.Step = 0;
-    this.jiggleTimer.Enabled = this.cbJiggling.Checked;
-    this.UpdateTrayMenu ();
-    this.UpdateNotificationAreaText ();
+    this.jiggleTimer.Enabled = this.JigglingActive;
   }
 
   private void UpdateTrayMenu ()
@@ -295,25 +312,25 @@ public partial class MainForm : Form
 
   private void SystemEvents_SessionSwitch (object sender, SessionSwitchEventArgs e)
   {
+    if (e.Reason != SessionSwitchReason.SessionLock && e.Reason != SessionSwitchReason.SessionUnlock)
+      return;
+
+    if (this.IsDisposed)
+      return;
+
+    // SetThreadExecutionState (called from UpdateJigglingState via Helpers.StayAwake/AllowSleep) is
+    // per-thread, so it must be set and cleared from the same (UI) thread. SystemEvents raises this
+    // event on its own thread, so marshal to the UI thread before touching it.
     if (this.InvokeRequired)
     {
-      this.BeginInvoke (() => this.SystemEvents_SessionSwitch (sender, e));
+      this.BeginInvoke (new Action<object, SessionSwitchEventArgs> (this.SystemEvents_SessionSwitch), sender, e);
       return;
     }
 
-    if (!this.RespectLockedState)
-      return;
+    this._workstationLocked = e.Reason == SessionSwitchReason.SessionLock;
 
-    if (e.Reason == SessionSwitchReason.SessionLock && this.cbJiggling.Checked)
-    {
-      this._resumeJigglingAfterUnlock = true;
-      this.cbJiggling.Checked = false;
-    }
-    else if (e.Reason == SessionSwitchReason.SessionUnlock && this._resumeJigglingAfterUnlock)
-    {
-      this._resumeJigglingAfterUnlock = false;
-      this.cbJiggling.Checked = true;
-    }
+    if (this.RespectLockedState)
+      this.UpdateJigglingState ();
   }
 
   #region Minimize and restore
@@ -353,8 +370,6 @@ public partial class MainForm : Form
   private int _jiggleDistance;
 
   private bool _respectLockedState;
-
-  private bool _resumeJigglingAfterUnlock;
 
   #endregion Settings property backing fields
 
@@ -461,6 +476,8 @@ public partial class MainForm : Form
       Settings.Default.RespectLockedState = value;
       Settings.Default.Save ();
       this.OnPropertyChanged (nameof (this.RespectLockedState));
+
+      this.UpdateJigglingState ();
     }
   }
 

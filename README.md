@@ -78,6 +78,7 @@ Options:
   -s, --seconds <seconds>    Set number of seconds for the jiggle interval. [default: 60]
   -d, --distance <distance>  Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings             Start with settings panel displayed.
+  -l, --respect-locked-state Respect the locked state by pausing jiggling while the workstation is locked. [default: False]
   --version                  Show version information
   -?, -h, --help             Show help and usage information
 ```

@@ -33,6 +33,7 @@ Command line options:
   -s, --seconds &lt;seconds&gt; - Set X number of seconds for the jiggle interval. [default: 60]
   -d, --distance &lt;distance&gt; - Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings - Start with settings panel displayed.
+  -l, --respect-locked-state - Pause jiggling while the workstation is locked.
   -?, -h, --help - Show help and usage information
   --version - Show version information</Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>

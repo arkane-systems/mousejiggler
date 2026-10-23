@@ -82,7 +82,7 @@ public static class Program
     }
   }
 
-  private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds, int distance)
+  private static int RootHandler (bool jiggle, bool minimized, JiggleMode mode, bool random, bool settings, int seconds, int distance, bool respectLockedState)
   {
     // Prepare Windows Forms to run the application.
     _ = Application.SetHighDpiMode (HighDpiMode.SystemAware);
@@ -104,7 +104,8 @@ public static class Program
             random,
             seconds,
             distance,
-            settings);
+            settings,
+            respectLockedState);
 
     Application.Run (mainForm);
 
@@ -180,6 +181,13 @@ public static class Program
       DefaultValueFactory = _ => false
     };
 
+    // -l --respect-locked-state
+    var optRespectLockedState = new Option<bool>("--respect-locked-state", "-l")
+    {
+      Description = GetResourceString ("Program_OptRespectLockedState_Description"),
+      DefaultValueFactory = _ => Settings.Default.RespectLockedState
+    };
+
     // Create root command.
     var rootCommand = new RootCommand(GetResourceString ("Program_RootCommand_Description"))
         {
@@ -189,7 +197,8 @@ public static class Program
             optRandom,
             optPeriod,
             optDistance,
-            optSettings
+            optSettings,
+            optRespectLockedState
         };
 
     // Replace default help action with our spaced help action, if present.
@@ -209,8 +218,9 @@ public static class Program
       var seconds = parseResult.GetValue(optPeriod);
       var distance = parseResult.GetValue(optDistance);
       var settings = parseResult.GetValue(optSettings);
+      var respectLockedState = parseResult.GetValue(optRespectLockedState);
 
-      return RootHandler (jiggle, minimized, mode, random, settings, seconds, distance);
+      return RootHandler (jiggle, minimized, mode, random, settings, seconds, distance, respectLockedState);
     });
 
     // Build the command line parser.

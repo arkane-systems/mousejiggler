@@ -93,6 +93,9 @@
   <data name="Program_OptSettings_Description" xml:space="preserve">
     <value>启动时显示设置面板。</value>
   </data>
+  <data name="Program_OptRespectLockedState_Description" xml:space="preserve">
+    <value>锁定工作站时暂停晃动（并允许系统休眠）。</value>
+  </data>
   <data name="Program_RootCommand_Description" xml:space="preserve">
     <value>模拟鼠标活动，让系统保持非空闲状态。</value>
   </data>
