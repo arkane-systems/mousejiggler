@@ -9,6 +9,7 @@
 
 #region using
 
+using ArkaneSystems.MouseJiggler.Properties;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -24,15 +25,17 @@ public sealed partial class AboutBox : Form
     this.InitializeComponent ();
 
     // Initialize the about box to display the product information from the assembly information.
-    this.Text = $"About {AssemblyTitle}";
+    this.Text = string.Format (GetResourceString ("AboutBox_TitleFormat"), AssemblyTitle);
     this.lbProductName.Text = AssemblyProduct;
-    this.lbVersion.Text = $"Version {AssemblyVersion}";
+    this.lbVersion.Text = string.Format (GetResourceString ("AboutBox_VersionFormat"), AssemblyVersion);
     this.lbCopyright.Text = AssemblyCopyright;
     this.lbCompanyName.Text = AssemblyCompany;
     this.tbDescription.Text = AssemblyDescription;
   }
 
   private void cmdOk_Click (object sender, EventArgs e) => this.Close ();
+
+  private static string GetResourceString (string key) => Resources.ResourceManager.GetString (key, Resources.Culture) ?? key;
 
   #region Assembly attribute accessors
 

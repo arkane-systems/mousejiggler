@@ -115,7 +115,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbSettings.Name = "cbSettings";
       this.cbSettings.Size = new System.Drawing.Size (77, 19);
       this.cbSettings.TabIndex = 1;
-      this.cbSettings.Text = "Settings...";
+      this.cbSettings.Text = resources.GetString ("cbSettings.Text");
       this.cbSettings.UseVisualStyleBackColor = true;
       this.cbSettings.CheckedChanged += this.cbSettings_CheckedChanged;
       // 
@@ -126,7 +126,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbJiggling.Name = "cbJiggling";
       this.cbJiggling.Size = new System.Drawing.Size (72, 19);
       this.cbJiggling.TabIndex = 0;
-      this.cbJiggling.Text = "Jiggling?";
+      this.cbJiggling.Text = resources.GetString ("cbJiggling.Text");
       this.cbJiggling.UseVisualStyleBackColor = true;
       this.cbJiggling.CheckedChanged += this.cbJiggling_CheckedChanged;
       // 
@@ -165,7 +165,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lblPeriodLabel.Name = "lblPeriodLabel";
       this.lblPeriodLabel.Size = new System.Drawing.Size (65, 15);
       this.lblPeriodLabel.TabIndex = 3;
-      this.lblPeriodLabel.Text = "Interval (s):";
+      this.lblPeriodLabel.Text = resources.GetString ("lblPeriodLabel.Text");
       // 
       // lbPeriod
       // 
@@ -173,7 +173,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lbPeriod.Name = "lbPeriod";
       this.lbPeriod.Size = new System.Drawing.Size (45, 15);
       this.lbPeriod.TabIndex = 2;
-      this.lbPeriod.Text = "s";
+      this.lbPeriod.Text = resources.GetString ("lbPeriod.Text");
       this.lbPeriod.TextAlign = System.Drawing.ContentAlignment.TopRight;
       // 
       // nudDistance
@@ -195,7 +195,7 @@ namespace ArkaneSystems.MouseJiggler
       this.lblDistanceLabel.Name = "lblDistanceLabel";
       this.lblDistanceLabel.Size = new System.Drawing.Size (117, 15);
       this.lblDistanceLabel.TabIndex = 5;
-      this.lblDistanceLabel.Text = "Distance (multiplier):";
+      this.lblDistanceLabel.Text = resources.GetString ("lblDistanceLabel.Text");
       // 
       // cbMinimize
       // 
@@ -204,7 +204,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbMinimize.Name = "cbMinimize";
       this.cbMinimize.Size = new System.Drawing.Size (123, 19);
       this.cbMinimize.TabIndex = 7;
-      this.cbMinimize.Text = "Minimize on start?";
+      this.cbMinimize.Text = resources.GetString ("cbMinimize.Text");
       this.cbMinimize.UseVisualStyleBackColor = true;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
       // 
@@ -215,7 +215,7 @@ namespace ArkaneSystems.MouseJiggler
       this.cbRandom.Name = "cbRandom";
       this.cbRandom.Size = new System.Drawing.Size (90, 19);
       this.cbRandom.TabIndex = 1;
-      this.cbRandom.Text = "Randomize?";
+      this.cbRandom.Text = resources.GetString ("cbRandom.Text");
       this.cbRandom.UseVisualStyleBackColor = true;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
       // 
@@ -239,35 +239,35 @@ namespace ArkaneSystems.MouseJiggler
       // 
       this.tsmiOpen.Name = "tsmiOpen";
       this.tsmiOpen.Size = new System.Drawing.Size (142, 22);
-      this.tsmiOpen.Text = "Open";
+      this.tsmiOpen.Text = resources.GetString ("tsmiOpen.Text");
       this.tsmiOpen.Click += this.niTray_DoubleClick;
       // 
       // tsmiStartJiggling
       // 
       this.tsmiStartJiggling.Name = "tsmiStartJiggling";
       this.tsmiStartJiggling.Size = new System.Drawing.Size (142, 22);
-      this.tsmiStartJiggling.Text = "Start Jiggling";
+      this.tsmiStartJiggling.Text = resources.GetString ("tsmiStartJiggling.Text");
       this.tsmiStartJiggling.Click += this.trayMenu_ClickStartJiggling;
       // 
       // tsmiStopJiggling
       // 
       this.tsmiStopJiggling.Name = "tsmiStopJiggling";
       this.tsmiStopJiggling.Size = new System.Drawing.Size (142, 22);
-      this.tsmiStopJiggling.Text = "Stop Jiggling";
+      this.tsmiStopJiggling.Text = resources.GetString ("tsmiStopJiggling.Text");
       this.tsmiStopJiggling.Click += this.trayMenu_ClickStopJiggling;
       // 
       // tsmiExit
       // 
       this.tsmiExit.Name = "tsmiExit";
       this.tsmiExit.Size = new System.Drawing.Size (142, 22);
-      this.tsmiExit.Text = "Exit";
+      this.tsmiExit.Text = resources.GetString ("tsmiExit.Text");
       this.tsmiExit.Click += this.trayMenu_ClickExit;
       // 
       // niTray
       // 
       this.niTray.ContextMenuStrip = this.trayMenu;
       this.niTray.Icon = (System.Drawing.Icon)resources.GetObject ("niTray.Icon");
-      this.niTray.Text = "Mouse Jiggler";
+      this.niTray.Text = resources.GetString ("niTray.Text");
       this.niTray.DoubleClick += this.niTray_DoubleClick;
       // 
       // MainForm
@@ -283,7 +283,7 @@ namespace ArkaneSystems.MouseJiggler
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "MainForm";
-      this.Text = "Mouse Jiggler";
+      this.Text = resources.GetString ("$this.Text");
       this.Load += this.MainForm_Load;
       this.Shown += this.MainForm_Shown;
       this.flpLayout.ResumeLayout (false);
