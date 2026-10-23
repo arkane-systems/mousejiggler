@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
@@ -22,6 +23,13 @@ namespace ArkaneSystems.MouseJiggler;
 public partial class MainForm : Form
 {
   private const int MaxNotifyIconTextLength = 63;
+  private const int ToggleJigglingHotKeyId = 1;
+  private const int HotKeyMessage = 0x0312;
+  private const HOT_KEY_MODIFIERS ToggleJigglingHotKeyModifiers = HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT | HOT_KEY_MODIFIERS.MOD_NOREPEAT;
+  private const VIRTUAL_KEY ToggleJigglingHotKeyKey = VIRTUAL_KEY.VK_J;
+  private const string ToggleJigglingHotKeyText = "Ctrl+Shift+J";
+
+  private bool _hotKeyRegistered;
 
   /// <summary>
   ///     Constructor for use by the form designer.
@@ -33,6 +41,11 @@ public partial class MainForm : Form
   public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings)
   {
     this.InitializeComponent ();
+    this.cmbJiggleMode.Format += (_, e) =>
+    {
+      if (e.ListItem is JiggleMode mode)
+        e.Value = GetJiggleModeDisplayName (mode);
+    };
 
     // Initialize JiggleMode combo box with enum values
     this.cmbJiggleMode.Items.Clear ();
@@ -101,16 +114,28 @@ public partial class MainForm : Form
   {
     if (!this.cbJiggling.Checked)
     {
-      this.niTray.Text = @"Not jiggling the mouse.";
+      this.niTray.Text = GetResourceString ("MainForm_TrayNotJiggling");
     }
     else
     {
-      var mode = this.JiggleMode.ToString ();
-      var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
-      this.niTray.Text = text.Length > MaxNotifyIconTextLength ? text[..(MaxNotifyIconTextLength - 3)] + "..." : text;
+      var randomSegment = this.RandomTimer ? GetResourceString ("MainForm_TrayRandomSegment") : string.Empty;
+      var mode = GetJiggleModeDisplayName (this.JiggleMode);
+      var text = string.Format (GetResourceString ("MainForm_TrayStatusFormat"), this.JigglePeriod, randomSegment, mode, this.JiggleDistance);
+      var ellipsis = GetResourceString ("MainForm_TrayEllipsis");
+      this.niTray.Text = text.Length > MaxNotifyIconTextLength ? text[..(MaxNotifyIconTextLength - ellipsis.Length)] + ellipsis : text;
     }
   }
+
+  private static string GetJiggleModeDisplayName (JiggleMode mode) => mode switch
+  {
+    JiggleMode.Normal => GetResourceString ("JiggleMode_Normal_DisplayName"),
+    JiggleMode.Zen => GetResourceString ("JiggleMode_Zen_DisplayName"),
+    JiggleMode.Circle => GetResourceString ("JiggleMode_Circle_DisplayName"),
+    JiggleMode.Linear => GetResourceString ("JiggleMode_Linear_DisplayName"),
+    _ => mode.ToString ()
+  };
+
+  private static string GetResourceString (string key) => Resources.ResourceManager.GetString (key, Resources.Culture) ?? key;
 
   private void cmdAbout_Click (object sender, EventArgs e) => new AboutBox ().ShowDialog (this);
 
@@ -130,6 +155,55 @@ public partial class MainForm : Form
     this.UpdateNotificationAreaText ();
   }
 
+  protected override void OnHandleCreated (EventArgs e)
+  {
+    base.OnHandleCreated (e);
+    this.RegisterToggleJigglingHotKey ();
+  }
+
+  protected override void OnHandleDestroyed (EventArgs e)
+  {
+    this.UnregisterToggleJigglingHotKey ();
+    base.OnHandleDestroyed (e);
+  }
+
+  protected override void WndProc (ref Message m)
+  {
+    if (m.Msg == HotKeyMessage && m.WParam == (IntPtr)ToggleJigglingHotKeyId)
+      this.cbJiggling.Checked = !this.cbJiggling.Checked;
+
+    base.WndProc (ref m);
+  }
+
+  private void RegisterToggleJigglingHotKey ()
+  {
+    if (this._hotKeyRegistered)
+      return;
+
+    this._hotKeyRegistered = Helpers.RegisterHotKey (this.Handle,
+        ToggleJigglingHotKeyId,
+        ToggleJigglingHotKeyModifiers,
+        ToggleJigglingHotKeyKey);
+
+    if (!this._hotKeyRegistered)
+    {
+      _ = MessageBox.Show (this,
+          string.Format (GetResourceString ("MainForm_HotKeyRegistrationFailed"), ToggleJigglingHotKeyText),
+          @"Mouse Jiggler",
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Warning);
+    }
+  }
+
+  private void UnregisterToggleJigglingHotKey ()
+  {
+    if (!this._hotKeyRegistered)
+      return;
+
+    Helpers.UnregisterHotKey (this.Handle, ToggleJigglingHotKeyId);
+    this._hotKeyRegistered = false;
+  }
+
   #region Property synchronization
 
   private void cbSettings_CheckedChanged (object sender, EventArgs e) => this.panelSettings.Visible = this.cbSettings.Checked;
@@ -147,7 +221,7 @@ public partial class MainForm : Form
         JiggleMode.Zen => JigglePatterns.Zen,
         JiggleMode.Circle => JigglePatterns.Circle,
         JiggleMode.Linear => JigglePatterns.Linear,
-        _ => throw new ArgumentOutOfRangeException (null, mode, "No pattern exists for specified mode.")
+        _ => throw new ArgumentOutOfRangeException (null, mode, GetResourceString ("Error_NoPatternForMode"))
       };
     }
   }
@@ -177,6 +251,7 @@ public partial class MainForm : Form
     this.Step = 0;
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateTrayMenu ();
+    this.UpdateNotificationAreaText ();
   }
 
   private void UpdateTrayMenu ()
@@ -193,6 +268,9 @@ public partial class MainForm : Form
       return;
     }
 
+    if (this.Step >= this.Pattern.Length)
+      this.Step = 0;
+
     var (deltax, deltay) = this.Pattern[this.Step];
     this.Step++;
 
@@ -206,7 +284,7 @@ public partial class MainForm : Form
     if (this.RandomTimer)
     {
       var newInterval = Random.Shared.Next(1, this.JigglePeriod + 1) * 1000;
-      this.lbPeriod.Text = $@"{newInterval / 1000} s";
+      this.lbPeriod.Text = string.Format (GetResourceString ("MainForm_PeriodValueFormat"), newInterval / 1000);
       this.jiggleTimer.Interval = newInterval;
     }
     else
@@ -319,7 +397,7 @@ public partial class MainForm : Form
     {
       // Validate that the value is a defined enum value
       if (!Enum.IsDefined (value))
-        throw new ArgumentOutOfRangeException (nameof (value), value, "Invalid JiggleMode value");
+        throw new ArgumentOutOfRangeException (nameof (value), value, GetResourceString ("Error_InvalidJiggleModeValue"));
 
       this._jiggleMode = value;
       Settings.Default.JiggleMode = value.ToString ();
@@ -340,7 +418,7 @@ public partial class MainForm : Form
       Settings.Default.Save ();
 
       this.jiggleTimer.Interval = value * 1000;
-      this.lbPeriod.Text = $@"{value} s";
+      this.lbPeriod.Text = string.Format (GetResourceString ("MainForm_PeriodValueFormat"), value);
 
       this.OnPropertyChanged (nameof (this.JigglePeriod));
     }
@@ -365,7 +443,7 @@ public partial class MainForm : Form
         JiggleMode.Zen => JigglePatterns.Zen,
         JiggleMode.Circle => JigglePatterns.Circle,
         JiggleMode.Linear => JigglePatterns.Linear,
-        _ => throw new ArgumentOutOfRangeException (null, this.JiggleMode, "No pattern exists for specified mode.")
+        _ => throw new ArgumentOutOfRangeException (null, this.JiggleMode, GetResourceString ("Error_NoPatternForMode"))
       };
 
       this.OnPropertyChanged (nameof (this.JiggleDistance));

@@ -11,6 +11,7 @@
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SatelliteResourceLanguages>en;zh-CN</SatelliteResourceLanguages>
     <Authors>Alistair J. R. Young, Dimitris Panokostas</Authors>
     <Company>Arkane Systems</Company>
     <Description>

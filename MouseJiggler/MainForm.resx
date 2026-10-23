@@ -171,4 +171,43 @@
         AAD+AQAA+AEAAOAAAADgAAAAwAAAAMABAADAAwAA4A8AAIA/AAAf/wAAf/8AAP//AAD//wAA//8AAA==
 </value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Mouse Jiggler</value>
+  </data>
+  <data name="cbJiggling.Text" xml:space="preserve">
+    <value>Jiggling?</value>
+  </data>
+  <data name="cbSettings.Text" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="cbRandom.Text" xml:space="preserve">
+    <value>Randomize?</value>
+  </data>
+  <data name="cbMinimize.Text" xml:space="preserve">
+    <value>Minimize on start?</value>
+  </data>
+  <data name="lblPeriodLabel.Text" xml:space="preserve">
+    <value>Interval (s):</value>
+  </data>
+  <data name="lblDistanceLabel.Text" xml:space="preserve">
+    <value>Distance (multiplier):</value>
+  </data>
+  <data name="lbPeriod.Text" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="niTray.Text" xml:space="preserve">
+    <value>Mouse Jiggler</value>
+  </data>
+  <data name="tsmiOpen.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="tsmiStartJiggling.Text" xml:space="preserve">
+    <value>Start Jiggling</value>
+  </data>
+  <data name="tsmiStopJiggling.Text" xml:space="preserve">
+    <value>Stop Jiggling</value>
+  </data>
+  <data name="tsmiExit.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
 </root>

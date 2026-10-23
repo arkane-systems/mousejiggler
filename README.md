@@ -1,6 +1,8 @@
 mousejiggler
 ============
 
+[简体中文说明 / Simplified Chinese README](README.zh-CN.md)
+
 Mouse Jiggler is a very simple piece of software whose sole function is to "fake" mouse input to Windows, and jiggle the mouse pointer back and forth.
 
 Useful for avoiding screensavers or other things triggered by idle detection that, for whatever reason, you can't turn off any other way; or as a quick way to stop a screensaver activating during an installation or when monitoring a long operation without actually having to muck about with the screensaver settings.
@@ -49,7 +51,7 @@ The only reason this exists is for those poor sods whose IT department makes it 
 Operation
 =========
 
-Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. To enable you to use the computer normally even with jiggling enabled, jiggling is automatically paused when the mouse is moved, and resumes after a complete jiggle interval without mouse movement.
+Simply run the MouseJiggle.exe included in the release .zip file. Check the "Jiggling?" checkbox to start jiggling the mouse pointer; uncheck it to stop. You can also press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> to toggle jiggling at any time. To enable you to use the computer normally even with jiggling enabled, jiggling is automatically paused when the mouse is moved, and resumes after a complete jiggle interval without mouse movement.
 
 Check the "Settings..." checkbox to reveal the settings; these should be relatively self-explanatory. The jiggle mode dropdown allows you to select from different jiggling modes. These include:
 
@@ -81,6 +83,13 @@ Options:
 ```
 
 The `-j` command-line switch tells Mouse Jiggler to commence jiggling immediately on startup. Neither this nor '-g' are persistent.
+
+Localization
+============
+
+Mouse Jiggler is available in English and Simplified Chinese ([简体中文说明](README.zh-CN.md)). Strings are stored as resource (`.resx`) files alongside the source files that use them (`MainForm.resx`, `AboutBox.resx`, `Properties/Resources.resx`), with one culture-specific `.<culture>.resx` file per language (e.g. `MainForm.zh-CN.resx`).
+
+Contributions of additional localizations are very welcome — if you'd like to add a translation for another language, open a pull request with the corresponding `.<culture>.resx` files (and, ideally, a translated `README.<culture>.md`); you don't need to touch any code.
 
 Bugs
 ====
