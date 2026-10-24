@@ -32,6 +32,16 @@ internal static class Helpers
 
   #endregion Console management
 
+  #region Single instance signaling
+
+  /// <summary>
+  ///     Name of the system-wide event used to ask an already-running instance to stop jiggling, without
+  ///     having to find and message its window. Session-local, matching the single-instance mutex's scope.
+  /// </summary>
+  internal const string StopJigglingEventName = "ArkaneSystems.MouseJiggler.StopJigglingRequest";
+
+  #endregion Single instance signaling
+
   #region Execution state
 
   public static void StayAwake ()

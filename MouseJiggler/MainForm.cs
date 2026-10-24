@@ -13,6 +13,7 @@ using ArkaneSystems.MouseJiggler.Properties;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 
@@ -102,6 +103,11 @@ public partial class MainForm : Form
   {
     SystemEvents.SessionSwitch += this.SystemEvents_SessionSwitch;
 
+    // Listen for an external "--stop-jiggling" invocation asking us to stop, so that can be driven
+    // from Task Scheduler (or similar) without building a timer into the app itself.
+    this._stopJigglingEvent = new EventWaitHandle (false, EventResetMode.AutoReset, Helpers.StopJigglingEventName);
+    this._stopJigglingWait = ThreadPool.RegisterWaitForSingleObject (this._stopJigglingEvent, this.OnStopJigglingRequested, null, Timeout.Infinite, false);
+
     if (this.JiggleOnStartup)
       this.cbJiggling.Checked = true;
   }
@@ -109,7 +115,29 @@ public partial class MainForm : Form
   protected override void OnFormClosing (FormClosingEventArgs e)
   {
     SystemEvents.SessionSwitch -= this.SystemEvents_SessionSwitch;
+
+    this._stopJigglingWait?.Unregister (null);
+    this._stopJigglingEvent?.Dispose ();
+
     base.OnFormClosing (e);
+  }
+
+  private EventWaitHandle? _stopJigglingEvent;
+
+  private RegisteredWaitHandle? _stopJigglingWait;
+
+  private void OnStopJigglingRequested (object? state, bool timedOut)
+  {
+    if (this.IsDisposed)
+      return;
+
+    if (this.InvokeRequired)
+    {
+      this.BeginInvoke (new WaitOrTimerCallback (this.OnStopJigglingRequested), state, timedOut);
+      return;
+    }
+
+    this.cbJiggling.Checked = false;
   }
 
   private void UpdateNotificationAreaText ()

@@ -96,6 +96,12 @@
   <data name="Program_OptRespectLockedState_Description" xml:space="preserve">
     <value>锁定工作站时暂停晃动（并允许系统休眠）。</value>
   </data>
+  <data name="Program_OptStopJiggling_Description" xml:space="preserve">
+    <value>通知正在运行的 Mouse Jiggler 停止晃动，然后退出。不会启动应用程序。</value>
+  </data>
+  <data name="Program_NoInstanceToStop" xml:space="preserve">
+    <value>未找到正在运行的 Mouse Jiggler 实例。</value>
+  </data>
   <data name="Program_RootCommand_Description" xml:space="preserve">
     <value>模拟鼠标活动，让系统保持非空闲状态。</value>
   </data>

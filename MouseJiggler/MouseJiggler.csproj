@@ -34,6 +34,7 @@ Command line options:
   -d, --distance &lt;distance&gt; - Set the multiplier for the jiggle distance. [default: 1]
   -g, --settings - Start with settings panel displayed.
   -l, --respect-locked-state - Pause jiggling while the workstation is locked.
+  --stop-jiggling - Tell an already-running instance to stop jiggling, then exit.
   -?, -h, --help - Show help and usage information
   --version - Show version information</Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
