@@ -19,8 +19,8 @@ $url = "https://github.com/arkane-systems/mousejiggler/releases/download/3.1.0/M
 
 # Checksums for release binaries - update these with actual values from the release
 $checksums = @{
-    'x64' = 'PLACEHOLDER_X64_SHA256'
-    'arm64' = 'PLACEHOLDER_ARM64_SHA256'
+    'x64' = '4cb8a8134fb3e94afcc535cbae1bd0619d274789d8ab032f6a64ce85e63e807f'
+    'arm64' = '199d0904dec8ca4e8905be837dfe9044236993910fc712ffbb4dc828a6a70386'
 }
 
 $checksum = $checksums[$archString]
