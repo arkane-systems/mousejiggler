@@ -76,7 +76,7 @@ namespace ArkaneSystems.MouseJiggler
       this.flpLayout.Location = new System.Drawing.Point (0, 0);
       this.flpLayout.Name = "flpLayout";
       this.flpLayout.Padding = new System.Windows.Forms.Padding (5);
-      this.flpLayout.Size = new System.Drawing.Size (305, 170);
+      this.flpLayout.Size = new System.Drawing.Size (325, 170);
       this.flpLayout.TabIndex = 0;
       // 
       // panelBase
@@ -87,12 +87,12 @@ namespace ArkaneSystems.MouseJiggler
       this.panelBase.Controls.Add (this.cbJiggling);
       this.panelBase.Location = new System.Drawing.Point (8, 8);
       this.panelBase.Name = "panelBase";
-      this.panelBase.Size = new System.Drawing.Size (289, 28);
+      this.panelBase.Size = new System.Drawing.Size (309, 28);
       this.panelBase.TabIndex = 0;
       // 
       // cmdAbout
       // 
-      this.cmdAbout.Location = new System.Drawing.Point (198, 2);
+      this.cmdAbout.Location = new System.Drawing.Point (218, 2);
       this.cmdAbout.Name = "cmdAbout";
       this.cmdAbout.Size = new System.Drawing.Size (40, 23);
       this.cmdAbout.TabIndex = 2;
@@ -102,7 +102,7 @@ namespace ArkaneSystems.MouseJiggler
       // 
       // cmdTrayify
       // 
-      this.cmdTrayify.Location = new System.Drawing.Point (244, 2);
+      this.cmdTrayify.Location = new System.Drawing.Point (264, 2);
       this.cmdTrayify.Name = "cmdTrayify";
       this.cmdTrayify.Size = new System.Drawing.Size (40, 23);
       this.cmdTrayify.TabIndex = 3;
@@ -144,13 +144,13 @@ namespace ArkaneSystems.MouseJiggler
       this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Location = new System.Drawing.Point (8, 42);
       this.panelSettings.Name = "panelSettings";
-      this.panelSettings.Size = new System.Drawing.Size (289, 120);
+      this.panelSettings.Size = new System.Drawing.Size (309, 120);
       this.panelSettings.TabIndex = 1;
       this.panelSettings.Visible = false;
       // 
       // nudPeriod
       // 
-      this.nudPeriod.Location = new System.Drawing.Point (136, 36);
+      this.nudPeriod.Location = new System.Drawing.Point (156, 36);
       this.nudPeriod.Maximum = new decimal (new int[] { 10800, 0, 0, 0 });
       this.nudPeriod.Minimum = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudPeriod.Name = "nudPeriod";
@@ -171,7 +171,7 @@ namespace ArkaneSystems.MouseJiggler
       // 
       // lbPeriod
       // 
-      this.lbPeriod.Location = new System.Drawing.Point (238, 12);
+      this.lbPeriod.Location = new System.Drawing.Point (258, 12);
       this.lbPeriod.Name = "lbPeriod";
       this.lbPeriod.Size = new System.Drawing.Size (45, 15);
       this.lbPeriod.TabIndex = 2;
@@ -180,7 +180,7 @@ namespace ArkaneSystems.MouseJiggler
       // 
       // nudDistance
       // 
-      this.nudDistance.Location = new System.Drawing.Point (136, 65);
+      this.nudDistance.Location = new System.Drawing.Point (156, 65);
       this.nudDistance.Maximum = new decimal (new int[] { 120, 0, 0, 0 });
       this.nudDistance.Minimum = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudDistance.Name = "nudDistance";
@@ -202,7 +202,7 @@ namespace ArkaneSystems.MouseJiggler
       // cbMinimize
       // 
       this.cbMinimize.AutoSize = true;
-      this.cbMinimize.Location = new System.Drawing.Point (138, 94);
+      this.cbMinimize.Location = new System.Drawing.Point (158, 94);
       this.cbMinimize.Name = "cbMinimize";
       this.cbMinimize.Size = new System.Drawing.Size (123, 19);
       this.cbMinimize.TabIndex = 7;
@@ -224,7 +224,7 @@ namespace ArkaneSystems.MouseJiggler
       // cbRandom
       // 
       this.cbRandom.AutoSize = true;
-      this.cbRandom.Location = new System.Drawing.Point (138, 11);
+      this.cbRandom.Location = new System.Drawing.Point (158, 11);
       this.cbRandom.Name = "cbRandom";
       this.cbRandom.Size = new System.Drawing.Size (90, 19);
       this.cbRandom.TabIndex = 1;
@@ -289,7 +289,7 @@ namespace ArkaneSystems.MouseJiggler
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.AutoSize = true;
       this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-      this.ClientSize = new System.Drawing.Size (304, 168);
+      this.ClientSize = new System.Drawing.Size (324, 168);
       this.Controls.Add (this.flpLayout);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
       this.Icon = (System.Drawing.Icon)resources.GetObject ("$this.Icon");
