@@ -7,7 +7,7 @@ Mouse Jiggler 是一个通过模拟鼠标输入来避免系统进入空闲状态
 可以使用 Winget 或 Chocolatey：
 
 - `winget install ArkaneSystems.MouseJiggler`
-- `choco install mouse-jiggler --version=3.0.0`
+- `choco install mouse-jiggler --version=3.1.0`
 
 也可以从发布页下载压缩包：
 

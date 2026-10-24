@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.10.0.schema.json
 
 PackageIdentifier: ArkaneSystems.MouseJiggler
-PackageVersion: 3.0.0
+PackageVersion: 3.1.0
 PackageLocale: en-US
 Publisher: ArkaneSystems
 PublisherUrl: https://github.com/arkane-systems
@@ -17,6 +17,6 @@ Tags:
 - mouse
 - mouse-movement
 - mousemove
-ReleaseNotesUrl: https://github.com/arkane-systems/mousejiggler/releases/tag/3.0.0
+ReleaseNotesUrl: https://github.com/arkane-systems/mousejiggler/releases/tag/3.1.0
 ManifestType: defaultLocale
 ManifestVersion: 1.10.0

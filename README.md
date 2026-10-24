@@ -29,7 +29,7 @@ The easiest means of installing Mouse Jiggler is using either Winget or Chocolat
 
 or
 
-`choco install mouse-jiggler --version=3.0.0`
+`choco install mouse-jiggler --version=3.1.0`
 
 Bare releases continue to be available on the [releases page](https://github.com/arkane-systems/mousejiggler/releases), as _MouseJiggler-mainline-x64.zip_ or _MouseJiggler-mainline-arm64.zip_, for installation without administrative permissions, although the [.NET 10 Desktop runtime](https://dotnet.microsoft.com/en-us/download/dotnet/latest/runtime) must be installed first.
 

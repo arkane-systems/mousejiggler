@@ -15,12 +15,12 @@ $archString = switch ($arch) {
 Write-Host "Detected system architecture: $archString" -ForegroundColor Cyan
 
 # Set download URL and checksum based on architecture
-$url = "https://github.com/arkane-systems/mousejiggler/releases/download/3.0.0/MouseJiggler-mainline-$archString.zip"
+$url = "https://github.com/arkane-systems/mousejiggler/releases/download/3.1.0/MouseJiggler-mainline-$archString.zip"
 
 # Checksums for release binaries - update these with actual values from the release
 $checksums = @{
-    'x64' = '389bc7e4166aeb9c3b43380fad9dd3e4e65ddd0de5e6f25f296c9d3bcc5bcc16'
-    'arm64' = 'fb99bdd93eb364c7f84be9297276ecd2c73efcab7565cfa536d4a3832cfb2447'
+    'x64' = 'PLACEHOLDER_X64_SHA256'
+    'arm64' = 'PLACEHOLDER_ARM64_SHA256'
 }
 
 $checksum = $checksums[$archString]

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>mouse-jiggler</id>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <packageSourceUrl>https://github.com/arkane-systems/mousejiggler</packageSourceUrl>
     <owners>ArkaneSystems</owners>
     <title>Mouse Jiggler</title>
@@ -28,8 +28,10 @@ Features:
 - Adjustable distance multiplier (up to 120x)
 - Optional random timer variation
 - Auto-pause when mouse is moved
+- Global hotkey (Ctrl+Shift+J) to toggle jiggling
+- Optional pause while the workstation is locked
 - Minimizable to notification area
-- Command-line interface for scripting and automation
+- Command-line interface for scripting and automation, including --stop-jiggling to drive a scheduled stop from Task Scheduler
     </description>
     <releaseNotes>https://github.com/arkane-systems/mousejiggler/releases</releaseNotes>
     <dependencies>
