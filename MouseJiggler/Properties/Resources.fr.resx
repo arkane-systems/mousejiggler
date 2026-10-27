@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutBox_TitleFormat" xml:space="preserve">
+    <value>À propos de {0}</value>
+  </data>
+  <data name="AboutBox_VersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Error_InvalidJiggleModeValue" xml:space="preserve">
+    <value>Valeur de JiggleMode invalide.</value>
+  </data>
+  <data name="Error_NoPatternForMode" xml:space="preserve">
+    <value>Aucun motif n'existe pour le mode spécifié.</value>
+  </data>
+  <data name="JiggleMode_Circle_DisplayName" xml:space="preserve">
+    <value>Cercle</value>
+  </data>
+  <data name="JiggleMode_Linear_DisplayName" xml:space="preserve">
+    <value>Linéaire</value>
+  </data>
+  <data name="JiggleMode_Normal_DisplayName" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="JiggleMode_Zen_DisplayName" xml:space="preserve">
+    <value>Zen</value>
+  </data>
+  <data name="MainForm_HotKeyRegistrationFailed" xml:space="preserve">
+    <value>Impossible d'enregistrer le raccourci clavier global ({0}). Il est peut-être déjà utilisé par une autre application.</value>
+  </data>
+  <data name="MainForm_PeriodValueFormat" xml:space="preserve">
+    <value>{0} s</value>
+  </data>
+  <data name="MainForm_TrayEllipsis" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="MainForm_TrayNotJiggling" xml:space="preserve">
+    <value>Pas de mouvement de la souris.</value>
+  </data>
+  <data name="MainForm_TrayRandomSegment" xml:space="preserve">
+    <value> variation aléatoire,</value>
+  </data>
+  <data name="MainForm_TrayStatusFormat" xml:space="preserve">
+    <value>Mouvement toutes les {0} s,{1} mode : {2} (Δ {3}).</value>
+  </data>
+  <data name="Program_AlreadyRunning" xml:space="preserve">
+    <value>Mouse Jiggler est déjà en cours d'exécution. Abandon.</value>
+  </data>
+  <data name="Program_Error_DistanceTooLong" xml:space="preserve">
+    <value>Le multiplicateur de distance ne peut pas être supérieur à 120.</value>
+  </data>
+  <data name="Program_Error_DistanceTooShort" xml:space="preserve">
+    <value>Le multiplicateur de distance ne peut pas être inférieur à 1.</value>
+  </data>
+  <data name="Program_Error_PeriodTooLong" xml:space="preserve">
+    <value>L'intervalle ne peut pas dépasser 10800 secondes.</value>
+  </data>
+  <data name="Program_Error_PeriodTooShort" xml:space="preserve">
+    <value>L'intervalle ne peut pas être inférieur à 1 seconde.</value>
+  </data>
+  <data name="Program_HelpOption_Description" xml:space="preserve">
+    <value>Afficher l'aide et les informations d'utilisation</value>
+  </data>
+  <data name="Program_OptDistance_Description" xml:space="preserve">
+    <value>Définir le multiplicateur de la distance du mouvement.</value>
+  </data>
+  <data name="Program_OptJiggle_Description" xml:space="preserve">
+    <value>Démarrer avec le mouvement activé.</value>
+  </data>
+  <data name="Program_OptMinimized_Description" xml:space="preserve">
+    <value>Démarrer réduit.</value>
+  </data>
+  <data name="Program_OptMode_Description" xml:space="preserve">
+    <value>Démarrer avec le mode de mouvement spécifié (Normal/Zen/Circle/Linear).</value>
+  </data>
+  <data name="Program_OptRandom_Description" xml:space="preserve">
+    <value>Démarrer avec la variation aléatoire activée.</value>
+  </data>
+  <data name="Program_OptSeconds_Description" xml:space="preserve">
+    <value>Définir le nombre de secondes de l'intervalle de mouvement.</value>
+  </data>
+  <data name="Program_OptSettings_Description" xml:space="preserve">
+    <value>Démarrer avec le panneau des paramètres affiché.</value>
+  </data>
+  <data name="Program_OptRespectLockedState_Description" xml:space="preserve">
+    <value>Respecter le verrouillage : suspendre le mouvement (et autoriser la mise en veille) tant que la session est verrouillée.</value>
+  </data>
+  <data name="Program_OptStopJiggling_Description" xml:space="preserve">
+    <value>Demander à une instance de Mouse Jiggler déjà en cours d'exécution d'arrêter le mouvement, puis quitter. Ne démarre pas l'application.</value>
+  </data>
+  <data name="Program_NoInstanceToStop" xml:space="preserve">
+    <value>Aucune instance de Mouse Jiggler en cours d'exécution à arrêter.</value>
+  </data>
+  <data name="Program_RootCommand_Description" xml:space="preserve">
+    <value>Simule le mouvement de la souris pour que l'ordinateur ne paraisse pas inactif.</value>
+  </data>
+  <data name="Program_UnexpectedError_Console" xml:space="preserve">
+    <value>Mouse Jiggler a rencontré une erreur inattendue : {0}</value>
+  </data>
+  <data name="Program_UnexpectedError_Dialog" xml:space="preserve">
+    <value>Mouse Jiggler a rencontré une erreur inattendue :
+
+{0}</value>
+  </data>
+</root>

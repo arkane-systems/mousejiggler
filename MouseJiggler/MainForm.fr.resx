@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Mouse Jiggler</value>
+  </data>
+  <data name="cbJiggling.Text" xml:space="preserve">
+    <value>Mouvement ?</value>
+  </data>
+  <data name="cbSettings.Text" xml:space="preserve">
+    <value>Paramètres...</value>
+  </data>
+  <data name="cbRandom.Text" xml:space="preserve">
+    <value>Aléatoire ?</value>
+  </data>
+  <data name="cbMinimize.Text" xml:space="preserve">
+    <value>Réduire au démarrage ?</value>
+  </data>
+  <data name="cbRespectLockedState.Text" xml:space="preserve">
+    <value>Respecter le verrouillage ?</value>
+  </data>
+  <data name="lblPeriodLabel.Text" xml:space="preserve">
+    <value>Intervalle (s) :</value>
+  </data>
+  <data name="lblDistanceLabel.Text" xml:space="preserve">
+    <value>Distance (multiplicateur) :</value>
+  </data>
+  <data name="lbPeriod.Text" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="niTray.Text" xml:space="preserve">
+    <value>Mouse Jiggler</value>
+  </data>
+  <data name="tsmiOpen.Text" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="tsmiStartJiggling.Text" xml:space="preserve">
+    <value>Démarrer le mouvement</value>
+  </data>
+  <data name="tsmiStopJiggling.Text" xml:space="preserve">
+    <value>Arrêter le mouvement</value>
+  </data>
+  <data name="tsmiExit.Text" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+</root>
